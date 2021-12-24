@@ -1,0 +1,253 @@
+﻿@model List<OnlineMagazin.Models.Products>
+@{
+    ViewData["Title"] = "Товары под категории";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<section class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="page-menu">
+                    <li><a href="~/Home/homeIndex/">Главная</a></li>
+                    <li class="active"><a href="#">Товары</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("CategoryList")
+                <!-- shop-filter start -->
+                <div class="shop-filter">
+                    <div class="area-title">
+                        <h3 class="title-group gfont-1">ФИЛЬТРЫ ПРОДУКЦИИ</h3>
+                    </div>
+                    <h4 class="shop-price-title">Price</h4>
+                    <div class="info_widget">
+                        <div class="price_filter">
+                            <div id="slider-range"></div>
+                            <div class="price_slider_amount">
+                                <input type="text" id="amount" name="price" placeholder="Введите свою цену" />
+                                <input type="submit" value="Фильтр" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- shop-filter start -->
+                <!-- filter-by start -->
+                <div class="accordion_one">
+                    <h4><a class="accordion-trigger" data-toggle="collapse" href="#divone">Цвет</a></h4>
+                    <div id="divone" class="collapse in">
+                        <div class="filter-menu">
+                            <ul>
+                                <li><a href="#">Black (2)</a></li>
+                                <li><a href="#">Blue (2)</a></li>
+                                <li><a href="#">Brown (3)</a></li>
+                                <li><a href="#">Green (3)</a></li>
+                                <li><a href="#">Orange (2)</a></li>
+                                <li><a href="#">Pink (2)</a></li>
+                                <li><a href="#">Red (11)</a></li>
+                                <li><a href="#">Yellow (3)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4><a class="accordion-trigger" data-toggle="collapse" href="#div2">производство</a></h4>
+                    <div id="div2" class="collapse in">
+                        <div class="filter-menu">
+                            <ul>
+                                <li><a href="#">Chanel (2)</a></li>
+                                <li><a href="#">Christian Dior (2)</a></li>
+                                <li><a href="#">Ermenegildo (2)</a></li>
+                                <li><a href="#">Ferragamo (1)</a></li>
+                                <li><a href="#">Hermes (2)</a></li>
+                                <li><a href="#">Louis Vuitton (3)</a></li>
+                                <li><a href="#">Prada (1)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4><a class="accordion-trigger" data-toggle="collapse" href="#div3">Размер</a></h4>
+                    <div id="div3" class="collapse in">
+                        <div class="filter-menu">
+                            <ul>
+                                <li><a href="#">L (1)</a></li>
+                                <li><a href="#">M (5)</a></li>
+                                <li><a href="#">S (7)</a></li>
+                                <li><a href="#">XL (5)</a></li>
+                                <li><a href="#">XXL (6)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- filter-by end -->
+            </div>
+            <div class="col-md-9 col-xs-12">
+                <!-- START PRODUCT-BANNER -->
+                @*<div class="product-banner">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="banner">
+                                    <a href="#"><img src="~/image/banner.jpg" alt="Product Banner"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <!-- END PRODUCT-BANNER -->
+                <!-- START PRODUCT-AREA -->
+                <div class="product-area">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- Start Product-Menu -->
+                            <div class="product-menu">
+                                <div class="product-title">
+                                    <h3 class="title-group-3 gfont-1">@ViewBag.CategoryName</h3>
+                                </div>
+                            </div>
+                            <div class="product-filter">
+                                <ul role="tablist">
+                                    <li role="presentation" class="list">
+                                        <a href="#display-1-1" role="tab" data-toggle="tab"></a>
+                                    </li>
+                                    <li role="presentation" class="grid active">
+                                        <a href="#display-1-2" role="tab" data-toggle="tab"></a>
+                                    </li>
+                                </ul>
+                                <div class="sort">
+                                    <label>Сортировать по:</label>
+                                    <select>
+                                        <option value="#">Default</option>
+                                        <option value="#">Название (A - Z)</option>
+                                        <option value="#">Название (Z - A)</option>
+                                        <option value="#">Цена (Низкий > Высокий)</option>
+                                        <option value="#">Рейтинг (Наибольший)</option>
+                                        <option value="#">Рейтинг (Самый низкий)</option>
+                                        <option value="#">Model (Z - A))</option>
+                                        <option value="#">Model (A - Z)</option>
+                                    </select>
+                                </div>
+                                <div class="limit">
+                                    <label>Показать:</label>
+                                    <select>
+                                        <option value="#">8</option>
+                                        <option value="#">16)</option>
+                                        <option value="#">24</option>
+                                        <option value="#">40</option>
+                                        <option value="#">80</option>
+                                        <option value="#">100</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- End Product-Menu -->
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <!-- Start Product -->
+                            <div class="product">
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in  active" id="display-1-2">
+                                        <div class="row">
+                                            <!-- Start Single-Product -->
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="col-md-3 col-sm-4 col-xs-12">
+                                                    <div class="single-product">
+                                                        <div class="label_new">
+                                                            <span class="new">new</span>
+                                                        </div>
+                                                        <div class="sale-off">
+                                                            <span class="sale-percent">-55%</span>
+                                                        </div>
+                                                        <div class="product-img">
+                                                            <a href="/Home/ProductDetail/@item.ProductId">
+                                                                <img class="primary-img" src="~/image/@item.Foto" alt="Product">
+                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-description">
+                                                            <h5><a href="#">@item.Baslik</a></h5>
+                                                            <div class="price-box">
+                                                                <span class="price">$@item.Price</span>
+                                                                <input id="ProductPrice" data-pid="@item.Price" class="hide" />
+                                                                <span class="old-price">$@item.Price</span>
+                                                            </div>
+                                                            <span class="rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="product-action">
+                                                            <div class="button-group">
+                                                                <div class="product-button">
+                                                                    <button id="ppid" onclick="AddProductToCart(@item.ProductId,@item.Price)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                </div>
+                                                                <div class="product-button-2">
+                                                                    <a href="#" data-toggle="tooltip" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                    <a href="#" data-toggle="tooltip" title="Сравнить"><i class="fa fa-signal"></i></a>
+                                                                    <a href="#" class="modal-view" data-toggle="modal" data-target="#productModal"><i class="fa fa-search-plus"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="container">
+                                                <h3 class="title-group-3 gfont-1">@ViewBag.kayityok</h3>
+                                            </div>
+
+                                        </div>
+                                        <!-- Start Pagination Area -->
+                                        <div class="pagination-area">
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="pagination">
+                                                        <ul>
+                                                            <li class="active"><a href="#">1</a></li>
+                                                            <li><a href="#">2</a></li>
+                                                            <li><a href="#">></a></li>
+                                                            <li><a href="#">>|</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-7">
+                                                    <div class="product-result">
+                                                        <span>Отображение 1 по 16 из 19 (2 Страниц)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Pagination Area -->
+                                    </div>
+                                    <!-- End Product = TV -->
+                                </div>
+                            </div>
+                            <!-- End Product -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END PRODUCT-AREA -->
+            </div>
+        </div>
+    </div>
+</section>
+
+@section script{
+    <script>
+        function AddProductToCart(id, price) {
+            $.post("/Home/AddProductToCart?productID=" + id + "&qty=" + 1 + "&productPrice=" + price + "", function (data) {
+                if (data == null) {
+                    alert("Выполните вход для покупки!");
+                }
+                else alert("Товар успешно добавлен в корзину!");
+                $.get("/Home/GetMyViewComponent", function (data) {
+                    $("#followersrefresh").html(data);
+                });
+                return false;
+            });
+           
+        }
+    </script>
+}

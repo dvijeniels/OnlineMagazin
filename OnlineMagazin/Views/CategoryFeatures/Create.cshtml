@@ -1,0 +1,38 @@
+﻿@model OnlineShop.Models.CategoryFeature
+
+@{
+    ViewData["Title"] = "Характеристики категорий";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<br />
+<h5 style="margin-left:50%">Создать</h5>
+<hr />
+<div>
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control form-control-lg" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeatureName" class="control-label"></label>
+                <input asp-for="FeatureName" class="form-control" />
+                <span asp-validation-for="FeatureName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Unit" class="control-label"></label>
+                <input asp-for="Unit" class="form-control" />
+                <span asp-validation-for="Unit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>
+

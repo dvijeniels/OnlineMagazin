@@ -1,0 +1,30 @@
+﻿@model OnlineMagazin.Models.Sliders
+
+@{
+    ViewData["Title"] = "Слайд";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<br />
+<h5 style="margin-left:50%">Изменить</h5>
+<hr />
+<div>
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SliderId" />
+            <div class="form-group">
+                <label asp-for="SliderResimFile" class="control-label"></label>
+                <input asp-for="SliderResimFile" accept="image/*" />
+                <span asp-validation-for="SliderResimFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>
+

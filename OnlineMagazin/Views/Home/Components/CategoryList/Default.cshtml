@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Category>
+<div class="left-category-menu hidden-sm hidden-xs">
+    <div class="left-product-cat">
+        <div class="category-heading">
+            <h2>Категории</h2>
+        </div>
+        <div class="category-menu-list">
+            <ul>
+
+                @{int i = 0; }
+                @foreach (var item in Model)
+                {
+
+                    if (i < 7)
+                    {
+                        <li>
+                            <a href="/Home/ProductsFromCategory/@item.CategoryId">@item.CategoriName</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class=" rx-child">
+                            <a href="/Home/ProductsFromCategory/@item.CategoryId">@item.CategoriName</a>
+                        </li>
+                    }
+                    i++;
+                }
+                @if (i>7)
+                {
+                    <li class=" rx-parent">
+                        <a class="rx-default">
+                            развернуть <span class="cat-thumb  fa fa-plus"></span>
+                        </a>
+                        <a class="rx-show">
+                            свернуть <span class="cat-thumb  fa fa-minus"></span>
+                        </a>
+                    </li>
+                }
+
+
+                <!-- MENU ACCORDION START -->
+                <!-- MENU ACCORDION END -->
+            </ul>
+        </div>
+    </div>
+</div>

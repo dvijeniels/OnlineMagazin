@@ -1,0 +1,49 @@
+﻿@model OnlineMagazin.Models.Message
+
+@{
+    ViewData["Title"] = "Сообщения";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Вы уверены что хотите удалить это?</h5>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageGonderen)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MessageGonderen)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageBaslik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MessageBaslik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageMail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MessageMail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageIcerik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MessageIcerik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MessageDate)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MessageId" />
+        <input type="submit" value="Удалить" class="btn btn-danger mb-3" /> |
+        <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+    </form>
+</div>

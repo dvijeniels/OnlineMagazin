@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Duyrular>
+
+@{
+    ViewData["Title"] = "Новости";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="col-12 mt-lg-3">
+    <div class="card">
+
+        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DuyuruAd)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duyuruicerik)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DuyuruResim)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DuyuruAd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duyuruicerik)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DuyuruResim)
+                        </td>
+                        @*<td>
+            <img src="@("~/image/"+model.duyururesim)" asp-append-version="true" width="250" height="250" />
+        </td>*@
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.DuyuruId">Изменить</a> |
+                            <a asp-action="Details" asp-route-id="@item.DuyuruId">Детали</a> |
+                            <a asp-action="Delete" asp-route-id="@item.DuyuruId">Удалить</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

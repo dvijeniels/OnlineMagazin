@@ -1,0 +1,49 @@
+﻿@model OnlineMagazin.Models.Message
+
+@{
+    ViewData["Title"] = "Сообщения";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<br />
+<h5 style="margin-left:50%">Изменить</h5>
+<hr />
+<div>
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MessageId" />
+            <div class="form-group">
+                <label asp-for="MessageGonderen" class="control-label"></label>
+                <input asp-for="MessageGonderen" class="form-control" />
+                <span asp-validation-for="MessageGonderen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageBaslik" class="control-label"></label>
+                <input asp-for="MessageBaslik" class="form-control" />
+                <span asp-validation-for="MessageBaslik" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageMail" class="control-label"></label>
+                <input asp-for="MessageMail" class="form-control" />
+                <span asp-validation-for="MessageMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageIcerik" class="control-label"></label>
+                <input asp-for="MessageIcerik" class="form-control" />
+                <span asp-validation-for="MessageIcerik" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

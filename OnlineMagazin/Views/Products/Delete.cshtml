@@ -1,0 +1,92 @@
+﻿@model OnlineMagazin.Models.Products
+
+@{
+    ViewData["Title"] = "Товар";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Вы уверены что хотите удалить это?</h5>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Baslik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Baslik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Icerik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Icerik)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.CategoriName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Foto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Foto)
+        </dd>
+        <dt class="col-sm-2">
+            Удаляемое фото
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.Foto)" asp-append-version="true" width="150" height="150" />
+        </dd>
+        <dt class="col-sm-2">
+            Удаляемое фото2
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.Foto2)" asp-append-version="true" width="150" height="150" />
+        </dd>
+        <dt class="col-sm-2">
+            Удаляемое фото3
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.Foto3)" asp-append-version="true" width="150" height="150" />
+        </dd>
+        <dt class="col-sm-2">
+            Удаляемое фото4
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.Foto4)" asp-append-version="true" width="150" height="150" />
+        </dd>
+        <dt class="col-sm-2">
+            Удаляемое фото5
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.Foto5)" asp-append-version="true" width="150" height="150" />
+        </dd>
+        <dt class="col-sm-2">
+            Удаляемое фото6
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.Foto6)" asp-append-version="true" width="150" height="150" />
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductId" />
+        <input type="submit" value="Удалить" class="btn btn-danger mb-3" /> |
+        <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+    </form>
+</div>

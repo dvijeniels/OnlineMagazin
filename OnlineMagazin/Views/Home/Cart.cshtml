@@ -1,0 +1,220 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Carts>
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<section class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="page-menu">
+                    <li><a href="~/Home/homeIndex">Главная</a></li>
+                    <li class="active"><a href="#">Корзина</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <!-- CATEGORY-MENU-LIST START -->
+                @await Component.InvokeAsync("CategoryList")
+                <!-- END CATEGORY-MENU-LIST -->
+                <!-- START SMALL-PRODUCT-AREA -->
+                @await Component.InvokeAsync("BestsellerProducts")
+                <!-- END SMALL-PRODUCT-AREA -->
+            </div>
+            <div class="col-md-9">
+                <!-- Start Shopping-Cart -->
+                @if (ViewBag.CartControl != null)
+                {
+                    <h3 class="text-center">@ViewBag.CartControl</h3>
+                    <img class="center-block" src="~/image/empty_cart.gif" />
+                }
+                else
+                {
+
+
+                    <div class="shopping-cart">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="cart-title">
+                                    <h2 class="entry-title">Корзина</h2>
+                                </div>
+                                <!-- Start Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td class="text-center">Изображение</td>
+                                                <td class="text-left">Название товара</td>
+                                                <td class="text-left">Количество</td>
+                                                <td class="text-right">Цена за единицу</td>
+                                                <td class="text-right">Общая цена</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <a href="/Home/ProductDetail/@item.ProductsId"><img class="img-thumbnail" width="80" height="90" src="~/image/@item.Products.Foto" alt="#" /></a>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <a href="/Home/ProductDetail/@item.ProductsId">@item.Products.Baslik</a>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <div class="btn-block cart-put">
+                                                            <form method="post">
+                                                                <input class="form-control" type="number" min="1" name="qty" value="@item.qty" />
+                                                                <div class="input-group-btn cart-buttons">
+                                                                    <button asp-action="UpdateCart" asp-route-id="@item.CartId" asp-route-value="2" class="btn btn-primary" data-toggle="tooltip" title="Обновить">
+                                                                        <i class="fa fa-refresh"></i>
+                                                                    </button>
+                                                                    <button asp-action="DeleteFromCart" asp-route-id="@item.CartId" class="btn btn-danger" data-toggle="tooltip" title="Удалить">
+                                                                        <i class="fa fa-times-circle"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right">@item.ProductPrice</td>
+                                                    <td class="text-right">@item.FinalPrice</td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- End Table -->
+                                <h3 class="title-group-3 gfont-1">Что бы вы хотели делать дальше?</h3>
+                                <p>Выберите, есть ли у вас код скидки или бонусные баллы, которые вы хотите использовать или хотите оценить стоимость доставки.</p>
+                                <!-- Accordion start -->
+                                <div class="accordion-cart">
+                                    <div class="panel-group" id="accordion">
+                                        <!-- Start Coupon -->
+                                        <div class="panel panel_default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-trigger" data-toggle="collapse" data-parent="#accordion" href="#coupon">Использовать код купона<i class="fa fa-caret-down"></i> </a>
+                                                </h4>
+                                            </div>
+                                            <div id="coupon" class="collapse in">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-2">
+                                                        <p>Введите свой купон</p>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" placeholder="Введите свой купон здесь" />
+                                                        <button type="submit" class="btn btn-primary">Применить купон</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Coupon -->
+                                        <!-- Start Voucher -->
+                                        <div class="panel panel_default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#voucher">Использовать подарочный сертификат <i class="fa fa-caret-down"></i> </a>
+                                                </h4>
+                                            </div>
+                                            <div id="voucher" class="collapse">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-2">
+                                                        <p>Введите код подарочного ваучера</p>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" placeholder="Введите здесь код подарочного ваучера" />
+                                                        <button type="submit" class="btn btn-primary">Применить ваучер</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Start Voucher -->
+                                        <!-- Start Shipping -->
+                                        <div class="panel panel_default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#shipping">Оценить доставку и налоги <i class="fa fa-caret-down"></i> </a>
+                                                </h4>
+                                            </div>
+                                            <div id="shipping" class="collapse">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-12">
+                                                        <p>Введите пункт назначения, чтобы узнать стоимость доставки.</p>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label"><sup>*</sup>Страна</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control">
+                                                                    <option> --- Please Select --- </option>
+                                                                    <option> Bangladesh </option>
+                                                                    <option> United States </option>
+                                                                    <option> United Kingdom </option>
+                                                                    <option> Canada </option>
+                                                                    <option> Malaysia </option>
+                                                                    <option> United Arab Emirates </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label"><sup>*</sup>Регион / Штат</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control">
+                                                                    <option> --- Please Select --- </option>
+                                                                    <option> Aberdeen </option>
+                                                                    <option> Bedfordshire </option>
+                                                                    <option> Caerphilly </option>
+                                                                    <option> Denbighshire </option>
+                                                                    <option> East Ayrshire </option>
+                                                                    <option> Falkirk </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label"><sup>*</sup>Почтовый индекс</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" placeholder="Почтовый индекс" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Start Shipping -->
+                                    </div>
+                                </div>
+                                <!-- Accordion end -->
+                                <div class="row">
+                                    <div class="col-sm-4 col-sm-offset-8">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <strong>Итог:</strong>
+                                                    </td>
+                                                    <td class="text-right">$@ViewBag.FinalPrice</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <strong>Общий итог:</strong>
+                                                    </td>
+                                                    <td class="text-right">$@ViewBag.FinalPrice (c учётом НДС)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="shopping-checkout">
+                                    <a href="~/Home/homeIndex" class="btn btn-default pull-left">Продолжить закупку</a>
+                                    <a href="#" class="btn btn-primary pull-right">Заказать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- End Shopping-Cart -->
+            </div>
+        </div>
+    </div>
+</section>

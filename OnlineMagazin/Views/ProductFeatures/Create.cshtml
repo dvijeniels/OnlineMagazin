@@ -1,0 +1,82 @@
+﻿@model OnlineShop.Models.ProductFeatures
+
+@{
+    ViewData["Title"] = "Характеристики товара";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link href="~/customselect/src/jquery-customselect.css" rel="stylesheet" />
+<script src="~/customselect/src/jquery-customselect.js"></script>
+<br />
+<h5 style="margin-left:50%">Создать</h5>
+<hr />
+<div>
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select name="CategoryId" id="CategoryList" placeholder="Выберите категорию" asp-for="CategoryId" class="form-control form-control-lg" asp-items="ViewBag.CategoryId">
+                        <option value="-1">---Выберите категорию---</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductsId" class="control-label"></label>
+                    <select disabled id="ProductList" placeholder="Введите название товара" data-search="true" asp-for="ProductsId" class='custom-select' asp-items="ViewBag.ProductsId"></select>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#ProductList").customselect();
+                </script>
+
+                <div class="form-group">
+                    <label asp-for="CategoryFeatureId" class="control-label"></label>
+                    <select disabled asp-for="CategoryFeatureId" id="CatFList" class="form-control form-control-lg" asp-items="ViewBag.CategoryFeatureId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Value" class="control-label"></label>
+                    <input asp-for="Value" class="form-control" />
+                    <span asp-validation-for="Value" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Создать" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#CategoryList").change(function () {
+                $.getJSON("/ProductFeatures/GetProductByCategory", { id: $("#CategoryList").val() }, function (d) {
+                    var row = "";
+                    $("#ProductList").prop('disabled', false);
+                    $("#CatFList").prop('disabled', false);
+                    $("#ProductList").empty();
+                    $.each(d, function (i, v) {
+                        row += "<option value='" + v.value + "'>" + v.text + "</option>";
+                    });
+                    $("#ProductList").html(row);
+                })
+                $.getJSON("/ProductFeatures/GetCategoryFeaturesByCategory", { id: $("#CategoryList").val() }, function (d) {
+                    var row = "";
+                    $("#CatFList").empty();
+                    $.each(d, function (i, v) {
+                        row += "<option value='" + v.value + "'>" + v.text + "</option>";
+                    });
+                    $("#CatFList").html(row);
+                })
+            })
+
+        })
+    </script>
+
+    <div style="margin-left:1%">
+        <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+    </div>
+

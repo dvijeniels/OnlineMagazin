@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnlineShop.Models.CategoryFeature>
+
+@{
+    ViewData["Title"] = "Характеристики категорий";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="col-12 mt-lg-3">
+    <div class="card">
+
+        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FeatureName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Unit)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CategoryId)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FeatureName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoriName)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.KatFId">Изменить</a> |
+                            <a asp-action="Details" asp-route-id="@item.KatFId">Детали</a> |
+                            <a asp-action="Delete" asp-route-id="@item.KatFId">Удалить</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

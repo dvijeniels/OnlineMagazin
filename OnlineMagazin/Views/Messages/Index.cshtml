@@ -1,0 +1,73 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Message>
+
+@{
+    ViewData["Title"] = "Сообщения";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="col-12 mt-lg-3">
+    <div class="card">
+
+        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageGonderen)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageBaslik)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageMail)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageIcerik)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MessageDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Read)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageGonderen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageBaslik)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageMail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageIcerik)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageDate)
+                        </td>
+                        <td>
+                            @if (item.Read)
+                            {<h6>Прочитан</h6>}
+                            else
+                            { <h6>Не прочитан</h6>}
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.MessageId">Изменить</a> |
+                            <a asp-action="Details" asp-route-id="@item.MessageId">Прочитать</a> |
+                            <a asp-action="Delete" asp-route-id="@item.MessageId">Удалить</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

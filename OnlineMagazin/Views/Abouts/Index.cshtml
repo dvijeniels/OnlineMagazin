@@ -1,0 +1,83 @@
+﻿@model IEnumerable<OnlineMagazin.Models.About>
+
+@{
+    ViewData["Title"] = "О нас";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+<div class="col-12 mt-lg-3">
+    <div class="card">
+        
+            <a style="text-align: center" asp-action="Create" ><i class="ti-plus"></i>  Создать новый</a>
+            <div class="data-tables datatable-dark">
+                <table id="dataTable3" class="text-center">
+                    <thead class="text-capitalize">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MetinIcerik)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Resim)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MetinIcerik)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Resim)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        
+    </div>
+</div>
+
+
+@*<p style="text-align: center">
+    <a asp-action="Create" class="btn btn-outline-secondary mb-3"><i class="ti-plus"></i>  Создать новый</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MetinIcerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resim)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MetinIcerik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resim)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

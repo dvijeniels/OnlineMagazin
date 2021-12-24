@@ -1,0 +1,11 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Sliders>
+<div class="sidebar-banner hidden-sm hidden-xs">
+    <div class="active-sidebar-banner">
+        @foreach (var item in Model)
+        {
+        <div class="single-sidebar-banner">
+            <a href="#"><img src="~/image/@item.SliderResim" alt="Product Banner"></a>
+        </div>
+        }
+    </div>
+</div>

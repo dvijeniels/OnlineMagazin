@@ -1,0 +1,37 @@
+﻿@model OnlineMagazin.Models.About
+
+@{
+    ViewData["Title"] = "О нас";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<br />
+<h5 style="margin-left:50%">Создать</h5>
+<hr />
+<div>
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MetinIcerik" class="control-label"></label>
+                <input asp-for="MetinIcerik" class="form-control" />
+                <span asp-validation-for="MetinIcerik" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResimFile" class="control-label"></label>
+                <input asp-for="ResimFile" accept="image/*" />
+                <span asp-validation-for="ResimFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

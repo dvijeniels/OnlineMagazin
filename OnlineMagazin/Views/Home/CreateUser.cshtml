@@ -1,0 +1,96 @@
+﻿@model OnlineMagazin.Models.Uye
+
+@{
+    ViewData["Title"] = "Пользователь";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<section class="page-content">
+    <!-- Start Account-Create-Area -->
+    <div class="account-create-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="page-menu">
+                        <li><a href="~/Home/homeIndex/">Главная</a></li>
+                        <li class="active"><a href="~/Home/CreateUser/">Aккаунт</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="area-title">
+                        <h3 class="title-group gfont-1">Создать аккаунт</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-create">
+                <form asp-action="CreateUser" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="account-create-box">
+                                <h2 class="box-info">Личная информация</h2>
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12">
+                                        <div class="single-create">
+                                            <p>Введите ФИО<sup>*</sup></p>
+                                            <input class="form-control" asp-for="AdSoyad" type="text" />
+                                            <span asp-validation-for="AdSoyad" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <div class="single-create">
+                                            <p>Логин для входа <sup>*</sup></p>
+                                            <input class="form-control" asp-for="KullaniciAdi" type="text" />
+                                            <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <div class="single-create">
+                                            <p>Email почта <sup>*</sup></p>
+                                            <input class="form-control" asp-for="Email" placeholder="name@example.com" type="email" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <p class="for-newsletter"><input type="checkbox" /> Подписаться на рассылку</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="account-create-box">
+                                <h2 class="box-info">Пароль для входа</h2>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="single-create">
+                                            <p>Пароль <sup>*</sup></p>
+                                            <input class="form-control" asp-for="Sifre" type="password" />
+                                            <span asp-validation-for="Sifre" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="single-create">
+                                            <p>Подтвердить пароль <sup>*</sup></p>
+                                            <input class="form-control" asp-for="ConfirmPassword" type="password" />
+                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-area">
+                                <p class="required text-right">* Обязательные поля</p>
+                                <button type="submit" class="btn btn-primary floatright">Зарегистрироваться</button>
+                                <a href="/Home/IndexUser" class="float-left"><span><i class="fa fa-sign-in"></i></span> Войти</a>
+                                <br />
+                                <a href="/Home/homeIndex/" class="float-left"><span><i class="fa fa-angle-double-left"></i></span> Назад</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Account-Create-Area -->
+    <!-- START BRAND-LOGO-AREA -->
+
+
+</section>

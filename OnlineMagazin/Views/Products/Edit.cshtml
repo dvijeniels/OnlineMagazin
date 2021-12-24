@@ -1,0 +1,83 @@
+﻿@model OnlineMagazin.Models.Products
+
+@{
+    ViewData["Title"] = "Товар";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<br />
+<h5 style="margin-left:50%">Изменить</h5>
+<hr />
+<div >
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <div class="form-group">
+                <label asp-for="Baslik" class="control-label"></label>
+                <input asp-for="Baslik" class="form-control" />
+                <span asp-validation-for="Baslik" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icerik" class="control-label"></label>
+                <input asp-for="Icerik" class="form-control" />
+                <span asp-validation-for="Icerik" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control form-control-lg" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" asp-for="Price" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00 сомов</span>
+                    </div>
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoFile" class="control-label"></label>
+                <input asp-for="FotoFile" accept="image/*" multiple />
+                <span asp-validation-for="FotoFile" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="FotoFile2" class="control-label"></label>
+                <input asp-for="FotoFile2" accept="image/*" />
+                <span asp-validation-for="FotoFile2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoFile3" class="control-label"></label>
+                <input asp-for="FotoFile3" accept="image/*" />
+                <span asp-validation-for="FotoFile3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoFile4" class="control-label"></label>
+                <input asp-for="FotoFile4" accept="image/*" />
+                <span asp-validation-for="FotoFile4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoFile5" class="control-label"></label>
+                <input asp-for="FotoFile5" accept="image/*" />
+                <span asp-validation-for="FotoFile5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoFile6" class="control-label"></label>
+                <input asp-for="FotoFile6" accept="image/*" />
+                <span asp-validation-for="FotoFile6" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>
+

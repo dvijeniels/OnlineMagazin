@@ -1,0 +1,31 @@
+﻿@model OnlineMagazin.Models.Sliders
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Слайт</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SliderResim)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SliderResim)
+        </dd>
+        <dt class="col-sm-2">
+            Загруженное фото
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.SliderResim)" asp-append-version="true" width="250" height="250" />
+        </dd>
+    </dl>
+</div>
+<div style="margin-left:1%">
+    <a asp-action="Edit" class="btn btn-outline-dark mb-3" asp-route-id="@Model.SliderId">Изменить</a> |
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>

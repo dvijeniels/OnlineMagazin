@@ -1,0 +1,31 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@if (Context.Session.GetInt32("Giris") != null && Context.Session.GetInt32("Giris") !=0)
+{
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="top-menu">
+            <p class="welcome-msg">Добро пожаловать !</p>
+        </div>
+        <div class="top-link">
+            <ul class="link">
+                <li><a asp-controller="Home" asp-action="Account" asp-route-id="@Context.Session.GetInt32("Giris")"><i class="fa fa-user"></i> Мой аккаунт</a></li>
+                <li><a href="/Home/IndexUser"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                <li><a href="/Home/LogOut"><i class="fa fa-sign-out"></i> Выйти</a></li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="top-menu">
+            <p class="welcome-msg"><a href="/Home/CreateUser"><i class="fa fa-user-plus"></i> Зарегистрироваться</a></p>
+        </div>
+        <div class="top-link">
+            <ul class="link">
+                <li><a href="/Home/CreateUser"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                <li><a href="/Home/IndexUser"><i class="fa fa-sign-in"></i> Войти</a></li>
+            </ul>
+        </div>
+    </div>
+}

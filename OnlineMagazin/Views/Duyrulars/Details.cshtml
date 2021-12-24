@@ -1,0 +1,43 @@
+﻿@model OnlineMagazin.Models.Duyrular
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Новости</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DuyuruAd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DuyuruAd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Duyuruicerik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Duyuruicerik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DuyuruResim)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DuyuruResim)
+        </dd>
+        <dt class="col-sm-2">
+            Загруженное фото
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.DuyuruResim)" asp-append-version="true" width="250" height="250" />
+        </dd>
+    </dl>
+</div>
+<div style="margin-left:1%">
+    <a asp-action="Edit" class="btn btn-outline-dark mb-3" asp-route-id="@Model.DuyuruId">Изменить</a> |
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>

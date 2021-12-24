@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Sliders>
+
+@{
+    ViewData["Title"] = "Слайд";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="col-12 mt-lg-3">
+    <div class="card">
+
+        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SliderResim)
+                        </th>
+                        <th>
+                            Картинка
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SliderResim)
+                        </td>
+                        <td>
+                            <img src="@("~/image/"+item.SliderResim)" asp-append-version="true" width="200" height="200" />
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.SliderId">Изменить</a> |
+                            <a asp-action="Details" asp-route-id="@item.SliderId">Детали</a> |
+                            <a asp-action="Delete" asp-route-id="@item.SliderId">Удалить</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@model OnlineMagazin.Models.Uye
+
+@{
+    ViewData["Title"] = "Войти";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<section class="page-content">
+    <div class="account-create-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="page-menu">
+                        <li><a asp-area="" asp-controller="Home" asp-action="homeIndex">Главная</a></li>
+                        <li class="active"><a asp-area="" asp-controller="Home" asp-action="CreateUser">Aккаунт</a></li>
+                    </ul>
+                </div>
+            </div>
+            @if (ViewBag.Loged != null || ViewBag.Loged == true)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>Не удалось!</strong> Проверьте правильность логина и пароля.
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="area-title">
+                        <h3 class="title-group gfont-1">Вход</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="account-create">
+                <form asp-action="IndexUser" enctype="multipart/form-data" method="post">
+                    <div class="panel panel_default">
+                        <div id="checkout-options" class="collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="checkout-collapse">
+                                            <div class="form-group">
+                                                <label>Логин для входа</label>
+                                                <input class="form-control" asp-for="KullaniciAdi" type="text" />
+                                                <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Пароль</label>
+                                                <input class="form-control" asp-for="Sifre" type="password" />
+                                                <span asp-validation-for="Sifre" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <p class="for-newsletter"><input type="checkbox" /> Запомнить пароль</p>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary" value="Войти" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="checkout-collapse">
+                                            <br />
+                                            <a href="/Home/CreateUser" class="float-left"><span><i class="fa fa-question-circle"></i></span> Забыл(а) пароль</a>
+                                            <br />
+                                            <br />
+                                            <a href="/Home/CreateUser" class="float-left"><span><i class="fa fa-user-plus"></i></span> Зарегистрироваться</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
