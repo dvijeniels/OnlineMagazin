@@ -1,0 +1,18 @@
+﻿@model OnlineMagazin.ViewModels.ViewCategory
+<form asp-controller="Home" asp-action="SearchAllProduct" asp-route-categoryId="Category.CategoryId" method="get">
+<div class="search-container">
+     <select asp-for="Category.CategoryId" class="form-control form-control-lg" asp-items="ViewBag.CategoryId"><option class="all-cate">Все категории</option></select>
+@*    <select asp-for="Category.CategoryId" name="CategoryId">
+        <option class="all-cate">Все категории</option>
+        @foreach (var item in Model.Categories)
+        {
+            <option class="cate-item-title">@item.CategoriName</option>
+        }
+    </select>*@
+</div>
+<div class="header-search">
+        <input type="text" name="SearchString" placeholder="Поиск">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    
+</div>
+</form>

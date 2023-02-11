@@ -1,0 +1,6 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Category>
+@foreach (var item in Model)
+{
+    <li><a href="/Home/ProductsFromCategory/@item.CategoryId">@item.CategoriName</a></li>
+}
+

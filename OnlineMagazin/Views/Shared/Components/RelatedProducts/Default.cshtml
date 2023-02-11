@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Products>
+<div class="product-area">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="product-menu">
+                <div class="product-title">
+                    <h3 class="title-group-2 gfont-1">Cопутствующие товары</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="product carosel-navigation">
+        <div class="row">
+            <div class="active-product-carosel">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xs-12">
+                        <div class="single-product">
+                            <div class="product-img">
+                                <a href="/Home/ProductDetail/@item.ProductId">
+                                    <img class="primary-img" src="~/image/@item.Foto" alt="Product">
+                                </a>
+                            </div>
+                            <div class="product-description">
+                                <h5>
+                                    @{
+                                        if (item.Baslik.Length > 39)
+                                        {
+                                            <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik.ToString().Substring(0,39)...</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik</a>
+                                        }
+                                    }
+                                </h5>
+                                <div class="price-box">
+                                    <span class="price">@item.Price ₽</span>
+                                    <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                </div>
+                                @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                <div class="product-action">
+                                    <div class="button-group">
+                                        <div class="product-button">
+                                            <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                        </div>
+                                        <div class="product-button-2">
+                                            <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                            <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineMagazin.Data;
-using OnlineShop.Models;
+using OnlineMagazin.Models;
 
 namespace OnlineMagazin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductFeaturesController : Controller
     {
         private readonly OnlineMagazinContext _context;
@@ -37,7 +37,7 @@ namespace OnlineMagazin.Controllers
         {
             var categoryFeatures = _context.CategoryFeature.Where(p => p.CategoryId == id).ToList();
 
-            return Json(new SelectList(categoryFeatures, "KatFId", "FeatureName"));
+            return Json(new SelectList(categoryFeatures, "CategoryFeatureId", "FeatureName"));
         }
         // GET: ProductFeatures/Create
         public async Task<IActionResult> Index()
@@ -71,8 +71,8 @@ namespace OnlineMagazin.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoriName");
-            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "KatFId", "FeatureName");
-            ViewData["ProductsId"] = new SelectList(_context.Products, "ProductId", "Baslik");
+            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "CategoryFeatureId", "FeatureName");
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Baslik");
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace OnlineMagazin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductFeatureId,CategoryId,CategoryFeatureId,ProductsId,Value")] ProductFeatures productFeatures)
+        public async Task<IActionResult> Create([Bind("ProductFeatureId,CategoryId,CategoryFeatureId,ProductId,Value")] ProductFeatures productFeatures)
         {
             if (ModelState.IsValid)
             {
@@ -90,8 +90,8 @@ namespace OnlineMagazin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoriName", productFeatures.CategoryId);
-            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "KatFId", "FeatureName", productFeatures.CategoryFeatureId);
-            ViewData["ProductsId"] = new SelectList(_context.Products, "ProductId", "Baslik", productFeatures.ProductsId);
+            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "CategoryFeatureId", "FeatureName", productFeatures.CategoryFeatureId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Baslik", productFeatures.ProductId);
             return View(productFeatures);
         }
 
@@ -109,8 +109,8 @@ namespace OnlineMagazin.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoriName", productFeatures.CategoryId);
-            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "KatFId", "FeatureName", productFeatures.CategoryFeatureId);
-            ViewData["ProductsId"] = new SelectList(_context.Products, "ProductId", "Baslik", productFeatures.ProductsId);
+            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "CategoryFeatureId", "FeatureName", productFeatures.CategoryFeatureId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Baslik", productFeatures.ProductId);
             return View(productFeatures);
         }
 
@@ -119,7 +119,7 @@ namespace OnlineMagazin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductFeatureId,CategoryId,CategoryFeatureId,ProductsId,Value")] ProductFeatures productFeatures)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductFeatureId,CategoryId,CategoryFeatureId,ProductId,Value")] ProductFeatures productFeatures)
         {
             if (id != productFeatures.ProductFeatureId)
             {
@@ -147,8 +147,8 @@ namespace OnlineMagazin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoriName", productFeatures.CategoryId);
-            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "KatFId", "FeatureName", productFeatures.CategoryFeatureId);
-            ViewData["ProductsId"] = new SelectList(_context.Products, "ProductId", "Baslik", productFeatures.ProductsId);
+            ViewData["CategoryFeatureId"] = new SelectList(_context.CategoryFeature, "CategoryFeatureId", "FeatureName", productFeatures.CategoryFeatureId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Baslik", productFeatures.ProductId);
             return View(productFeatures);
         }
 

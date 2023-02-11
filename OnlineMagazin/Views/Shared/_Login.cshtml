@@ -1,16 +1,31 @@
-﻿
-@using Microsoft.AspNetCore.Http
-@if (Context.Session.GetInt32("Giris") != null && Context.Session.GetInt32("Giris") !=0)
+﻿@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+
+@inject SignInManager<OnlineMagazinUser> SignInManager
+@inject UserManager<OnlineMagazinUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
 {
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="top-menu">
-            <p class="welcome-msg">Добро пожаловать !</p>
+            <p class="welcome-msg">Добро пожаловать @UserManager.GetUserName(User)!</p>
         </div>
         <div class="top-link">
             <ul class="link">
-                <li><a asp-controller="Home" asp-action="Account" asp-route-id="@Context.Session.GetInt32("Giris")"><i class="fa fa-user"></i> Мой аккаунт</a></li>
-                <li><a href="/Home/IndexUser"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
-                <li><a href="/Home/LogOut"><i class="fa fa-sign-out"></i> Выйти</a></li>
+                @if(User.IsInRole("Admin"))
+                {
+                    <li><a asp-controller="Admin" asp-action="AdminIndex"><i class="fa fa-cog fa-spin fa-3x fa-fw" aria-hidden="true"></i> Админ панель</a></li>
+                }
+                
+                <li><a asp-controller="Home" asp-action="Account" asp-route-id="@UserManager.GetUserId(User)"><i class="fa fa-user"></i> Мой аккаунт</a></li>
+                <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                <li>
+                    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomeIndex", "Home", new { area = "" })">
+                        <a id="logout" @*href="/Identity/Account/Logout"*@ onclick="document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Выйти</a>
+                    </form>
+                    @*                    <a id="logout" href="/Home/LogOut"><i class="fa fa-sign-out"></i> Выйти</a>*@
+                </li>
             </ul>
         </div>
     </div>
@@ -19,12 +34,12 @@ else
 {
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="top-menu">
-            <p class="welcome-msg"><a href="/Home/CreateUser"><i class="fa fa-user-plus"></i> Зарегистрироваться</a></p>
+            <p class="welcome-msg"><a id="register" asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-plus"></i> Зарегистрироваться</a></p>
         </div>
         <div class="top-link">
             <ul class="link">
-                <li><a href="/Home/CreateUser"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
-                <li><a href="/Home/IndexUser"><i class="fa fa-sign-in"></i> Войти</a></li>
+                <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                <li><a id="login" asp-area="Identity" asp-page="/Account/Login" ><i class="fa fa-sign-in"></i> Войти</a></li>
             </ul>
         </div>
     </div>

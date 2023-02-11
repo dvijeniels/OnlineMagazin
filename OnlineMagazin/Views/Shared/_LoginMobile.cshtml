@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+
+@inject SignInManager<OnlineMagazinUser> SignInManager
+@inject UserManager<OnlineMagazinUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li><a href="/Home/Account/@UserManager.GetUserId(User)">Мой аккаунт</a></li>
+    <li><a href="/Home/Account/@UserManager.GetUserId(User)">История заказов</a></li>
+    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomeIndex", "Home", new { area = "" })">
+    <li><a id="logout" onclick="document.getElementById('logoutForm').submit()">Выйти</a></li>
+    </form>
+}
+else
+{
+    <li><a id="register" asp-area="Identity" asp-page="/Account/Register">Зарегистрироваться</a></li>
+    <li><a id="login" asp-area="Identity" asp-page="/Account/Login">Войти</a></li>
+}

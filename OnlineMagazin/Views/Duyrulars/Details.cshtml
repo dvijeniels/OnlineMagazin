@@ -1,14 +1,12 @@
 ﻿@model OnlineMagazin.Models.Duyrular
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Новости";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-
-<h1>Детали</h1>
-
-<div>
-    <h4>Новости</h4>
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Детали новости</h5>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -21,7 +19,13 @@
             @Html.DisplayNameFor(model => model.Duyuruicerik)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Duyuruicerik)
+            @Html.Raw(Model.Duyuruicerik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DuyuruLink)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DuyuruLink)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DuyuruResim)

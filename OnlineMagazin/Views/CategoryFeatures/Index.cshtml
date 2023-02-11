@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineShop.Models.CategoryFeature>
+﻿@model IEnumerable<OnlineMagazin.Models.CategoryFeature>
 
 @{
     ViewData["Title"] = "Характеристики категорий";
@@ -6,8 +6,7 @@
 }
 <div class="col-12 mt-lg-3">
     <div class="card">
-
-        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <a asp-action="Create" class="btn btn-outline-secondary mb-3"><i class="ti-plus"></i>  Создать новый</a>
         <div class="data-tables datatable-dark">
             <table id="dataTable3" class="text-center">
                 <thead class="text-capitalize">
@@ -38,9 +37,9 @@
                             @Html.DisplayFor(modelItem => item.Category.CategoriName)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.KatFId">Изменить</a> |
-                            <a asp-action="Details" asp-route-id="@item.KatFId">Детали</a> |
-                            <a asp-action="Delete" asp-route-id="@item.KatFId">Удалить</a>
+                            <a asp-action="Edit" asp-route-id="@item.CategoryFeatureId">Изменить</a> |
+                            <a asp-action="Details" asp-route-id="@item.CategoryFeatureId">Детали</a> |
+                            <a asp-action="Delete" asp-route-id="@item.CategoryFeatureId">Удалить</a>
                         </td>
                     </tr>
                     }

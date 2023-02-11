@@ -4,8 +4,9 @@
     ViewData["Title"] = "Сообщение";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-
-    <h5>Детали сообщений</h5>
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Детали сообщение</h5>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -43,8 +44,13 @@
         </dt>
         <dd class="col-sm-10">
             @if (Model.Read)
-            {<h6>Прочитан</h6>}
-            else { <h6>Не прочитан</h6>}
+            {
+                <h6>Прочитан</h6>
+            }
+            else
+            {
+                <h6>Не прочитан</h6>
+            }
         </dd>
     </dl>
     <form asp-action="Details">
@@ -59,6 +65,7 @@
             <input type="submit" value="Прочитать" class="btn btn-primary" />
         </div>
     </form>
+</div>
 <div style="margin-left:1%">
     <a asp-action="Edit" class="btn btn-outline-dark mb-3" asp-route-id="@Model.MessageId">Изменить</a> |
     <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>

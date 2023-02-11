@@ -1,0 +1,58 @@
+﻿@model OnlineMagazin.Models.Comments
+
+@{
+    ViewData["Title"] = "Комментарий";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Детали комментария</h5>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.UserName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.UserName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Contents)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Contents)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Products)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Products.Baslik)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Score)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Score)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Date)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Date)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Status)
+    </dt>
+    <dd class="col-sm-10">
+        @if (Model.Status)
+        {
+            <h6>Одобрен</h6>
+        }
+        else
+        {
+            <h6>Не одобрен</h6>
+        }
+    </dd>
+    </dl>
+    <a asp-action="Edit" class="btn btn-outline-dark mb-3" asp-route-id="@Model.CommentId">Изменить</a> |
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>

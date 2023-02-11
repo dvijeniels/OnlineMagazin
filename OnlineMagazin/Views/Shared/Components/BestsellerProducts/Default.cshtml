@@ -1,0 +1,75 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Products>
+<div class="small-product-area carosel-navigation hidden-sm hidden-xs">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="area-title">
+                <h3 class="title-group gfont-1">Случайные</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="active-bestseller sidebar">
+            <div class="col-xs-12">
+                @foreach (var item in Model.OrderByDescending(a => a.Baslik).Take(4))
+                {
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="/Home/ProductDetail/@item.ProductId">
+                                <img class="primary-img" width="100" height="100" src="~/image/@item.Foto" alt="Bestseller Products">
+                            </a>
+                        </div>
+                        <div class="product-description">
+                            <h5>
+                                @{
+                                    if (item.Baslik.Length > 16)
+                                    {
+                                        <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik.ToString().Substring(0,16)...</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik</a>
+                                    }
+                                }
+                            </h5>
+                            <div class="price-box">
+                                <span class="price">₽@item.Price</span>
+                                <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                            </div>
+                            @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-xs-12">
+                @foreach (var item in Model.OrderBy(a => a.Baslik).Take(4))
+                {
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="/Home/ProductDetail/@item.ProductId">
+                                <img class="primary-img" width="100" height="100" src="~/image/@item.Foto" alt="Bestseller Products">
+                            </a>
+                        </div>
+                        <div class="product-description">
+                            <h5>@{
+                                    if (item.Baslik.Length > 16)
+                                    {
+                                        <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik.ToString().Substring(0,16)...</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik</a>
+                                    }
+                                }</h5>
+                            <div class="price-box">
+                                <span class="price">₽@item.Price</span>
+                                <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                            </div>
+                            @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

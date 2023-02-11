@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery Custom Select Plugin 1.9.0
  * 2014-09-03
  *

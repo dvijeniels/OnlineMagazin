@@ -1,0 +1,65 @@
+﻿
+@if (ViewBag.RatingAverage != null)
+{
+    @if (Math.Ceiling((decimal)ViewBag.RatingAverage) == 1)
+    {
+        <span class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+        </span>
+    }
+    else if (Math.Ceiling((decimal)ViewBag.RatingAverage) == 2)
+    {
+        <span class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+        </span>
+    }
+    else if (Math.Ceiling((decimal)ViewBag.RatingAverage) == 3)
+    {
+        <span class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+        </span>
+    }
+    else if (Math.Ceiling((decimal)ViewBag.RatingAverage) == 4)
+    {
+        <span class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </span>
+    }
+    else if (Math.Ceiling((decimal)ViewBag.RatingAverage) == 5)
+    {
+        <span class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </span>
+    }
+}
+else
+{
+    <span class="rating">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+    </span>
+}
+

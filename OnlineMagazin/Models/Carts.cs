@@ -1,34 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace OnlineMagazin.Models
 {
     [Table("Carts")]
     public class Carts
-    { 
-        [Key]
-        public int CartId { get; set; }
-        [DisplayName("Товар")]
-        public int ProductsId { get; set; }
-
-        [DisplayName("Клиент")]
-        public int? UyeId { get; set; }
-
-        [DisplayName("Цена товара")]
-        public double ProductPrice { get; set; }
-
-        [DisplayName("Количество")]
+    {
+        public Products Products { get; set; }
         public ushort qty { get; set; }
+    }
+    public static class SessionHelper
+    {
+        public static void SetObjectAsJson(this ISession session, string key, object value)
+        {
+            session.SetString(key, JsonConvert.SerializeObject(value));
+        }
 
-        [DisplayName("Общая цена")]
-        public double FinalPrice { get; set; }
-
-        [DisplayName("Статус")]
-        public bool InOrder { get; set; }
-        public virtual Uye Uye { get; set; }
-        public virtual Products Products { get; set; }
-        public List<Orders> Orders { get; set; }
+        public static T GetObjectFromJson<T>(this ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+        }
     }
 }

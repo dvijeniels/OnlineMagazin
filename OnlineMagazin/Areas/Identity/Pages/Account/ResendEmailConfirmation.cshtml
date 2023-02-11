@@ -1,0 +1,61 @@
+﻿@page
+@model ResendEmailConfirmationModel
+@{
+    ViewData["Title"] = "Повторно отправить подтверждение по электронной почте";
+}
+
+
+<section class="page-content">
+    <div class="account-create-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="page-menu">
+                        <li><a asp-area="" asp-controller="Home" asp-action="HomeIndex">Главная</a></li>
+                        <li><a id="login" asp-area="Identity" asp-page="/Account/Login">Aккаунт</a></li>
+                        <li class="active"><a id="resend-confirmation" asp-page="./ResendEmailConfirmation"> Повторное отправление подтверждение электройнной почты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="area-title">
+                        <h3 class="title-group gfont-1">Введите адрес электронной почты для подтверждения.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="account-create">
+                <form method="post">
+                    <br>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="account-create-box">
+                        <h2 class="box-info">Электронная почта</h2>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="single-create">
+                                    <input asp-for="Input.Email" class="form-control" placeholder="Введите адрес электронной почты" aria-required="true" />
+                                    <label class="form-label">Почта Email</label>
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <button type="submit" class="w-100 btn btn-lg btn-primary">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

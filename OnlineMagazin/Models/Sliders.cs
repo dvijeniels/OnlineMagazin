@@ -18,10 +18,7 @@ namespace OnlineMagazin.Models
 
         [StringLength(100)]
         [DisplayName("Название продукта")]
-        public string SliderName { get; set; }
-
-        [DisplayName("Цена")]
-        public double SliderPrice { get; set; }
+        public string  SliderName { get; set; }
 
         [StringLength(100)]
         [DisplayName("Описание")]

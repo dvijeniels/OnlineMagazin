@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ChangeRoleView
+ @{
+    ViewData["Title"] = "Изменить роль";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<br />
+<h5 style="margin-left:50%">Изменение ролей для пользователя @Model.UserEmail</h5>
+<hr />
+<div>
+    <div class="col-md-4">
+        <form asp-action="EditRole" method="post">
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    <div class="form-group">
+        @foreach (IdentityRole role in Model.AllRoles)
+        {
+            <input type="checkbox" class="form-control" name="roles" value="@role.Name"
+                   @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+    </div>
+</div>
+<hr />
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>

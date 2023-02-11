@@ -1,4 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+@inject UserManager<OnlineMagazinUser> UserManager
 @{
     Layout = null;
 }
@@ -11,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Online Magazin</title>
-    <link rel="shortcut icon" type="image/png" href="~/assets/images/icon/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="~/generalroot/img/favicon.ico">
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/assets/css/themify-icons.css">
@@ -21,6 +25,7 @@
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
@@ -29,22 +34,26 @@
     <link rel="stylesheet" href="~/assets/css/default-css.css">
     <link rel="stylesheet" href="~/assets/css/styles.css">
     <link rel="stylesheet" href="~/assets/css/responsive.css">
+
     <!-- modernizr css -->
     <script src="~/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="~/ckeditor/ckeditor.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="page-container">
         <!-- sidebar menu area start -->
         <div class="sidebar-menu">
             <div class="sidebar-header">
-                <div class="logo">Какое то лого
-                    @*<a href="~/Admin/AdminIndex"><img src="~/image/adminlog.png" alt="logo"></a>*@
+                <div class="logo">
+                    <a href="~/Admin/AdminIndex"><img src="~/generalroot/img/logovector.png" alt="logo"></a>
                 </div>
             </div>
             <div class="main-menu">
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
+                            <li> <a href="~/Home/HomeIndex"><i class="fa ti-user"></i> <span>Панель пользователя</span></a></li>
+                            <li><a href="~/TypeProducts/index"><i class="fa ti-layout-grid2"></i> <span>Типы</span></a></li>
                             <li><a href="~/Categories/index"><i class="fa fa-list-ul"></i> <span>Категории</span></a></li>
                             <li><a href="~/Products/index"><i class="fa ti-archive"></i> <span>Товары</span></a></li>
                             <li>
@@ -54,12 +63,16 @@
                                     <li><a href="~/ProductFeatures/index">Характеристики товаров</a></li>
                                 </ul>
                             </li>
+                            <li><a href="~/Comments/index"><i class="fa ti-comment-alt"></i> <span>Комментарии</span></a></li>
                             <li><a href="~/Sliders/index"><i class="fa fa-picture-o "></i> <span>Слайды</span></a></li>
+                            <li><a href="~/Brands/index"><i class="fa fa-star"></i> <span>Бренды</span></a></li>
                             <li><a href="~/Duyrulars/index"><i class="fa fa-newspaper-o"></i> <span>Новости</span></a></li>
-                            <li><a href="~/Uyes/index"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
                             <li><a href="~/Orders/index"><i class="fa fa-cart-plus"></i> <span>Заказы</span></a></li>
-                            <li><a href="~/Abouts/index"><i class="fa fa-star"></i> <span>О нас</span></a></li>
                             <li><a href="~/Messages/index"><i class="fa fa-envelope"></i> <span>Сообщения</span></a></li>
+                            <li><a href="~/Abouts/index"><i class="fa ti-face-smile"></i> <span>О нас</span></a></li>
+                            <li><a href="~/Users/index"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
+                            <li><a href="~/Roles/index"><i class='fa fa-registered'></i> <span>Роли</span></a></li>
+                            <li><a href="~/Mails/index"><i class='fa fa-send'></i> <span>Рассылки</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -80,7 +93,7 @@
                         </div>
                         <div class="search-box pull-left">
                             <form action="#">
-                                <input type="text" name="search" placeholder="Search..." required>
+                                <input type="text" name="search" placeholder="Поиск..." required>
                                 <i class="ti-search"></i>
                             </form>
                         </div>
@@ -92,18 +105,18 @@
                             <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
                             <li class="dropdown">
                                 <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
-                                    <span>2</span>
+                                    <span>@HttpContextAccessor.HttpContext.Session.GetInt32("mesajSay")</span>
                                 </i>
                                 <div class="dropdown-menu bell-notify-box notify-box">
-                                    <span class="notify-title">You have 3 new notifications <a href="Abouts/Index">смотреть все</a></span>
+                                    <span class="notify-title">У вас есть @HttpContextAccessor.HttpContext.Session.GetInt32("mesajSay") новых уведомления <a href="/Messages/Index">смотреть все</a></span>
                                     <div class="nofity-list">
-                                        <a href="#" class="notify-item">
+                                        @* <a href="#" class="notify-item">
                                             <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
                                             <div class="notify-text">
-                                                <p>You have Changed Your Password</p>
-                                                <span>Just Now</span>
+                                            <p>You have Changed Your Password</p>
+                                            <span>Just Now</span>
                                             </div>
-                                        </a>
+                                            </a>*@
                                         <a href="#" class="notify-item">
                                             <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
                                             <div class="notify-text">
@@ -111,71 +124,10 @@
                                                 <span>30 Seconds ago</span>
                                             </div>
                                         </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
-                                            <div class="notify-text">
-                                                <p>Some special like you</p>
-                                                <span>Just Now</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
-                                            <div class="notify-text">
-                                                <p>New Commetns On Post</p>
-                                                <span>30 Seconds ago</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
-                                            <div class="notify-text">
-                                                <p>Some special like you</p>
-                                                <span>Just Now</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                            <div class="notify-text">
-                                                <p>You have Changed Your Password</p>
-                                                <span>Just Now</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                            <div class="notify-text">
-                                                <p>You have Changed Your Password</p>
-                                                <span>Just Now</span>
-                                            </div>
-                                        </a>
                                     </div>
                                 </div>
                             </li>
-                            @{ var x = Context.Session.GetInt32("mesajSay"); }
-                            <li class="dropdown">
-                                <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown">
-                                    @if (x != 0)
-                                    {<span>@Context.Session.GetInt32("mesajSay")</span>}
-                                </i>
-                                <div class="dropdown-menu notify-box nt-enveloper-box">
-                                    <span class="notify-title">
-                                        @if (x != 0)
-                                        {<span>У вас @Context.Session.GetInt32("mesajSay") новых сообщений </span>}
-                                    else
-                                    { <span>У вас нету сообщений</span>}<a href="Messages/Index">смотреть все</a>
-                                    </span>
-                                    <div class="nofity-list">
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="assets/images/author/author-img3.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">Hey I am waiting for you...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
+
                             <li class="settings-btn">
                                 <i class="ti-settings"></i>
                             </li>
@@ -198,8 +150,8 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                            <img class="avatar user-thumb" src="~/assets/images/author/avatar.png" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Dvijeniels <i class="fa fa-angle-down"></i></h4>
+                            <img class="avatar user-thumb" src="~/generalroot/img/admin213559829.png" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">@UserManager.GetUserName(User)<i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="Messages/Index">Сообщения</a>
                                 <a class="dropdown-item" href="Uyes/Index">Настройки</a>
@@ -216,7 +168,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright @DateTime.Now.Year. Создатель <a href="https://ourblog.somee.com/">Dvijeniels</a>.</p>
+                <p>© Copyright @DateTime.Now.Year. Создатель <a href="https://api.whatsapp.com/send?phone=79163033395">Dvijeniels</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->
@@ -418,6 +370,8 @@
     <script src="~/assets/js/jquery.slimscroll.min.js"></script>
     <script src="~/assets/js/jquery.slicknav.min.js"></script>
 
+
+
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
@@ -441,6 +395,7 @@
     <!-- others plugins -->
     <script src="~/assets/js/plugins.js"></script>
     <script src="~/assets/js/scripts.js"></script>
+    
 </body>
 
 </html>

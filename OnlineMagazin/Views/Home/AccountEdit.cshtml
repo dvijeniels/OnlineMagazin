@@ -1,4 +1,8 @@
-﻿@model OnlineMagazin.Models.Uye
+﻿@model OnlineMagazinUser
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+@inject UserManager<OnlineMagazinUser> UserManager
 @{
     ViewData["Title"] = "Account";
     Layout = "~/Views/Shared/_Home.cshtml";
@@ -9,19 +13,16 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="page-menu">
-                    <li><a href="/Home/homeIndex">Главная</a></li>
+                    <li><a href="/Home/HomeIndex">Главная</a></li>
                     <li class="active"><a href="/Home/Account">Мой аккаунт</a></li>
                 </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <!-- CATEGORY-MENU-LIST START -->
                 @await Component.InvokeAsync("CategoryList")
-                <!-- END CATEGORY-MENU-LIST -->
             </div>
             <div class="col-md-9">
-                <!-- entry-header-area start -->
                 <div class="entry-header-area">
                     <div class="row">
                         <div class="col-md-12">
@@ -31,14 +32,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- entry-header-area end -->
-                <!-- Start checkout-area -->
                 <div class="checkout-area">
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- Accordion start -->
                             <div class="panel-group" id="accordion">
-                                <!-- Start My-First-Address -->
                                 <div class="panel panel_default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -46,32 +43,16 @@
                                         </h4>
                                     </div>
                                     <div id="payment-address" >
-                                        <form asp-action="AccountEdit" enctype="multipart/form-data">
+                                        <form asp-action="AccountEdit"  method="post" enctype="multipart/form-data">
                                             <div class="panel-body">
                                                 <div class="row">
-                                                    <input type="hidden" asp-for="UyeId" />
                                                     <div class="col-md-6 col-xs-12">
                                                         <fieldset id="account">
-                                                            <legend>Your Personal Details</legend>
+                                                            <legend>Ваши персональные данные</legend>
                                                             <div class="form-group">
                                                                 <label><sup>*</sup>ФИО</label>
-                                                                <input asp-for="AdSoyad" placeholder="Фамилия Имя и Отчество" class="form-control" />
-                                                                <span asp-validation-for="AdSoyad" class="text-danger"></span>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label><sup>*</sup>Логин</label>
-                                                                <input asp-for="KullaniciAdi" placeholder="Введите логин" class="form-control" />
-                                                                <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label><sup>*</sup>Пароль</label>
-                                                                <input asp-for="Sifre" placeholder="Введите логин" class="form-control" />
-                                                                <span asp-validation-for="Sifre" class="text-danger"></span>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label><sup>*</sup>Пароль</label>
-                                                                <input asp-for="ConfirmPassword" placeholder="Введите логин" class="form-control" />
-                                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                                                <input asp-for="FirstAndLastName" placeholder="Фамилия Имя и Отчество" class="form-control" />
+                                                                <span asp-validation-for="FirstAndLastName" class="text-danger"></span>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label><sup>*</sup>Email почта</label>
@@ -91,13 +72,13 @@
                                                     </div>
                                                     <div class="col-md-6 col-xs-12">
                                                         <fieldset id="address">
-                                                            <legend>Your Address</legend>
+                                                            <legend>Ваш адрес</legend>
                                                             <div class="form-group">
-                                                                <label><sup>*</sup>Address 1</label>
+                                                                <label><sup>*</sup>Адрес</label>
                                                                 <textarea asp-for="Address" placeholder="Введите адрес" class="form-control"></textarea>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Address 2</label>
+                                                                <label>Адрес 2</label>
                                                                 <textarea asp-for="Address2" placeholder="Введите второй адрес" class="form-control"></textarea>
                                                             </div>
                                                             <div class="form-group">
@@ -106,15 +87,9 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label><sup>*</sup>Область</label>
-                                                                <select placeholder="Выберите категорию" asp-for="Region" class="form-control form-control-lg">
+                                                                <select placeholder="Выберите область" asp-for="Region" class="form-control form-control-lg">
                                                                     <option value="Не выбрано">---Выберите область---</option>
-                                                                    <option value="Чуйская область">Чуйская область</option>
-                                                                    <option value="Жалал-Абадская область">Жалал-Абадская область</option>
-                                                                    <option value="Таласская область">Таласская область</option>
-                                                                    <option value="Ошская область">Ошская область</option>
-                                                                    <option value="Иссык-Кульская область">Иссык-Кульская область</option>
-                                                                    <option value="Баткенская область">Баткенская область</option>
-                                                                    <option value="Нарынская область">Нарынская область</option>
+                                                                    <option value="Московская область">Московская область</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
@@ -153,12 +128,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Accordion end -->
                         </div>
                     </div>
                 </div>
-                <!-- End Shopping-Cart -->
-                <!-- My-Account-Area start -->
                 <div class="my-account-area">
                     <div class="row">
                         <div class="col-md-6">
@@ -166,12 +138,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- My-Account-Area end -->
             </div>
         </div>
     </div>
-    <!-- START BRAND-LOGO-AREA -->
-    <!-- END BRAND-LOGO-AREA -->
-    <!-- START SUBSCRIBE-AREA -->
-    <!-- END SUBSCRIBE-AREA -->
 </section>

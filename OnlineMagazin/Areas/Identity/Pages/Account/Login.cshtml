@@ -1,0 +1,107 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Войти";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<section class="page-content">
+    <div class="account-create-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="page-menu">
+                        <li><a asp-area="" asp-controller="Home" asp-action="HomeIndex">Главная</a></li>
+                        <li class="active"><a id="login" asp-area="Identity" asp-page="/Account/Login">Aккаунт</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="area-title">
+                        <h3 class="title-group gfont-1">Используйте учетную запись для входа.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="account-create">
+                <form id="account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="account-create-box">
+                        <h2 class="box-info">Персональные данные</h2>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="single-create">
+                                    <p>Email почта <sup>*</sup></p>
+                                    <input asp-for="Input.Email" class="form-control" type="email" autocomplete="username" placeholder="Введите почта email" aria-required="true" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="single-create">
+                                    <p>Пароль <sup>*</sup></p>
+                                    <div class="password-container">
+                                        <input asp-for="Input.Password" id="password" class="form-control" type="password" placeholder="Введите пароль" autocomplete="new-password" aria-required="true" />
+                                        <i class="fa fa-eye" id="eye"></i>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label asp-for="Input.RememberMe" class="form-label">
+                                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Войти</button>
+                        <div>
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Забыли свой пароль?</a>
+                            </p>
+                            <p>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Зарегистрируйтесь как новый пользователь</a>
+                            </p>
+                            <p>
+                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Повторно отправить подтверждение по электронной почте</a>
+                            </p>
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    const passwordInput = document.querySelector("#password")
+    const eye = document.querySelector("#eye")
+    eye.addEventListener("click", function(){
+      this.classList.toggle("fa-eye-slash")
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+      passwordInput.setAttribute("type", type)
+    })
+</script>
+<style>
+.password-container {
+    position: relative;
+}
+
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;
+    padding: 12px 36px 12px 12px;
+    box-sizing: border-box;
+}
+
+.fa-eye {
+    position: absolute;
+    top: 28%;
+    right: 4%;
+    cursor: pointer;
+    color: lightgray;
+}
+</style>

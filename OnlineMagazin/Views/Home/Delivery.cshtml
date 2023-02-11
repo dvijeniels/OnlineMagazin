@@ -1,0 +1,245 @@
+﻿@{
+    ViewData["Title"] = "Доставка";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<section class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="page-menu">
+                    <li><a href="~/Home/HomeIndex/">Главная</a></li>
+                    <li class="active"><a href="#">Информация о доставке</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="about-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="f-title text-center">
+                        <h3 class="title text-uppercase">Доставка</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mmain">
+                    <h1 style="text-align: center;"><em><strong>Способы и условия доставки.</strong></em></h1>
+                    <div>Мы доставим вашу покупку в любую точку.</div>
+                      <style>
+                       .red-strelka {
+                        list-style: none; /* Скрываем маркеры списка */
+                        text-indent: -1em; /* Сдвигаем элементы списка влево */
+                       }
+                       .red-strelka::before {
+                        content: '\25ba'; /* Добавляем маркер в шестнадцатеричном формате*/
+                        padding-right: 5px; /* Расстояние от маркеров до текста */
+                        color: red; /* Маркеры красного цвета */
+                       }
+                      </style>
+                    <ul>
+                        <li class="red-strelka"><strong>Наличие товара</strong></li>
+                        <li class="red-strelka"><strong>Самовывоз </strong></li>
+                        <li class="red-strelka"><strong>Подъем на этаж </strong></li>
+                        <li class="red-strelka"><strong>Сроки доставки</strong></li>
+                        <li class="red-strelka"><strong>Условия доставки</strong></li>
+                    </ul>
+                    <p> </p>
+                    <h2><strong>Наличие товаров</strong></h2>
+                    <p>Наличие товаров указано на сайте рядом с ценой. Товары имеющиеся в наличии на складе магазина могут быть оперативно Вам доставлены  в удобное для Вас время (в связи с тем, что обновление сайта происходит не мгновенно и в момент заказа какие-то товары могут быть уже проданы, окончательное подтверждение наличия осуществляется менеджером).<br /><br />Более точную информацию о сроках поставки, наличию и цене данных товаров Вы можете уточнить у менеджеров магазина.</p>
+                    <h2><strong>1.) Самовывоз</strong></h2>
+                    <p>1. Чтобы забрать необходимый товар самостоятельно из пункта самовывоза, вам необходимо: <br /><br />А) Предварительно оформить заказ по звонку, через корзину или запросить у менеджера и оплатить счет. <br />Б) Согласовать дату и время получения с вашим менеджером. В пункте самовывоза вам необходимо будет назвать номер заказа или счета, который сообщит менеджер. </p>
+                    <p>Товар будет доставлен в пункт выдачи в период датам указаных на странице товара.</p>
+                    @*<h2><strong>2.) Доставка в регионы и области</strong></h2>
+                        <p> Доставка заказов осуществляется в течении 1-3 дней при наличии товара на складе компании.<br /><br /></p>
+                        <div class="site-contact">
+                        <div class="opl2">
+                        <div class="p-delivery__table-wrap">
+                        <table class="table" style="width: 1188px; height: 101px;">
+                        <tbody>
+                        <tr style="height: 29px;">
+                        <td style="width: 290px; height: 29px; text-align: center;"> Направление:</td>
+                        <td style="width: 157px; height: 29px; text-align: center;">до 3 кг.</td>
+                        <td style="width: 157px; height: 29px; text-align: center;"> до 5 кг.</td>
+                        <td style="width: 152px; height: 29px; text-align: center;"> 5-10 кг.</td>
+                        <td style="width: 149px; height: 29px; text-align: center;">10-15 кг.</td>
+                        <td style="width: 243px; height: 29px; text-align: center;">более 15 кг</td>
+                        </tr>
+                        <tr style="height: 18px;">
+                        <td style="width: 290px; height: 18px; text-align: left;">
+                        <p>г. Ош <br />Жалал-абат<br />(по адресная доставка)</p>
+                        <p>Ыссык-Куль,Талас, Нарын<br />(забор с центра города)</p>
+                        </td>
+                        <td style="width: 157px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>250 сом</p>
+                        </td>
+                        <td style="width: 157px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>250 сом</p>
+                        </td>
+                        <td style="width: 152px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>300 сом</p>
+                        </td>
+                        <td style="width: 149px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p> 350 с</p>
+                        </td>
+                        <td style="width: 243px; height: 18px; text-align: center;">
+                        <p>от 500 сом </p>
+                        <p>(согласовать с менеджером)</p>
+                        </td>
+                        </tr>
+                        <tr style="height: 18px;">
+                        <td style="width: 290px; height: 18px; text-align: left;">
+                        <p>г.Баткен (забор с центра города)</p>
+                        <p>Ноокат, Кызыл-Кия с трассы</p>
+                        </td>
+                        <td style="width: 157px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>250 сом</p>
+                        </td>
+                        <td style="width: 157px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>300 сом</p>
+                        </td>
+                        <td style="width: 152px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>350 сом</p>
+                        </td>
+                        <td style="width: 149px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p> 400 с</p>
+                        </td>
+                        <td style="width: 243px; height: 18px; text-align: center;">
+                        <p>от 700 сом </p>
+                        <p>(согласовать с менеджером)</p>
+                        </td>
+                        </tr>
+                        <tr style="height: 18px;">
+                        <td style="width: 290px; height: 18px; text-align: left;">
+                        <p>Доставка по Чуйской области</p>
+                        <p>(забор с машины)</p>
+                        </td>
+                        <td style="width: 157px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>250 сом</p>
+                        </td>
+                        <td style="width: 157px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>300 сом</p>
+                        </td>
+                        <td style="width: 152px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p>350 сом</p>
+                        </td>
+                        <td style="width: 149px; height: 18px; text-align: center;">
+                        <p> </p>
+                        <p> 400 с</p>
+                        </td>
+                        <td style="width: 243px; height: 18px; text-align: center;">
+                        <p>от 300 сом </p>
+                        <p>(согласовать с менеджером)</p>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        </div>*@
+                    <div class="site-contact">
+                        <header class="title-page"></header>
+                        <section class="contacts-box">
+                            <div class="c-content">
+                                <article class="c-i">
+                                    <div class="c-i-time">
+                                        <p class="c-i-time-remark"> </p>
+                                    </div>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                    <h2><strong>2). Подъем на этаж</strong></h2>
+                    <p>Подъем товара не входит в стоимость доставки и рассчитывается по следующим тарифам: <br /><br /></p>
+                    <p>Стоимость подъема за каждый этаж.</p>
+                    <div class="p-delivery__table-wrap">
+                        <table class="table" style="width: 721px; height: 90px;">
+                            <tbody>
+                                <tr style="height: 18px;">
+                                    <th style="width: 250px; height: 18px; text-align: center;">Вес</th>
+                                    <th style="width: 232px; height: 18px; text-align: center;">при участии 1 грузчика</th>
+                                    <th style="width: 217px; height: 18px; text-align: center;">при участии 2-х грузчика</th>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 250px; height: 18px; text-align: center;">До 20кг</td>
+                                    <td style="width: 232px; height: 18px; text-align: center;">Бесплатно</td>
+                                    <td style="width: 217px; height: 18px; text-align: center;"> </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 250px; height: 18px; text-align: center;">От 40кг до 60кг</td>
+                                    <td style="width: 232px; height: 18px; text-align: center;">10 ₽.</td>
+                                    <td style="width: 217px; height: 18px; text-align: center;">20 ₽.</td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 250px; height: 18px; text-align: center;">От 60кг до 120кг</td>
+                                    <td style="width: 232px; height: 18px; text-align: center;">40 ₽.</td>
+                                    <td style="width: 217px; height: 18px; text-align: center;">80 ₽.</td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 250px; height: 18px; text-align: center;">От 120кг до 150кг</td>
+                                    <td style="width: 232px; height: 18px; text-align: center;">200 ₽.</td>
+                                    <td style="width: 217px; height: 18px; text-align: center;">400 ₽.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p> </p>
+                    </div>
+                    <div class="site-contact">
+                        <header class="title-page"></header>
+                        <section class="contacts-box">
+                            <div class="c-content">
+                                <article class="c-i">
+                                    <div class="c-i-time">
+                                        <h2><strong>3). Срок доставки товаров</strong></h2>
+                                        <ul>
+                                            <li>В зависимости от выбранных вами товаров срок доставки может составлять от 1 часа до 5  дней включая выходние, подробную инфомрацию по срокам доставок уточните у менеджера.</li>
+                                        </ul>
+                                        <p> </p>
+                                        <h2><strong>4). Условия доставки и получения заказов:</strong></h2>
+                                        <div>
+                                            <p>   Доставка осуществляется только для товаров, входящих в состав заказа. Транспортировка
+                                                нескольких товаров с целью выбора одного из них на 
+                                                месте доставки не производится.<br /><br />   Доставка по указанному
+                                                адресу обязывает покупателя находиться на месте в согласованное накануне время.
+                                                <br /><br />  Доставка осуществляется до помещения и места,
+                                                которые укажет покупатель, при условии, что отсутствуют предметы, загромождающие проходы,
+                                                а расстояние между товаром в упаковке и проемом (дверь, коридор) не 
+                                                менее 5 см.<br /><br />Вслучае, если условия в указанном покупателем 
+                                                помещении мешают доставке товара или могут вызвать его повреждение, товар доставляется доставщиком
+                                                до ближайшего места подходящими (перечисленными выше) условиями. Доставщики не
+                                                осуществляют уборку территории от препятствующих предметов и не передвигают объекты 
+                                                в квартире.<br /><br />В обязанности доставщиков не входит консультация 
+                                                по эксплуатации и характеристикам товара, его установка и настройка. В случае
+                                                необходимости, информацию о товаре можно получить на сайте или в колл-центре.<br />
+                                                <br /> Заводская упаковка товара не вскрывается до доставки покупателю.<br />
+                                                <br /> Претензии к внешнему виду и комплектации изделия после заполнения 
+                                                гарантийного талона и отъезда курьера не принимаются. Поэтому настоятельно рекомендуем
+                                                вам проверять модель, характеристики, комплектацию товара <strong>до подписания гарантийного талона.</strong></p>
+                                            <p>  В случае отказа покупателя от получения товара надлежащего качества после его передачи
+                                                покупателю, он оплачивает стоимость доставки в любом случае.</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End About-Area -->
+    <!-- Start Our-Team -->
+
+</section>

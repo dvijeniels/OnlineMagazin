@@ -1,0 +1,68 @@
+﻿@using OnlineMagazin.Areas.Identity.Data
+@model IEnumerable<OnlineMagazinUser>
+
+@{
+    ViewData["Title"] = "Роли";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="col-12 mt-lg-3">
+    <div class="card">
+
+        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstAndLastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Region)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstAndLastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Region)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-dark">Изменить</a> 
+                                    <a asp-action="EditRole" asp-route-id="@item.Id" class="btn btn-secondary btn-info">Изменить роль</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-danger">Удалить</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

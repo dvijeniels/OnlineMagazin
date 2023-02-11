@@ -8,14 +8,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <!-- CATEGORY-MENU-LIST START -->
                 @await Component.InvokeAsync("CategoryList")
-                <!-- END CATEGORY-MENU-LIST -->
             </div>
             <div class="col-md-9">
-                <!-- slider -->
                 @await Component.InvokeAsync("SliderList")
-                <!-- slider end-->
             </div>
         </div>
     </div>
@@ -25,7 +21,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-3">
-                <!-- START HOT-DEALS-AREA -->
                 <div class="hot-deals-area carosel-circle">
                     <div class="row">
                         <div class="col-md-12">
@@ -36,171 +31,91 @@
                     </div>
                     <div class="row">
                         <div class="active-hot-deals">
-                            <!-- Start Single-hot-deals -->
-                            @foreach (var item in Model)
+                            @if (Model != null)
                             {
-                                <div class="col-xs-12">
-                                    <div class="single-hot-deals">
-                                        <div class="hot-deals-photo">
-                                            <a href="#"><img src="~/image/@item.Foto" alt="Product"></a>
-                                        </div>
-                                        <div class="count-down">
-                                            <div class="timer">
-                                                <div data-countdown="2021/12/31"></div>
-                                            </div>
-                                        </div>
-                                        <div class="hot-deals-text">
-                                            <h5><a href="#" class="name-group">@item.Baslik</a></h5>
-                                            <span class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></span>
-                                            <div class="price-box">
-                                                <span class="price gfont-2">$@item.Price</span>
-                                                <span class="old-price gfont-2">$@item.Price</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            <!-- End Single-hot-deals -->
-                            <!-- Start Single-hot-deals -->
-                            @*<div class="col-xs-12">
-                        <div class="single-hot-deals">
-                            <div class="hot-deals-photo">
-                                <a href="#"><img src="img/hot-deals/2.jpg" alt="Product"></a>
-                            </div>
-                            <div class="count-down">
-                                <div class="timer">
-                                    <div data-countdown="2017/06/30"></div>
-                                </div>
-                            </div>
-                            <div class="hot-deals-text">
-                                <h5><a href="#" class="name-group">Trid Palm</a></h5>
-                                <span class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></span>
-                                <div class="price-box">
-                                    <span class="price gfont-2">$85.00</span>
-                                    <span class="old-price gfont-2">$120.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
-                        </div>
-                    </div>
-                </div>
-                <!-- END HOT-DEALS-AREA -->
-                <!-- START SMALL-PRODUCT-AREA -->
-                <div class="small-product-area carosel-navigation">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="area-title">
-                                <h3 class="title-group gfont-1">Bestseller</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="active-bestseller sidebar">
-                            <div class="col-xs-12">
-                                <!-- Start Single-Product -->
                                 @foreach (var item in Model)
                                 {
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <a href="#">
-                                                <img class="primary-img" src="~/image/@item.Foto" alt="Product">
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h5><a href="#">@item.Baslik</a></h5>
-                                            <div class="price-box">
-                                                <span class="price">$@item.Price</span>
-                                                <span class="old-price">$@item.Price</span>
+                                    if (item.TypeProduct.TypeName == "Горячие товары")
+                                    {
+                                        <div class="col-xs-12">
+                                            <div class="single-hot-deals">
+                                                <div class="hot-deals-photo">
+                                                    <a href="/Home/ProductDetail/@item.ProductId"><img style="min-height: 270px;" src="~/image/@item.Foto" alt="Product"></a>
+                                                </div>
+                                                <div class="count-down">
+                                                    <div class="timer">
+                                                        <div data-countdown="2023/02/31"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="hot-deals-text">
+                                                    <h5>
+                                                        @{
+                                                            if (item.Baslik.Length > 28)
+                                                            {
+                                                                <a href="#" class="name-group">@item.Baslik.ToString().Substring(0,28)...</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="#" class="name-group">@item.Baslik</a>
+                                                            }
+                                                        }
+                                                    </h5>
+                                                    @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                    <div class="price-box">
+                                                        <span class="price gfont-2">₽@item.Price</span>
+                                                        <span class="old-price gfont-2">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <span class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
                                         </div>
-                                    </div>
+                                    }
                                 }
-                            </div>
-                            <div class="col-xs-12">
-
-
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
-                <!-- END SMALL-PRODUCT-AREA -->
-                <!-- START SIDEBAR-BANNER -->
                 @await Component.InvokeAsync("SliderBanner")
-                <!-- END SIDEBAR-BANNER -->
-                <!-- START RECENT-POSTS -->
-                <div class="shop-blog-area sidebar">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="title-group border-red gfont-1">НЕДАВНИЕ ПОСТЫ </h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="active-recent-posts carosel-circle">
-                            <!-- Start Single-Recent-Posts -->
-                            <div class="col-xs-12">
-                                <div class="single-recent-posts">
-                                    <div class="recent-posts-photo">
-                                        <img src="~/image/p1.jpg" alt="Recent Posts">
-                                    </div>
-                                    <div class="recent-posts-text">
-                                        <h5><a href="#" class="recent-posts-title">swimwear for women</a></h5>
-                                        <span class="recent-posts-date">31/12/2021 | BootExpert Theme</span>
-                                        <p class="posts-short-brif">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                                        <a href="#" class="posts-read-more">Read more ...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single-Recent-Posts -->
-                        </div>
-                    </div>
-                </div>
-                <!-- END RECENT-POSTS -->
+                @await Component.InvokeAsync("News")
             </div>
             <div class="col-md-9 col-sm-9">
-                <!-- START PRODUCT-BANNER -->
                 <div class="product-banner home1-banner">
                     <div class="row">
                         <div class="col-md-7 banner-box1">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/image/3.jpg" alt="Product Banner"></a>
+                                <a href="#"><img src="~/generalroot/img/33.png" alt="СТРОИТЕЛЬНЫЕ ИНСТРУМЕНТЫ"></a>
                                 <div class="banner-text banner-1">
-                                    <h2>head phone 2015</h2>
+                                    <h2>ЛЮБЫЕ ТИПЫ<br />МАТЕРИАЛОВ</h2>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5 banner-box2">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/image/4.jpg" alt="Product Banner"></a>
+                                <a href="#"><img src="~/generalroot/img/88.png" alt="Product Banner"></a>
                                 <div class="banner-text banner-2">
-                                    <h2>Deals <span>50%</span></h2>
-                                    <p>lumina n85</p>
+                                    <h2>Пескобетон <span>10%</span></h2>
+                                    <p>M-300</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- END PRODUCT-BANNER -->
-                <!-- START PRODUCT-AREA (2) -->
                 <div class="product-area">
                     <!-- Start Product-Menu -->
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <div class="product-menu  border-red">
                                 <div class="product-title">
-                                    <h3 class="title-group-2 gfont-1">Computer</h3>
+                                    <h3 class="title-group-2 gfont-1">Товары</h3>
                                 </div>
-
                                 <ul role="tablist">
-                                    <li role="presentation" class=" active"><a href="#display-2-1" role="tab" data-toggle="tab">Dell</a></li>
-                                    <li role="presentation"><a href="#display-2-2" role="tab" data-toggle="tab">Apple</a></li>
+                                    <li role="presentation" class=" active"><a href="#display-2-1" role="tab" data-toggle="tab">Все товары</a></li>
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in ViewBag.UpToCategory)
+                                        {
+                                            <li role="presentation"><a href="#display-@item.CategoryId" role="tab" data-toggle="tab">@item.CategoriName</a></li>
+                                        }
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -216,265 +131,199 @@
                                         <div class="row">
                                             <div class="active-product-carosel">
                                                 <!-- Start Single-Product -->
-                                                @foreach (var item in Model)
+                                                @if (Model != null)
                                                 {
-                                                    <div class="col-xs-12">
-                                                        <div class="single-product">
-                                                            <div class="label_new">
-                                                                <span class="new">new</span>
-                                                            </div>
-                                                            <div class="sale-off">
-                                                                <span class="sale-percent">-35%</span>
-                                                            </div>
-                                                            <div class="product-img">
-                                                                <a href="#">
-                                                                    <img class="primary-img" src="~/image/@item.Foto" alt="Product">
-                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-description">
-                                                                <h5><a href="#">@item.Baslik</a></h5>
-                                                                <div class="price-box">
-                                                                    <span class="price">$@item.Price</span>
-                                                                    <span class="old-price">$@item.Price</span>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <div class="col-xs-12">
+                                                            <div class="single-product">
+                                                                <div class="label_new">
+                                                                    <span class="new">new</span>
                                                                 </div>
-                                                                <span class="rating">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                <div class="product-action">
-                                                                    <div class="button-group">
-                                                                        <div class="product-button">
-                                                                            <button><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                                                        </div>
-                                                                        <div class="product-button-2">
-                                                                            <a href="#" data-toggle="tooltip" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                                                            <a href="#" data-toggle="tooltip" title="Compare"><i class="fa fa-signal"></i></a>
-                                                                            <a href="#" class="modal-view" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                <div class="sale-off">
+                                                                    <span class="sale-percent">-16%</span>
+                                                                </div>
+                                                                <div class="product-img">
+                                                                    <a href="/Home/ProductDetail/@item.ProductId">
+                                                                        <img class="primary-img" src="~/image/@item.Foto" alt="Product">
+                                                                        @if (item.Foto2 != null)
+                                                                        {
+                                                                            <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                        }
+                                                                    </a>
+                                                                </div>
+                                                                <div class="product-description">
+                                                                    <h5>
+                                                                        @{
+                                                                            if (item.Baslik.Length > 39)
+                                                                            {
+                                                                                <a href="#">@item.Baslik.ToString().Substring(0,39)...</a>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <a href="#">@item.Baslik</a>
+                                                                            }
+                                                                        }
+                                                                    </h5>
+                                                                    <div class="price-box">
+                                                                        <span class="price">₽@item.Price</span>
+                                                                        <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                                                    </div>
+                                                                    @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                                    <div class="product-action">
+                                                                        <div class="button-group">
+                                                                            <div class="product-button">
+                                                                                <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                            </div>
+                                                                            <div class="product-button-2">
+                                                                                <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" data-toggle="tooltip" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                                <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    }
                                                 }
-                                                <!-- End Single-Product -->
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Product = display-2-1 -->
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item2 in ViewBag.UpToCategory)
+                                        {
+                                            <div role="tabpanel" class="tab-pane fade" id="display-@item2.CategoryId">
+                                                <div class="row">
+                                                    <div class="active-product-carosel">
+
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            @if (item2.CategoryId == item.CategoryId)
+                                                            {
+                                                                <div class="col-xs-12">
+                                                                    <div class="single-product">
+                                                                        <div class="label_new">
+                                                                            <span class="new">new</span>
+                                                                        </div>
+                                                                        <div class="sale-off">
+                                                                            <span class="sale-percent">-16%</span>
+                                                                        </div>
+                                                                        <div class="product-img">
+                                                                            <a href="/Home/ProductDetail/@item.ProductId">
+                                                                                <img class="primary-img" src="~/image/@item.Foto" alt="Product">
+                                                                                @if (item.Foto2 != null)
+                                                                                {
+                                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                                }
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="product-description">
+                                                                            <h5><a href="#">@item.Baslik</a></h5>
+                                                                            <div class="price-box">
+                                                                                <span class="price">₽@item.Price</span>
+                                                                                <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                                                            </div>
+                                                                            @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                                            <div class="product-action">
+                                                                                <div class="button-group">
+                                                                                    <div class="product-button">
+                                                                                        <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                                    </div>
+                                                                                    <div class="product-button-2">
+                                                                                        <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" data-toggle="tooltip" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End Product -->
                 </div>
-                <!-- END PRODUCT-AREA (2) -->
-                <!-- START PRODUCT-BANNER -->
+
                 <div class="product-banner">
                     <div class="row">
                         <div class="col-md-7 banner-box1">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/image/5.jpg" alt="Product Banner"></a>
+                                <a href="#"><img src="/generalroot/img/55.png" alt="Сухой смесь Пескобектон "></a>
                                 <div class="banner-text banner-1">
-                                    <h2>ApBle 4s</h2>
-                                    <p>Vibrant colors beautifully designed</p>
-                                    <span>$888.66</span>
+                                    <h2>СМЕСИ</h2>
+                                    <span>от ₽99</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5 banner-box2">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/image/6.jpg" alt="Product Banner"></a>
+                                <a href="#"><img src="~/generalroot/img/77.png" alt="Строительные материалы"></a>
                                 <div class="banner-text banner-2">
-                                    <h2>Htc <span>N8.</span></h2>
-                                    <p>lumina n85</p>
+                                    <h2>СТРОИТЕЛЬНЫЕ <span>ИНСТРУМЕНТЫ</span></h2>
+                                    <p>ЛЮБОГО ВИДА</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- END PRODUCT-BANNER -->
-                <!-- START  -->
-                <!-- START SMALL-PRODUCT-AREA (1) -->
-                <div class="small-product-area">
-                    <!-- Start Product-Menu -->
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="product-menu">
-                                <ul role="tablist">
-                                    <li role="presentation" class=" active"><a href="#display-4-1" role="tab" data-toggle="tab">Последние</a></li>
-                                    <li role="presentation"><a href="#display-4-2" role="tab" data-toggle="tab">Распродажа</a></li>
-                                    <li role="presentation"><a href="#display-4-3" role="tab" data-toggle="tab">Случайные</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Product-Menu -->
-                    <!-- Start Product -->
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="product carosel-navigation">
-                                <div class="tab-content">
-                                    <!-- Product = display-4-1 -->
-                                    <div role="tabpanel" class="tab-pane fade in active" id="display-4-1">
-                                        <div class="row">
-                                            <div class="active-small-product">
-                                                <!-- Start Single-Product -->
-                                                
-                                                
-                                                <div class="col-xs-12">
-                                                    @foreach (var item in Model)
-                                                    {
-
-                                                        <div class="single-product">
-                                                            <div class="product-img">
-                                                                <a href="#">
-                                                                    <img class="primary-img" src="~/image/@item.Foto" alt="Product">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-description">
-                                                                <h5><a href="#">@item.Baslik</a></h5>
-                                                                <div class="price-box">
-                                                                    <span class="price">$@item.Price</span>
-                                                                    <span class="old-price">$@item.Price</span>
-                                                                </div>
-                                                                <span class="rating">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                <div class="product-action">
-                                                                    <div class="product-button-2">
-                                                                        <a href="#" data-toggle="tooltip" title="Add Cart"><i class="fa fa-shopping-cart"></i></a>
-                                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                                                        <a href="#" data-toggle="tooltip" title="Compare"><i class="fa fa-signal"></i></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                    
-                                                    
-                                                </div>
-
-                                                <!-- End Single-Product -->
-                                                <!-- Start Single-Product -->
-                                                @*<div class="col-xs-12">
-                                                    
-                                                </div>*@
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product = display-4-1 -->
-                                    <!-- Start Product = display-4-2 -->
-                                    <div role="tabpanel" class="tab-pane fade" id="display-4-2">
-                                        <div class="row">
-                                            <div class="active-small-product">
-                                                <!-- Start Single-Product -->
-                                                <div class="col-xs-12">
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        <div class="single-product">
-                                                            <div class="product-img">
-                                                                <a href="#">
-                                                                    <img class="primary-img" src="~/image/@item.Foto" alt="Product">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-description">
-                                                                <h5><a href="#">@item.Baslik</a></h5>
-                                                                <div class="price-box">
-                                                                    <span class="price">$@item.Price</span>
-                                                                    <span class="old-price">$@item.Price</span>
-                                                                </div>
-                                                                <span class="rating">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                <div class="product-action">
-                                                                    <div class="button-group">
-                                                                        <div class="product-button-2">
-                                                                            <a href="#" data-toggle="tooltip" title="Add Cart"><i class="fa fa-shopping-cart"></i></a>
-                                                                            <a href="#" data-toggle="tooltip" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                                                            <a href="#" data-toggle="tooltip" title="Compare"><i class="fa fa-signal"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product = display-4-2 -->
-                                    <!-- Start Product = display-4-3 -->
-                                    <div role="tabpanel" class="tab-pane fade" id="display-4-3">
-                                        <div class="row">
-                                            <div class="active-small-product">
-                                                <!-- Start Single-Product -->
-                                                <div class="col-xs-12">
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        <div class="single-product">
-                                                            <div class="product-img">
-                                                                <a href="#">
-                                                                    <img class="primary-img" src="~/image/@item.Foto" alt="Product">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-description">
-                                                                <h5><a href="#">@item.Baslik</a></h5>
-                                                                <div class="price-box">
-                                                                    <span class="price">$@item.Price</span>
-                                                                    <span class="old-price">$@item.Price</span>
-                                                                </div>
-                                                                <span class="rating">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-o"></i>
-                                                                </span>
-                                                                <div class="product-action">
-                                                                    <div class="button-group">
-                                                                        <div class="product-button-2">
-                                                                            <a href="#" data-toggle="tooltip" title="Add Cart"><i class="fa fa-shopping-cart"></i></a>
-                                                                            <a href="#" data-toggle="tooltip" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                                                            <a href="#" data-toggle="tooltip" title="Compare"><i class="fa fa-signal"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Product = display-4-3 -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Product -->
-                </div>
-                <!-- END SMALL-PRODUCT-AREA (1) -->
             </div>
         </div>
     </div>
-    <!-- END SUBSCRIBE-AREA -->
-</section>
-<!-- QUICKVIEW PRODUCT -->
-
-
-
-
-
+@*@await Component.InvokeAsync("ModalView")*@
+<script>
+    function AddProductToCart(id) {
+        $.post("/Home/AddProductToCart?productID=" + id + "&qty=" + 1 + "", function (data) {
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в корзину!",
+              icon: "success",
+              buttons: ["Продолжить покупку", "Перейти в корзину"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/Cart";
+              }
+            });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+            function AddProductToLiked(id) {
+        $.post("/Home/AddProductToLiked?productID=" + id + "", function (data) {
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в понравившиеся!",
+              icon: "info",
+              buttons: ["Продолжить", "Перейти в список понравившиеся"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/WishList";
+              }
+            });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                console.log(data);
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+    function ModalAc(id) {
+        $.get("/Home/ModalView?productID=" + id +"", function (data) {
+             $("#quickview-wrapper").html(data);
+             $("#productModal").modal('show');
+        });
+        $("#quickview-wrapper").html("");
+        return false;
+    };
+</script>

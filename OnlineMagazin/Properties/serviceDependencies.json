@@ -3,6 +3,14 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "OnlineMagazinContext"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:OnlineMagazinContexttConnection"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "dynamicId": null
     }
   }
 }

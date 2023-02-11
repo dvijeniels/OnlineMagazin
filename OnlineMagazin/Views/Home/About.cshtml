@@ -9,13 +9,12 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="page-menu">
-                    <li><a href="~/Home/homeIndex/">Главная</a></li>
+                    <li><a href="~/Home/HomeIndex/">Главная</a></li>
                     <li class="active"><a href="#">О нас</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <!-- Start About-Area -->
     <div class="about-area">
         <div class="container">
             <div class="row">
@@ -30,7 +29,7 @@
                     <div class="about-page-cntent">
                         @foreach (var item in Model)
                         {
-                            <p>@item.MetinIcerik</p>
+                            @Html.Raw(item.MetinIcerik) 
                         }
                     </div>
                 </div>
@@ -44,14 +43,12 @@
             </div>
         </div>
     </div>
-    <!-- End About-Area -->
-    <!-- Start Our-Team -->
     <div class="our-team">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="f-title text-center">
-                        <h3 class="title text-uppercase">Meet the team</h3>
+                        <h3 class="title text-uppercase">Наши места</h3>
                     </div>
                 </div>
             </div>
@@ -60,7 +57,7 @@
                     <div class="item-team text-center">
                         <div class="team-info">
                             <div class="team-img">
-                                <img alt="Team" class="img-responsive" src="~/generalroot/img/about/1.jpg">
+                                <img alt="Team" class="img-responsive" src="~/generalroot/img/завод.jpg">
                                 <div class="mask">
                                     <div class="mask-inner">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -69,15 +66,15 @@
                                 </div>
                             </div>
                         </div>
-                        <h4>Havier Macherano</h4>
-                        <h5>Developer</h5>
+                        <h4>Завод</h4>
+                        <h5>Доставка из нашего завода</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
                     <div class="item-team text-center">
                         <div class="team-info">
                             <div class="team-img">
-                                <img alt="Team" class="img-responsive" src="~/generalroot/img/about/2.jpg">
+                                <img alt="Team" class="img-responsive" src="~/generalroot/img/завод2.jpg">
                                 <div class="mask">
                                     <div class="mask-inner">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -86,15 +83,15 @@
                                 </div>
                             </div>
                         </div>
-                        <h4>Luka Biglia</h4>
-                        <h5>Programmer</h5>
+                        <h4>Завод</h4>
+                        <h5>Самовывоз из завода</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
                     <div class="item-team text-center">
                         <div class="team-info">
                             <div class="team-img">
-                                <img alt="Team" class="img-responsive" src="~/generalroot/img/about/1.jpg">
+                                <img alt="Team" class="img-responsive" src="~/generalroot/img/склад.jpg">
                                 <div class="mask">
                                     <div class="mask-inner">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -103,15 +100,15 @@
                                 </div>
                             </div>
                         </div>
-                        <h4>Anzo Perez</h4>
-                        <h5>Designer</h5>
+                        <h4>Склад</h4>
+                        <h5>Наш склад материалов</h5>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
                     <div class="item-team text-center">
                         <div class="team-info">
                             <div class="team-img">
-                                <img alt="Team" class="img-responsive" src="img/about/2.jpg">
+                                <img alt="Склад сухих смесей" class="img-responsive" src="~/generalroot/img/склад2.jpg">
                                 <div class="mask">
                                     <div class="mask-inner">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -120,12 +117,11 @@
                                 </div>
                             </div>
                         </div>
-                        <h4>Martin Demichelis</h4>
-                        <h5>PHP Developer</h5>
+                        <h4>Склад</h4>
+                        <h5>Наш склад сухих смесей</h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Our-Team -->
 </section>

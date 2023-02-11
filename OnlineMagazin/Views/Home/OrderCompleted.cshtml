@@ -1,0 +1,31 @@
+﻿@*@model OnlineMagazin.Models.Orders*@
+
+@{
+    ViewData["Title"] = "Заказ принят";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+@using Microsoft.AspNetCore.Http
+<section class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="page-menu">
+                    <li><a href="~/Home/HomeIndex/" class="active">Главная</a></li>
+                    <li class="active"><a href="#">Заказ принят</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("CategoryList")
+                @await Component.InvokeAsync("BestsellerProducts")
+            </div>
+            <div class="col-md-9">
+                    <h2 class="text-center">Спасибо за заказ</h2>
+                    <h3 class="text-center">@ViewData["NumberOrder"]</h3>
+                    <img class="center-block" src="~/generalroot/img/thinks.png" />
+                    <h3 class="text-center">Номер заказа @Context.Session.GetString("NumberOrder"). Мы свяжемся с Вами в ближайшее время.</h3>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineMagazin.Data;
 using System.Linq;
 
 namespace OnlineMagazin.ViewComponents
 {
+    [AllowAnonymous]
     public class BestsellerProducts:ViewComponent
     {
         private readonly OnlineMagazinContext _context;

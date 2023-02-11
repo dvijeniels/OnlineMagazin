@@ -1,0 +1,109 @@
+﻿@model OnlineMagazin.Models.Products
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="modal fade" id="productModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-product">
+                    <div class="product-images">
+                        <div class="main-image images">
+                            <img alt="Фото товара" src="~/image/@Model.Foto" />
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <h1>@Html.DisplayFor(model => model.Baslik)</h1>
+                        <div class="price-box-3">
+                            <hr />
+                            <div class="s-price-box">
+                                <span class="new-price">@Html.DisplayFor(model => model.Price) ₽</span>
+                                <span class="old-price">@((Convert.ToDouble(Model.Price)*0.16)+Convert.ToDouble(Model.Price)) ₽</span>
+                            </div>
+                            <hr />
+                        </div>
+                        <a href="/Home/ProductDetail/@Model.ProductId" class="see-all">Посмотреть все особенности</a>
+                        <div class="quick-add-to-cart">
+                            <div class="numbers-row">
+                                <input type="number" style="margin-bottom: 10px; margin-right: 15px;" min="1" id="qtyModal" value="1">
+                            </div>
+                            <button type="submit" onclick="AddProductToCart()" id="productIdModal" value="@Model.ProductId" class="single_add_to_cart_button">В корзину</button>
+                        </div>
+                        <div class="quick-desc">
+                            @if (Model.Icerik.Count() > 150)
+                            {
+                                <p>@Html.Raw(Model.Icerik.ToString().Substring(0, 150))......</p>
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.Icerik)
+                            }
+                            @*@Html.Raw(Model.Icerik)*@
+                        </div>
+                        <div class="social-sharing">
+                            <div class="widget widget_socialsharing_widget">
+                                <h3 class="widget-title-modal">Поделитесь этим продуктом</h3>
+                                <ul class="social-icons">
+                                    <li><a target="_blank" title="WhatsApp" href="#" class="whatsapp social-icon"><i class="fa fa-whatsapp"></i></a></li>
+                                    <li><a target="_blank" title="Facebook" href="#" class="facebook social-icon"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a target="_blank" title="Twitter" href="#" class="twitter social-icon"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a target="_blank" title="LinkedIn" href="#" class="linkedin social-icon"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a target="_blank" title="Google +" href="#" class="gplus social-icon"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var pIDLink = $("#productIdModal").val();
+    const productLink='https://pskanker.ru/Home/ProductDetail/'+pIDLink;
+    const msg=encodeURIComponent('Смотри что я нашел');
+    const title=encodeURIComponent(document.querySelector('title').textContent);
+
+    const fb=document.querySelector('.facebook');
+    fb.href=`https://www.facebook.com/share.php?u=${productLink}`;
+
+    const tw=document.querySelector('.twitter');
+    tw.href=`https://twitter.com/share?&url=${productLink}&text=${msg}&hashtags=строймаркет,материалы,материалыдлястройки`;
+
+    const google=document.querySelector('.gplus');
+    google.href=`https://plus.google.com/share?url=${productLink}`;
+
+    const ln=document.querySelector('.linkedin');
+    ln.href=`https://www.linkedin.com/sharing/share-offsite/?url=${productLink}`;
+
+    const wt=document.querySelector('.whatsapp');
+    wt.href=`whatsapp://send?text=${productLink}`;
+    
+</script>
+<script>
+    function AddProductToCart() {
+        var pID = $("#productIdModal").val();
+        var qty = $("#qtyModal").val();
+        var productPrice = $("#ProductPrice").val();
+        $.post("/Home/AddProductToCart?productID=" + pID + "&qty=" + qty + "", function (data) {
+            $('#productModal').modal('toggle');
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в корзину!",
+              icon: "success",
+              buttons: ["Продолжить покупку", "Перейти в корзину"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/Cart";
+              }
+            });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+</script>

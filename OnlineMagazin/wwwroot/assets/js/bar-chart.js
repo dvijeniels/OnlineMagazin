@@ -1,4 +1,4 @@
-/*--------------  coin_sales4 bar chart start ------------*/
+﻿/*--------------  coin_sales4 bar chart start ------------*/
 if ($('#coin_sales4').length) {
     var ctx = document.getElementById("coin_sales4").getContext('2d');
     var chart = new Chart(ctx, {

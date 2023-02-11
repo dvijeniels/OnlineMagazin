@@ -1,0 +1,78 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Comments>
+
+@{
+    ViewData["Title"] = "Комментарий";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="col-12 mt-lg-3">
+    <div class="card">
+        <a asp-action="Create" class="btn btn-outline-secondary mb-3"><i class="ti-plus"></i>  Создать новый</a>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Contents)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Score)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Contents)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Products.Baslik)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Score)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @if (item.Status)
+                                {
+                                    <h6>Одобрен</h6>
+                                }
+                                else
+                                {
+                                    <h6>Не одобрен</h6>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a asp-action="Edit" asp-route-id="@item.CommentId" class="btn btn-secondary btn-dark">Изменить</a> 
+                                    <a asp-action="Details" asp-route-id="@item.CommentId" class="btn btn-secondary btn-info">Детали</a>
+                                    <a asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-secondary btn-danger">Удалить</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

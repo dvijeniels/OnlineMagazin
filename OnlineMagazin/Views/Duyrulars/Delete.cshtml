@@ -19,7 +19,13 @@
             @Html.DisplayNameFor(model => model.Duyuruicerik)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Duyuruicerik)
+            @Html.Raw(Model.Duyuruicerik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DuyuruLink)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DuyuruLink)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DuyuruResim)

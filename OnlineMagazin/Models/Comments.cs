@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineMagazin.Areas.Identity.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,18 +20,25 @@ namespace OnlineMagazin.Models
         [Required(ErrorMessage = "Пожалуйста оставьте комментарий")]
         public string Contents { get; set; }
 
-        [DisplayName("Клиент")]
-        public int? UyeId { get; set; }
+        [StringLength(80)]
+        [DisplayName("Имя")]
+        [Required(ErrorMessage = "Пожалуйста введите ваше имя")]
+        public string UserName { get; set; }
 
         [DisplayName("Товар")]
-        public int? ProductsId { get; set; }
+        public int ProductId { get; set; }
+
+        [DisplayName("Статус")]
+        public bool Status { get; set; }
+
+        [DisplayName("Оценка")]
+        public int? Score { get; set; }
 
         [DisplayName("Дата комментария")]
         public DateTime? Date { get; set; }
 
+        [DisplayName("Товар")]
+        [ForeignKey("ProductId")]
         public virtual Products Products { get; set; }
-
-        public virtual Uye Uye { get; set; }
-        
     }
 }

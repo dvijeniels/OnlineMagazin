@@ -1,4 +1,4 @@
-/*--------------  coin_sales1 start ------------*/
+﻿/*--------------  coin_sales1 start ------------*/
 if ($('#coin_sales1').length) {
     var ctx = document.getElementById("coin_sales1").getContext('2d');
     var chart = new Chart(ctx, {

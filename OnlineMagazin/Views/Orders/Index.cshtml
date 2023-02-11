@@ -1,0 +1,96 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Orders>
+
+@{
+    ViewData["Title"] = "Заказы";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1>Заказы</h1>
+
+<div class="col-12 mt-lg-3">
+    <div class="card">
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                     <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstAndLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyingType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InOrder)
+            </th>
+            <th></th>
+        </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstAndLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyingType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @if (item.InOrder)
+            {
+                <h6>Заказ выполнен</h6>
+            }
+            else
+            {
+                <h6>Ожидается</h6>
+            }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderId">Детали заказа</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Удалить</a>
+            </td>
+        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

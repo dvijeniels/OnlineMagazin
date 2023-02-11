@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineMagazin.Data;
+using OnlineMagazin.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineMagazin.ViewComponents
 {
+    [AllowAnonymous]
     public class CartView : ViewComponent
     {
         private readonly OnlineMagazinContext _context;
@@ -17,13 +21,16 @@ namespace OnlineMagazin.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            var uyeID = HttpContext.Session.GetInt32("uyeId");
-            var onlineMagazinContext = _context.Carts.Where(a => a.UyeId == uyeID && a.InOrder == false).Include(c => c.Products).Include(c => c.Uye);
-            int ToplamRate = Convert.ToInt32(((from t in onlineMagazinContext select t.FinalPrice).Sum()));
-            int countProduct = Convert.ToInt32(((from t in onlineMagazinContext select t.CartId).Count()));
-            ViewBag.FinalPrice = ToplamRate;
-            ViewBag.CountProduct = countProduct;
-            return View(onlineMagazinContext.ToList());
+            var cart = SessionHelper.GetObjectFromJson<List<Carts>>(HttpContext.Session, "cart");
+            if (cart != null)
+            {
+                ViewBag.cart = cart;
+                var CartSum = cart.Sum(item => item.Products.Price * item.qty);
+                ViewBag.FinalPrice = CartSum;
+                ViewBag.CountProduct = cart.Count();
+            }
+            
+            return View(cart);
         }
     }
 }

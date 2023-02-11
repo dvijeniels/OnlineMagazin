@@ -1,14 +1,12 @@
 ﻿@model OnlineMagazin.Models.Products
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Товар";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-
-<h1>Детали</h1>
-
-<div>
-    <h4>Товары</h4>
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Детали товара</h5>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -21,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Icerik)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Icerik)
+            @Html.Raw(Model.Icerik)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
@@ -36,6 +34,12 @@
             @Html.DisplayFor(model => model.Category.CategoriName)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeProduct)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeProduct.TypeName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ProductDate)
         </dt>
         <dd class="col-sm-10">
@@ -48,41 +52,56 @@
             @Html.DisplayFor(model => model.Foto)
         </dd>
         <dt class="col-sm-2">
-            Загруженное фото
+            Загруженная картинка
         </dt>
         <dd class="col-sm-10">
             <img src="@("~/image/"+Model.Foto)" asp-append-version="true" width="150" height="150" />
         </dd>
-        <dt class="col-sm-2">
-            Загруженное фото2
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@("~/image/"+Model.Foto2)" asp-append-version="true" width="150" height="150" />
-        </dd>
-        <dt class="col-sm-2">
-            Загруженное фото3
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@("~/image/"+Model.Foto3)" asp-append-version="true" width="150" height="150" />
-        </dd>
-        <dt class="col-sm-2">
-            Загруженное фото4
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@("~/image/"+Model.Foto4)" asp-append-version="true" width="150" height="150" />
-        </dd>
-        <dt class="col-sm-2">
-            Загруженное фото5
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@("~/image/"+Model.Foto5)" asp-append-version="true" width="150" height="150" />
-        </dd>
-        <dt class="col-sm-2">
-            Загруженное фото6
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@("~/image/"+Model.Foto6)" asp-append-version="true" width="150" height="150" />
-        </dd>
+        @if (Model.Foto2 != null)
+        {
+            <dt class="col-sm-2">
+                Загруженная картинка 2
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@("~/image/"+Model.Foto2)" asp-append-version="true" width="150" height="150" />
+            </dd>
+        }
+        @if (Model.Foto3 != null)
+        {
+            <dt class="col-sm-2">
+                Загруженная картинка 3
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@("~/image/"+Model.Foto3)" asp-append-version="true" width="150" height="150" />
+            </dd>
+        }
+        @if (Model.Foto4 != null)
+        {
+            <dt class="col-sm-2">
+                Загруженная картинка 4
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@("~/image/"+Model.Foto4)" asp-append-version="true" width="150" height="150" />
+            </dd>
+        }
+        @if (Model.Foto5 != null)
+        {
+            <dt class="col-sm-2">
+                Загруженная картинка 5
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@("~/image/"+Model.Foto5)" asp-append-version="true" width="150" height="150" />
+            </dd>
+        }
+        @if (Model.Foto6 != null)
+        {
+            <dt class="col-sm-2">
+                Загруженная картинка 6
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@("~/image/"+Model.Foto6)" asp-append-version="true" width="150" height="150" />
+            </dd>
+        }
     </dl>
 </div>
 <div style="margin-left:1%">

@@ -1,17 +1,27 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+
+@inject UserManager<OnlineMagazinUser> UserManager
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnlineMagazin</title>
+    <meta name="yandex-verification" content="3231937aa1ad0776" />
+    <title>@ViewData["Title"] - Vector Строй маркет</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="~/image/favicon.ico">
+    <link href="~/generalroot/img/favicon.ico" rel="shortcut icon" runat="server" type="image/x-icon"/>
+    <link href="~/generalroot/img/favicon.ico" rel="icon" runat="server" type="image/ico" />
     <!-- Google Fonts
     ============================================ -->
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
     <!-- Bootstrap CSS
     ============================================ -->
     <link rel="stylesheet" href="~/generalroot/css/bootstrap.min.css">
@@ -29,6 +39,7 @@
     <!-- meanmenu CSS
     ============================================ -->
     <link rel="stylesheet" href="~/generalroot/css/meanmenu.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <!-- jquery-ui CSS
     ============================================ -->
     <link rel="stylesheet" href="~/generalroot/css/jquery-ui.css">
@@ -44,6 +55,8 @@
     <!-- responsive CSS
     ============================================ -->
     <link rel="stylesheet" href="~/generalroot/css/responsive.css">
+    <script src="~/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
@@ -72,7 +85,7 @@
                                     <i class="fa fa-clock-o"></i>
                                     <div class="support-text">
                                         <h1 class="zero gfont-1">Рабочее время</h1>
-                                        <p>Пн-вс: 8.00 - 18.00</p>
+                                        <p>Пн-вс: 8.00 - 22.00 (Без выходных)</p>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +97,7 @@
                                 <i class="fa fa-truck"></i>
                                 <div class="support-text">
                                     <h1 class="zero gfont-1">Бесплатная доставка</h1>
-                                    <p>При заказе от 199 $</p>
+                                    <p>При заказе от 120000 ₽</p>
                                 </div>
                             </div>
                         </div>
@@ -103,11 +116,14 @@
                         <!-- Start Single-Support -->
                         <div class="col-md-3 col-sm-4">
                             <div class="single-support">
-                                <i class="fa fa-phone-square"></i>
-                                <div class="support-text">
-                                    <h1 class="zero gfont-1">Номер: +996771181045</h1>
-                                    <p>Заказать онлайн сейчас!</p>
-                                </div>
+
+                                <a href="https://api.whatsapp.com/send?phone=79998775394">
+                                    <i class="fa fa-whatsapp fa-wheelchair-alt"></i>
+                                    <div class="support-text">
+                                        <h1 class="zero gfont-1">Номер: +79998775394 </h1>
+                                        <p>Заказать онлайн сейчас!</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                         <!-- End Single-Support -->
@@ -118,19 +134,13 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
                         <div class="logo">
-                            <a href="~/Home/homeIndex/" title="Malias"><img src="~/generalroot/img/logo.png" alt="Malias"></a>
+                            <a href="~/Home/HomeIndex/" title="Vector"><img src="~/generalroot/img/logovector.png" alt="Malias"></a>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12">
                         <div class="quick-access">
                             <div class="search-by-category">
-                                @await Component.InvokeAsync("CategorySearch")
-                                <div class="header-search">
-                                    <form action="#">
-                                        <input type="text" placeholder="Поиск">
-                                        <button type="submit"><i class="fa fa-search"></i></button>
-                                    </form>
-                                </div>
+                                @await Component.InvokeAsync("SearchAllProduct")
                             </div>
                             <div style="display: inline-block;" id="followersrefresh">
                                 @await Component.InvokeAsync("CartView")
@@ -151,24 +161,23 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="~/Home/homeIndex/">Главная</a>
+                                        <a href="~/Home/HomeIndex/">Главная</a>
                                     </li>
-                                    <li><a href="/Home/About">О нас</a></li>
                                     <li class="hot"><a href="/Home/GetProducts">Бестселлер товары</a></li>
                                     <li class="new"><a href="/Home/GetProducts">Новые товары</a></li>
-                                    <li><a href="/Home/GetProducts">Специальные товары</a></li>
                                     <li>
                                         <a href="#">Страницы</a>
                                         <ul>
                                             <li><a href="/Home/Cart">Корзина</a></li>
-                                            <li><a href="/Home/Account">Мой аккаунт</a></li>
-                                            <li><a href="/Home/Message">История заказов</a></li>
-                                            <li><a href="/Home/Message">Просмотр недавних постов</a></li>
-                                            <li><a href="/Home/Message">Просмотр списка магазинов</a></li>
-                                            <li><a href="/Home/LikeProducts">Список понравившихся</a></li>
+                                            <li><a href="/Home/Account/@UserManager.GetUserId(User)">Мой аккаунт</a></li>
+                                            <li><a href="/Home/Account/@UserManager.GetUserId(User)">История заказов</a></li>
+                                            <li><a href="/Home/WishList">Список понравившихся</a></li>
                                         </ul>
                                     </li>
+                                    <li><a href="/Home/About">О нас</a></li>
                                     <li><a href="/Home/Message">Связаться с нами</a></li>
+                                    <li><a href="/Home/Delivery">Информация о доставке</a></li>
+                                    <li><a href="/Home/Payment">Оплата</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -185,26 +194,26 @@
                         <nav id="mobile-menu">
                             <ul>
                                 <li>
-                                    <a href="/Home/homeIndex">Главная</a>
+                                    <a href="/Home/HomeIndex">Главная</a>
                                 </li>
-                                <li><a href="/Home/About">О нас</a></li>
                                 <li class="hot"><a href="/Home/GetProducts">Бестселлер товары</a></li>
                                 <li class="new"><a href="/Home/GetProducts">Новые товары</a></li>
-                                <li><a href="/Home/GetProducts">Специальные товары</a></li>
+                                <li>
+                                    <a href="#">Категории</a>
+                                    <ul>@await Component.InvokeAsync("CategoryListMobile")</ul>
+                                </li>
                                 <li>
                                     <a href="#">Страницы</a>
                                     <ul>
                                         <li><a href="/Home/Cart">Корзина</a></li>
-                                        <li><a href="/Home/Account">Проверить</a></li>
-                                        <li><a href="/Home/CreateUser">Зарегистрироваться</a></li>
-                                        <li><a href="/Home/Account">Мой аккаунт</a></li>
-                                        <li><a href="/Home/Message">Информация о продукте</a></li>
-                                        <li><a href="/Home/Message">Просмотр сетки магазина</a></li>
-                                        <li><a href="/Home/Message">Просмотр списка магазинов</a></li>
-                                        <li><a href="/Home/LikeProducts">Список понравившихся</a></li>
+                                        <partial name="_LoginMobile" />
+                                        <li><a href="/Home/WishList">Список понравившихся</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="/Home/About">О нас</a></li>
                                 <li><a href="/Home/Message">Связаться с нами</a></li>
+                                <li><a href="/Home/Delivery">Информация о доставке</a></li>
+                                <li><a href="/Home/Payment">Оплата</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -217,67 +226,49 @@
             @RenderBody()
         </main>
     </div>
-    <div class="brand-logo-area carosel-navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="area-title">
-                        <h3 class="title-group border-red gfont-1">Логотип Бренда</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="active-brand-logo">
-                    <div class="col-md-2">
-                        <div class="single-brand-logo">
-                            <a href="#"><img src="~/generalroot/img/brand/1.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="single-brand-logo">
-                            <a href="#"><img src="~/generalroot/img/brand/2.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="single-brand-logo">
-                            <a href="#"><img src="~/generalroot/img/brand/3.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END BRAND-LOGO-AREA -->
-    <!-- START SUBSCRIBE-AREA -->
+    @await Component.InvokeAsync("BrandsList")
     <div class="subscribe-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <label class="hidden-sm hidden-xs">Подпишитесь на рассылку:</label>
                     <div class="subscribe">
-                        <form action="#">
-                            <input type="text" placeholder="Введите E-mail">
-                            <button type="submit">Подписаться</button>
+                        <form onsubmit="return false">
+                            <input type="email" required placeholder="Введите E-mail" id="Mail" />
+                            <button onclick="Subcribe()">Подписаться</button>
                         </form>
+                        <script type="text/javascript">
+                            function Subcribe() {
+                                var Mail=document.getElementById("Mail").value;
+                                if(!!Mail)
+                                {
+                                    $.post("/Home/Subcribe?Mail=" + Mail + "", function (data) {
+                                        if(data!=="Error")
+                                        {
+                                            swal("Вы успешно подписались!", "Спасибо что вы с нами", "success");
+                                        }
+                                        else{swal("Вы уже подписаны!", "Введите другую почту", "error");}
+                                    });
+                                }
+                                return false;
+                            };
+                        </script>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-5 col-xs-12">
                     <div class="social-media">
+                        <a href="https://api.whatsapp.com/send?phone=79163033395"><i class="fa fa-whatsapp fa-wheelchair-alt"></i></a>
                         <a href="https://www.facebook.com/adilet.djalilov" target="_blank"><i class="fa fa-facebook fb"></i></a>
-                        <a href="#"><i class="fa fa-google-plus gp"></i></a>
-                        <a href="#"><i class="fa fa-twitter tt"></i></a>
-                        <a href="#"><i class="fa fa-youtube yt"></i></a>
+                        <a href="mailto:vector@pskanker.ru"><i class="fa fa-google-plus gp"></i></a>
                         <a href="https://www.linkedin.com/in/adilet-dzhalilov-01a274226/" target="_blank"><i class="fa fa-linkedin li"></i></a>
-                        <a href="#"><i class="fa fa-rss rs"></i></a>
+                        <a href="https://twitter.com/Dvijeniels"><i class="fa fa-twitter tt"></i></a>
+                        <a href="#"><i class="fa fa-youtube yt"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- END HOME-PAGE-CONTENT -->
-    <!-- FOOTER-AREA START -->
     <footer class="footer-area">
-        <!-- Footer Start -->
         <div class="footer">
             <div class="container">
                 <div class="row">
@@ -287,9 +278,9 @@
                         </div>
                         <nav>
                             <ul class="footer-content">
-                                <li><a href="my-account.html">Мой аккаунт</a></li>
-                                <li><a href="#">История заказов</a></li>
-                                <li><a href="wishlist">Понравившиеся</a></li>
+                                <li><a href="/Home/Account/@UserManager.GetUserName(User)">Мой аккаунт</a></li>
+                                <li><a href="/Home/Account/@UserManager.GetUserName(User)">История заказов</a></li>
+                                <li><a href="/Home/WishList">Понравившиеся</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -299,43 +290,42 @@
                         </div>
                         <nav>
                             <ul class="footer-content">
-                                <li><a href="contact.html">Связаться с нами</a></li>
-                                <li><a href="about.html">О нас</a></li>
-                                <li><a href="#">Информация о доставке</a></li>
+                                <li><a href="/Home/Message">Связаться с нами</a></li>
+                                <li><a href="/Home/About">О нас</a></li>
+                                <li><a href="/Home/Delivery">Информация о доставке</a></li>
+                                <li><a href="/Home/Payment">Оплата</a></li>
                                 <li><a href="#">Политика конфиденциальности</a></li>
-                                <li><a href="#">Условия & Положения</a></li>
                             </ul>
                         </nav>
                     </div>
                     <div class="col-xs-12 hidden-sm col-md-3">
                         <div class="footer-title">
-                            <h5>Оплата & Доставка</h5>
+                            <h5>Скидки & Сертификаты</h5>
                         </div>
                         <nav>
                             <ul class="footer-content">
                                 <li><a href="#">Бренды</a></li>
                                 <li><a href="#">Подарочные сертификаты</a></li>
                                 <li><a href="#">Филиалы</a></li>
-                                <li><a href="shop-list.html">Специальные</a></li>
-                                <li><a href="#">Условия поиска</a></li>
+                                <li><a href="#">Специальные</a></li>
                             </ul>
                         </nav>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-3">
                         <div class="footer-title">
-                            <h5>Оплата & Доставка</h5>
+                            <h5>Контакты & Местоположение</h5>
                         </div>
                         <nav>
                             <ul class="footer-content box-information">
                                 <li>
-                                    <i class="fa fa-home"></i><span>Jalal-Abad, ул. Тестировка, Кыргызстан</span>
+                                    <i class="fa fa-home"></i><span>МОСКВА, ул. Нефтебазовский проезд 8б, Россия</span>
                                 </li>
                                 <li>
-                                    <i class="fa fa-envelope-o"></i><p><a href="contact.html">djadi708@gmail.com</a></p>
+                                    <i class="fa fa-envelope-o"></i><p><a href="mailto:vector@pskanker.ru">vector@pskanker.ru</a></p>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <span>+9961234-56789</span> <br> <span> +996771181045</span>
+                                    <span>+79998775394</span> <br> <span> +79163033395</span>
                                 </li>
                             </ul>
                         </nav>
@@ -348,9 +338,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            <p>Copyright &copy; <a href="http://ourblog.somee.com" target="_blank">Adilet Dzhalilov</a> Все права защищены. @DateTime.Now.Year</p>
+                            <p>Copyright &copy; <a href="https://api.whatsapp.com/send?phone=79163033395" target="_blank">Adilet Dzhalilov</a> Все права защищены. @DateTime.Now.Year</p>
                             <div class="payment">
-                                <a href="#"><img src="~/generalroot/img/payment.png" alt="Payment"></a>
+                                <a href="#"><img src="~/generalroot/img/payment.png" alt="Payment"></a><img src="/generalroot//img/mir2.png" alt="Mir">
                             </div>
                         </div>
                     </div>
@@ -358,12 +348,7 @@
             </div>
         </div>
     </footer>
-    @*@await Component.InvokeAsync("ProductView")*@
-    @RenderSection("script", false)
-
-
-
-
+    <div id="quickview-wrapper"></div>
     <script src="~/generalroot/js/jquery-1.11.3.min.js"></script>
     <!-- bootstrap JS
     ============================================ -->
@@ -399,6 +384,23 @@
     <!-- Image zoom js
     ============================================ -->
     <script src="~/generalroot/js/imagezoom.js"></script>
+        <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(92336519, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/92336519" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 

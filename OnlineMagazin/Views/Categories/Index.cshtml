@@ -25,9 +25,11 @@
                             @Html.DisplayFor(modelItem => item.CategoriName)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.CategoryId">Изменить</a> |
-                            <a asp-action="Details" asp-route-id="@item.CategoryId">Детали</a> |
-                            <a asp-action="Delete" asp-route-id="@item.CategoryId">Удалить</a>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-secondary btn-dark">Изменить</a> 
+                                <a asp-action="Details" asp-route-id="@item.CategoryId" class="btn btn-secondary btn-info">Детали</a>
+                                <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-secondary btn-danger">Удалить</a>
+                            </div>
                         </td>
                     </tr>
                     }

@@ -1,0 +1,133 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Liked>
+@{
+    ViewData["Title"] = "Account";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<section class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="page-menu">
+                    <li><a href="/Home/HomeIndex">Главная</a></li>
+                    <li class="active"><a href="/Home/WishList">Мой аккаунт</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("CategoryList")
+            </div>
+            <div class="col-md-9">
+                <div class="product-title">
+                    <h3 class="title-group-3 gfont-1" style="font-weight:700">Список понравившихся</h3>
+                </div>
+                <div class="checkout-area">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-group" id="accordion">
+
+                                <div class="panel panel_default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#payment-method">Мой список понравившихся<i class="fa fa-caret-down"></i> </a>
+                                        </h4>
+                                    </div>
+                                    <div id="payment-method" class="collapse">
+                                        @if (ViewBag.WishListControl != null)
+                                        {
+                                            <h3 class="text-center">@ViewBag.WishListControl</h3>
+                                        }
+                                        else
+                                        {
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <td class="text-center">Изображение</td>
+                                                                <td class="text-left">Название товара</td>
+                                                                <td class="text-right">Цена</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in ViewBag.liked)
+                                                            {
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        <a href="/Home/ProductDetail/@item.Products.ProductId"><img class="img-thumbnail" width="80" height="90" src="~/image/@item.Products.Foto" alt="#" /></a>
+                                                                    </td>
+                                                                    <td class="text-left">
+                                                                        <a href="/Home/ProductDetail/@item.Products.ProductId">@item.Products.Baslik</a>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="price-box">
+                                                                            <span class="price">₽@item.Products.Price</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <form method="post">
+                                                                            <div class="input-group-btn cart-buttons">
+                                                                                <button onclick="AddProductToCart(@item.Products.ProductId)" class="btn btn-primary" data-toggle="tooltip" title="Добавить в корзину">
+                                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                                </button>
+                                                                                <a href="#" class="btn btn-info" onclick="ModalAc(@item.Products.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                                <button asp-action="DeleteFromWishList" asp-route-id="@item.Products.ProductId" class="btn btn-danger" data-toggle="tooltip" title="Удалить">
+                                                                                    <i class="fa fa-times-circle"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-account-area">
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function AddProductToCart(id) {
+        $.post("/Home/AddProductToCart?productID=" + id + "&qty=" + 1 + "", function (data) {
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в корзину!",
+              icon: "success",
+              buttons: ["Продолжить покупку", "Перейти в корзину"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/Cart";
+              }
+            });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+    function ModalAc(id) {
+        $.get("/Home/ModalView?productID=" + id +"", function (data) {
+             $("#quickview-wrapper").html(data);
+             $("#productModal").modal('show');
+        });
+        $("#quickview-wrapper").html("");
+        return false;
+    };
+</script>

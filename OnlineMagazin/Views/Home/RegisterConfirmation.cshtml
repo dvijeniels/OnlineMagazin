@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "RegisterConfirmation";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-12">
+            @if (ViewBag.IsSuccess == true)
+            {
+                <div class="alert alert-success" role="alert">
+                    <strong>Спасибо за подтверждение вашего адреса электронной почты.</strong>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>Ошибка подтверждения электронной почты.</strong>
+                </div>
+            }
+        </div>
+    </div>
+</div>

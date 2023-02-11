@@ -6,8 +6,8 @@
 }
 <div class="col-12 mt-lg-3">
     <div class="card">
-
-        <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>
+        <a asp-action="Create" class="btn btn-outline-secondary mb-3"><i class="ti-plus"></i>  Создать новый</a>
+       @* <a style="text-align: center" asp-action="Create"><i class="ti-plus"></i>  Создать новый</a>*@
         <div class="data-tables datatable-dark">
             <table id="dataTable3" class="text-center">
                 <thead class="text-capitalize">
@@ -16,31 +16,16 @@
                             @Html.DisplayNameFor(model => model.Baslik)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Icerik)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.Foto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Foto2)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Foto3)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Foto4)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Foto5)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Foto6)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Price)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.CategoryId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TypeId)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.ProductDate)
@@ -51,46 +36,31 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Baslik)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Icerik)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto2)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto3)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto4)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto5)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto6)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoriName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductDate)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ProductId">Изменить</a> |
-                            <a asp-action="Details" asp-route-id="@item.ProductId">Детали</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ProductId">Удалить</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Baslik)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Foto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.CategoriName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeProduct.TypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductDate)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ProductId">Изменить</a> |
+                                <a asp-action="Details" asp-route-id="@item.ProductId">Детали</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ProductId">Удалить</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

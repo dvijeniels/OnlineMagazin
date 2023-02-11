@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Orders>
+<div class="panel panel_default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#checkout-confirm">История заказов и детали<i class="fa fa-caret-down"></i> </a>
+        </h4>
+    </div>
+    <div id="checkout-confirm" class="collapse">
+        <div class="panel-body">
+            <!-- Start Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td class="text-left">Номер заказа</td>
+                            <td class="text-left">Дата заказа</td>
+                            <td class="text-right">Всего</td>
+                            <td class="text-right">Статус</td>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td class="text-left">@item.OrderNumber</td>
+                                <td class="text-left">@item.OrderDate</td>
+                               @* <td class="text-left">@item.OrderDetailLines.Sum(a=>a.Price*a.qty)</td>*@
+                                <td class="text-left">@item.Status</td>
+                                <td class="text-left">
+                                   <a href="/Home/OrderListUser/@item.OrderId" class="btn btn-primary pull-right">Детали</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+            <!-- End Table -->
+        </div>
+    </div>
+</div>

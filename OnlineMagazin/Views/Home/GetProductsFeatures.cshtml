@@ -1,0 +1,303 @@
+﻿@using HtmlAgilityPack
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<OnlineMagazin.Models.Products>
+@{
+    ViewData["Title"] = "Товары под категории";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<section class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="page-menu">
+                    <li><a href="~/Home/HomeIndex/">Главная</a></li>
+                    <li class="active"><a href="#">Товары</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("CategoryList")
+                <div class="shop-filter">
+                    <div class="area-title">
+                        <h3 class="title-group gfont-1">ФИЛЬТРЫ ПРОДУКЦИИ</h3>
+                    </div>
+                    <h4 class="shop-price-title">Цена</h4>
+                    <div class="info_widget">
+                        <div class="price_filter">
+                            <div id="slider-range"></div>
+                            <div class="price_slider_amount">
+                                <input type="text" id="amount" name="price" placeholder="Введите свою цену" />
+                                <input type="submit" value="Фильтр" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="product-menu">
+                            <div class="product-title">
+                                <h3 class="title-group-3 gfont-1">@ViewBag.ValueName</h3>
+                            </div>
+                        </div>
+                        <div class="product-filter">
+                            <ul role="tablist">
+                                <li role="presentation" class="list">
+                                    <a href="#display-1-1" role="tab" data-toggle="tab"></a>
+                                </li>
+                                <li role="presentation" class="grid active">
+                                    <a href="#display-1-2" role="tab" data-toggle="tab"></a>
+                                </li>
+                            </ul>
+                            <div class="sort">
+                                <label>Сортировать по:</label>
+                                <select>
+                                    <option value="#">По умолчанию</option>
+                                    <option value="#">Название (A - Z)</option>
+                                    <option value="#">Название (Z - A)</option>
+                                    <option value="#">Цена (Низкий > Высокий)</option>
+                                    <option value="#">Цена (Высокий > Низкий  )</option>
+                                    <option value="#">Рейтинг (Наибольший)</option>
+                                </select>
+                            </div>
+                            @using (Html.BeginForm("GetProductsFeatures", "Home", FormMethod.Get, new { id = "form1" }))
+                            {
+                                <div class="limit">
+                                    <label>Показать:</label>
+                                    @Html.DropDownList("pageSize")
+                                </div>
+                            }
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="product">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade" id="display-1-1">
+                                    <div class="row">
+                                        <div class="listview">
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="single-product">
+                                                    <div class="col-md-3 col-sm-4 col-xs-12">
+                                                        <div class="label_new">
+                                                            <span class="new">new</span>
+                                                        </div>
+                                                        <div class="sale-off">
+                                                            <span class="sale-percent">-16%</span>
+                                                        </div>
+                                                        <div class="product-img">
+                                                            <a href="/Home/ProductDetail/@item.ProductId">
+                                                                <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product">
+                                                                @if (item.Foto2 != null)
+                                                                {
+                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                }
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9 col-sm-8 col-xs-12">
+                                                        <div class="product-description">
+                                                            <h5>
+                                                                @{
+                                                                    if (item.Baslik.Length > 39)
+                                                                    {
+                                                                        <a href="~/Home/ProductDetail/@item.ProductId">@item.Baslik.ToString().Substring(0,39)...</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="~/Home/ProductDetail/@item.ProductId">@item.Baslik</a>
+                                                                    }
+                                                                }
+                                                            </h5>
+                                                            <div class="price-box">
+                                                                <span class="price">₽@item.Price</span>
+                                                                <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                                            </div>
+                                                            @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                            @{
+                                                                HtmlDocument htmlDoc = new HtmlDocument();
+
+                                                                if (item.Icerik.Length > 200)
+                                                                {
+                                                                    htmlDoc.LoadHtml(item.Icerik.ToString().Substring(0, 200));
+                                                                    string result = htmlDoc.DocumentNode.InnerText;
+                                                                    <p class="description">@result...</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    htmlDoc.LoadHtml(item.Icerik);
+                                                                    string result = htmlDoc.DocumentNode.InnerText;
+                                                                    <p class="description">@result</p>
+                                                                }
+                                                            }
+                                                            <div class="product-action">
+                                                                <div class="button-group">
+                                                                    <div class="product-button">
+                                                                        <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                    </div>
+                                                                    <div class="product-button-2">
+                                                                        <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="pagination-area">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <div class="pagination">
+                                                    @Html.PagedListPager(Model, page => Url.Action("GetProductsFeatures", new {page, pageSize = ViewBag.psize }))
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="product-result">
+                                                    <span>Отображение 1 по @Model.Count из @ViewBag.Count (@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount Страниц)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade in  active" id="display-1-2">
+                                    <div class="row">
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                                <div class="single-product">
+                                                    <div class="label_new">
+                                                        <span class="new">new</span>
+                                                    </div>
+                                                    <div class="sale-off">
+                                                        <span class="sale-percent">-16%</span>
+                                                    </div>
+                                                    <div class="product-img">
+                                                        <a href="/Home/ProductDetail/@item.ProductId">
+                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product">
+                                                            @if (item.Foto2 != null)
+                                                            {
+                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-description">
+                                                        <h5>
+                                                            @{
+                                                                if (item.Baslik.Length > 39)
+                                                                {
+                                                                    <a href="#">@item.Baslik.ToString().Substring(0,39)...</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a href="#">@item.Baslik</a>
+                                                                }
+                                                            }
+                                                        </h5>
+                                                        <div class="price-box">
+                                                            <span class="price">₽@item.Price</span>
+                                                            <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                                        </div>
+                                                        @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                        <div class="product-action">
+                                                            <div class="button-group">
+                                                                <div class="product-button">
+                                                                    <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                </div>
+                                                                <div class="product-button-2">
+                                                                    <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                    <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="pagination-area">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <div class="pagination">
+                                                    @Html.PagedListPager(Model, page => Url.Action("GetProductsFeatures", new {page, pageSize = ViewBag.psize }))
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="product-result">
+                                                    <span>Отображение 1 по @Model.Count из @ViewBag.Count (@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount Страниц)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    $(function () {
+        $("#pageSize").change(function () {
+            $("#form1").submit();
+        });
+    });
+</script>
+<script>
+    function AddProductToCart(id) {
+        $.post("/Home/AddProductToCart?productID=" + id + "&qty=" + 1 + "", function (data) {
+          swal({
+          title: "Успешно",
+          text: "Товар успешно добавлен в корзину!",
+          icon: "success",
+          buttons: ["Продолжить покупку", "Перейти в корзину"],
+        })
+        .then((goWishList) => {
+          if (goWishList) {
+            window.location = "/Home/Cart";
+          }
+        });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+    function AddProductToLiked(id) {
+        $.post("/Home/AddProductToLiked?productID=" + id + "", function (data) {
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в понравившиеся!",
+              icon: "info",
+              buttons: ["Продолжить", "Перейти в список понравившиеся"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/WishList";
+              }
+            });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+    function ModalAc(id) {
+        $.get("/Home/ModalView?productID=" + id +"", function (data) {
+             $("#quickview-wrapper").html(data);
+             $("#productModal").modal('show');
+        });
+        $("#quickview-wrapper").html("");
+        return false;
+    };
+</script>

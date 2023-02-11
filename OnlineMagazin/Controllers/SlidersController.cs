@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using OnlineMagazin.Models;
 
 namespace OnlineMagazin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SlidersController : Controller
     {
         private readonly OnlineMagazinContext _context;
@@ -58,7 +60,7 @@ namespace OnlineMagazin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SliderId,SliderResimFile")] Sliders sliders)
+        public async Task<IActionResult> Create([Bind("SliderId,SliderResimFile,SliderName,SliderDescription")] Sliders sliders)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +103,7 @@ namespace OnlineMagazin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SliderId,SliderResimFile")] Sliders sliders)
+        public async Task<IActionResult> Edit(int id, [Bind("SliderId,SliderResimFile,SliderName,SliderDescription")] Sliders sliders)
         {
             if (id != sliders.SliderId)
             {

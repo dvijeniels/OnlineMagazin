@@ -1,0 +1,36 @@
+﻿@model OnlineMagazin.Models.Brands
+
+@{
+    ViewData["Title"] = "Удалить бренд";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Вы уверены что хотите удалить это?</h5>
+    <hr />
+     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrandsResim)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BrandsResim)
+        </dd>
+                <dt class="col-sm-2">
+            Удаляемое фото
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("~/image/"+Model.BrandsResim)" asp-append-version="true" width="250" height="250" />
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrandsName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BrandsName)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="BrandsId" />
+        <input type="submit" value="Удалить" class="btn btn-danger mb-3" /> |
+        <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+    </form>
+</div>

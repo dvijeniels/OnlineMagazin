@@ -1,5 +1,8 @@
-﻿@model OnlineMagazin.Models.Uye
+﻿@model OnlineMagazinUser
 @using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+@inject UserManager<OnlineMagazinUser> UserManager
 @{
     ViewData["Title"] = "Account";
     Layout = "~/Views/Shared/_Home.cshtml";
@@ -10,36 +13,23 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="page-menu">
-                    <li><a href="/Home/homeIndex">Главная</a></li>
+                    <li><a href="/Home/HomeIndex">Главная</a></li>
                     <li class="active"><a href="/Home/Account">Мой аккаунт</a></li>
                 </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <!-- CATEGORY-MENU-LIST START -->
                 @await Component.InvokeAsync("CategoryList")
-                <!-- END CATEGORY-MENU-LIST -->
             </div>
             <div class="col-md-9">
-                <!-- entry-header-area start -->
-                <div class="entry-header-area">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="entry-header">
-                                <h2 class="entry-title">Мой Аккаунт</h2>
-                            </div>
-                        </div>
-                    </div>
+                <div class="product-title">
+                    <h3 class="title-group-3 gfont-1" style="font-weight:700">Мой аккаунт</h3>
                 </div>
-                <!-- entry-header-area end -->
-                <!-- Start checkout-area -->
                 <div class="checkout-area">
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- Accordion start -->
                             <div class="panel-group" id="accordion">
-                                <!-- Start My-First-Address -->
                                 <div class="panel panel_default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -51,18 +41,14 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-12">
                                                     <fieldset id="account">
-                                                        <legend>Your Personal Details</legend>
+                                                        <legend>Ваши персональные данные</legend>
                                                         <div class="form-group">
                                                             <label>ФИО</label>
-                                                            @Html.DisplayFor(model => model.AdSoyad)
+                                                            @Html.DisplayFor(model => model.FirstAndLastName)
                                                         </div>
                                                         <div class="form-group">
                                                             <label>E-mail</label>
                                                             @Html.DisplayFor(model => model.Email)
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Логин</label>
-                                                            @Html.DisplayFor(model => model.KullaniciAdi)
                                                         </div>
                                                         <div class="form-group">
                                                             <label><sup>*</sup>Телефон</label>
@@ -76,13 +62,13 @@
                                                 </div>
                                                 <div class="col-md-6 col-xs-12">
                                                     <fieldset id="address">
-                                                        <legend>Your Address</legend>
+                                                        <legend>Ваш адрес</legend>
                                                         <div class="form-group">
-                                                            <label><sup>*</sup>Address 1</label>
+                                                            <label><sup>*</sup>Адрес</label>
                                                             @Html.DisplayFor(model => model.Address)
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Address 2</label>
+                                                            <label>Адрес 2</label>
                                                             @Html.DisplayFor(model => model.Address2)
                                                         </div>
                                                         <div class="form-group">
@@ -108,7 +94,7 @@
                                                 <div class="col-xs-12">
                                                     <div class="buttons clearfix">
                                                         <div class="pull-right">
-                                                            <a asp-action="AccountEdit" asp-route-id="@Context.Session.GetInt32("Giris")" class="btn btn-primary">Изменить</a>
+                                                            <a asp-controller="Home" asp-action="AccountEdit" asp-route-id="@UserManager.GetUserId(User)" class="btn btn-primary">Изменить</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -116,293 +102,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End My-First-Address -->
-                                <!-- Start Order History And Details -->
-                                <div class="panel panel_default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#checkout-confirm">Order History And Details <i class="fa fa-caret-down"></i> </a>
-                                        </h4>
-                                    </div>
-                                    <div id="checkout-confirm" class="collapse">
-                                        <div class="panel-body">
-                                            <!-- Start Table -->
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="text-center">Image</td>
-                                                            <td class="text-left">Product Name</td>
-                                                            <td class="text-left">Model</td>
-                                                            <td class="text-left">Quantity</td>
-                                                            <td class="text-right">Unit Price</td>
-                                                            <td class="text-right">Total</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <a href="#"><img class="img-thumbnail" src="img/product/cart/1.jpg" alt="#" /></a>
-                                                            </td>
-                                                            <td class="text-left">
-                                                                <a href="#">More-Or-Less</a>
-                                                            </td>
-                                                            <td class="text-left">Product 14</td>
-                                                            <td class="text-left">
-                                                                <div class="btn-block cart-put">
-                                                                    <input type="text" class="form-control" />
-                                                                    <div class="input-group-btn cart-buttons">
-                                                                        <button class="btn btn-primary" data-toggle="tooltip" title="Update">
-                                                                            <i class="fa fa-refresh"></i>
-                                                                        </button>
-                                                                        <button class="btn btn-danger" data-toggle="tooltip" title="Remove">
-                                                                            <i class="fa fa-times-circle"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right">$100.00</td>
-                                                            <td class="text-right">$100.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <a href="#"><img class="img-thumbnail" src="img/product/cart/2.jpg" alt="#" /></a>
-                                                            </td>
-                                                            <td class="text-left">
-                                                                <a href="#">More-Or-Less</a>
-                                                            </td>
-                                                            <td class="text-left">Product 14</td>
-                                                            <td class="text-left">
-                                                                <div class="btn-block cart-put">
-                                                                    <input type="text" class="form-control" />
-                                                                    <div class="input-group-btn cart-buttons">
-                                                                        <button class="btn btn-primary" data-toggle="tooltip" title="Update">
-                                                                            <i class="fa fa-refresh"></i>
-                                                                        </button>
-                                                                        <button class="btn btn-danger" data-toggle="tooltip" title="Remove">
-                                                                            <i class="fa fa-times-circle"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right">$100.00</td>
-                                                            <td class="text-right">$100.00</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <td class="text-right" colspan="5">
-                                                                <strong>Sub-Total:</strong>
-                                                            </td>
-                                                            <td class="text-right">$200.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-right" colspan="5">
-                                                                <strong>Flat Shipping Rate:</strong>
-                                                            </td>
-                                                            <td class="text-right">$5.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-right" colspan="5">
-                                                                <strong>Flat Shipping Rate:</strong>
-                                                            </td>
-                                                            <td class="text-right">$5.00</td>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-                                            <!-- End Table -->
-                                            <div class="buttons pull-right">
-                                                <input type="button" class="btn btn-primary" value="Confirm Order" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Order History And Details -->
-                                <!-- Start My Address -->
-                                <div class="panel panel_default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#shipping-address">My Address <i class="fa fa-caret-down"></i> </a>
-                                        </h4>
-                                    </div>
-                                    <div id="shipping-address" class="collapse">
-                                        <div class="panel-body">
-                                            <div class="form-horizontal">
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>First Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="First Name" name="firstname" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>Last Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="Last Name" name="lastname" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Company</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="Company" name="company" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>Address 1</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="Address 1" name="address_1" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Address 2</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="Address 2" name="address_2" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>City</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="City" name="city" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>Post Code</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" placeholder="Post Code" name="postcode" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>Country</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option> --- Please Select --- </option>
-                                                            <option> Bangladesh </option>
-                                                            <option> United States </option>
-                                                            <option> United Kingdom </option>
-                                                            <option> Canada </option>
-                                                            <option> Malaysia </option>
-                                                            <option> United Arab Emirates </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label"><sup>*</sup>Region / State</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control">
-                                                            <option> --- Please Select --- </option>
-                                                            <option> Dhaka </option>
-                                                            <option> New York </option>
-                                                            <option> London </option>
-                                                            <option> Canada </option>
-                                                            <option> Malaysia </option>
-                                                            <option> United Arab Emirates </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End My Address -->
-                                <!-- Start My Wish List -->
-                                <div class="panel panel_default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-trigger collapsed" data-toggle="collapse" data-parent="#accordion" href="#payment-method">My Wish List <i class="fa fa-caret-down"></i> </a>
-                                        </h4>
-                                    </div>
-                                    <div id="payment-method" class="collapse">
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="text-center">Image</td>
-                                                            <td class="text-left">Product Name</td>
-                                                            <td class="text-left">Model</td>
-                                                            <td class="text-right">Stock</td>
-                                                            <td class="text-right">Unit Price</td>
-                                                            <td class="text-right">Action</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <a href="#"><img src="img/product/cart/3.jpg" alt="#" /></a>
-                                                            </td>
-                                                            <td class="text-left">
-                                                                <a href="#">Prod Aldults</a>
-                                                            </td>
-                                                            <td class="text-left">Product 9</td>
-                                                            <td class="text-right">In Stock</td>
-                                                            <td class="text-right">
-                                                                <div class="price-box">
-                                                                    <span class="price">$100.00</span>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <button class="btn btn-primary" data-toggle="tooltip" title="Add to Cart" type="button">
-                                                                    <i class="fa fa-shopping-cart"></i>
-                                                                </button>
-                                                                <a href="#" class="btn btn-danger" data-toggle="tooltip" title="Remove">
-                                                                    <i class="fa fa-times"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <a href="#"><img src="img/product/cart/4.jpg" alt="#" /></a>
-                                                            </td>
-                                                            <td class="text-left">
-                                                                <a href="#">Prod Aldults</a>
-                                                            </td>
-                                                            <td class="text-left">Product 9</td>
-                                                            <td class="text-right">In Stock</td>
-                                                            <td class="text-right">
-                                                                <div class="price-box">
-                                                                    <span class="price">$45.00</span>
-                                                                    <span class="old-price">$100.00</span>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <button class="btn btn-primary" data-toggle="tooltip" title="Add to Cart" type="button">
-                                                                    <i class="fa fa-shopping-cart"></i>
-                                                                </button>
-                                                                <a href="#" class="btn btn-danger" data-toggle="tooltip" title="Remove">
-                                                                    <i class="fa fa-times"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="buttons clearfix pull-right">
-                                                <a href="#" class="btn btn-primary">Save</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End My Wish List -->
+                                @await Component.InvokeAsync("OrderHistory")
                             </div>
-                            <!-- Accordion end -->
                         </div>
                     </div>
                 </div>
-                <!-- End Shopping-Cart -->
-                <!-- My-Account-Area start -->
                 <div class="my-account-area">
                     <div class="row">
                         <div class="col-md-6">
-
                         </div>
                     </div>
                 </div>
-                <!-- My-Account-Area end -->
             </div>
         </div>
     </div>
-    <!-- START BRAND-LOGO-AREA -->
-    <!-- END BRAND-LOGO-AREA -->
-    <!-- START SUBSCRIBE-AREA -->
-    <!-- END SUBSCRIBE-AREA -->
 </section>

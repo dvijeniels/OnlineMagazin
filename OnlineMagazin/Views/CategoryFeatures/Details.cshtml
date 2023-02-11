@@ -1,14 +1,13 @@
-﻿@model OnlineShop.Models.CategoryFeature
+﻿@model OnlineMagazin.Models.CategoryFeature
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Характеристики категорий";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h1>Детали</h1>
-
-<div>
-    <h4>Характеристики категорий</h4>
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Детали характеристики категорий</h5>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -32,6 +31,6 @@
     </dl>
 </div>
 <div style="margin-left:1%">
-    <a asp-action="Edit" class="btn btn-outline-dark mb-3" asp-route-id="@Model.KatFId">Изменить</a> |
+    <a asp-action="Edit" class="btn btn-outline-dark mb-3" asp-route-id="@Model.CategoryFeatureId">Изменить</a> |
     <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
 </div>

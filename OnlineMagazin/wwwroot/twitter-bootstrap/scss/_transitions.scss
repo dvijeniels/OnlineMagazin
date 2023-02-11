@@ -1,4 +1,4 @@
-.fade {
+﻿.fade {
   @include transition($transition-fade);
 
   &:not(.show) {

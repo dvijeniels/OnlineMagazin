@@ -23,7 +23,6 @@ namespace OnlineMagazin.Models
 
         [NotMapped]
         [DisplayName("Выберите фото")]
-        [Required(ErrorMessage = "Пожалуйста выберите фото")]
         public IFormFile ResimFile { get; set; }
     }
 }

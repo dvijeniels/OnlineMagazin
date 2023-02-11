@@ -1,0 +1,19 @@
+﻿@model IEnumerable<OnlineMagazin.Models.ProductFeatures>
+
+@foreach (var item in ViewBag.FeatureNameCount)
+{
+    <div class="product-select product-color">
+        <label>@item</label>
+
+        <select class="form-control">
+            <option> --- Выберите --- </option>
+            @foreach (var item2 in Model)
+            {
+                @if (item ==item2.CategoryFeature.FeatureName)
+                {
+                    <option>@item2.Value </option>
+                }
+            }
+        </select>
+    </div>
+}

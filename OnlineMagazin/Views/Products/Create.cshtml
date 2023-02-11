@@ -4,11 +4,12 @@
     ViewData["Title"] = "Товары";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
+
 <br />
 <h5 style="margin-left:50%">Создать</h5>
 <hr />
 <div>
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -18,23 +19,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Icerik" class="control-label"></label>
-                <input asp-for="Icerik" class="form-control" />
-                <span asp-validation-for="Icerik" class="text-danger"></span>
+                <textarea asp-for="Icerik" id="editorId" > </textarea>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control form-control-lg" asp-items="ViewBag.CategoryId"></select>
             </div>
-
+            <div class="form-group">
+                <label asp-for="TypeId" class="control-label"></label>
+                <select asp-for="TypeId" class="form-control form-control-lg" asp-items="ViewBag.TypeId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">₽</span>
                     </div>
-                    <input type="text" asp-for="Price" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <input type="text" asp-for="Price" class="form-control" aria-label="Сумма (с точностью в рублях)">
                     <div class="input-group-append">
-                        <span class="input-group-text">.00 сомов</span>
+                        <span class="input-group-text">.00 рублей</span>
                     </div>
                 </div>
                 <span asp-validation-for="Price" class="text-danger"></span>
@@ -42,8 +45,11 @@
 
             <div class="form-group">
                 <label asp-for="FotoFile" class="control-label"></label>
-                <input asp-for="FotoFile" multiple max-uploads="6" accept="image/*" type="file" />
-                <span asp-validation-for="FotoFile" class="text-danger"></span>
+                <input asp-for="FotoFile" multiple max-uploads="6" id="gallery-photo-add" required="required" accept="image/*" type="file" />
+                <div class="gallery">
+                        <img src="https://www.dataentry4os.com/wp-content/uploads/2019/05/product-upload-1.png" alt="your image" />
+                        <p class="icon-name text-capitalize text-truncate mb-0">Место для картинки</p>
+                </div>
                 <br />
                 <br />
                 <span class="text-danger">Правила загрузки фото!</span>
@@ -53,32 +59,8 @@
                 <br />
                 <span class="text-info">Размер картинки желательно должен быть 200х200, либо автоматически будет уменьшено</span>
             </div>
-
-            @*<div class="form-group">
-                    <label asp-for="FotoFile2" class="control-label"></label>
-                    <input asp-for="FotoFile2" multiple accept="image/*" />
-                    <span asp-validation-for="FotoFile2" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FotoFile3" class="control-label"></label>
-                    <input asp-for="FotoFile3" multiple accept="image/*" />
-                    <span asp-validation-for="FotoFile3" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FotoFile4" class="control-label"></label>
-                    <input asp-for="FotoFile4" multiple accept="image/*" />
-                    <span asp-validation-for="FotoFile4" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FotoFile5" class="control-label"></label>
-                    <input asp-for="FotoFile5" multiple accept="image/*" />
-                    <span asp-validation-for="FotoFile5" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FotoFile6" class="control-label"></label>
-                    <input asp-for="FotoFile6" multiple accept="image/*" />
-                    <span asp-validation-for="FotoFile6" class="text-danger"></span>
-                </div>*@
+            @*<input asp-for="FotoFile" multiple max-uploads="6" id="FLFrontImage" onchange="document.getElementById('FrontImagePrv').src=window.URL.createObjectURL(this.files)" accept="image/*" type="file" />
+                <img id="FrontImagePrv" src="https://www.dataentry4os.com/wp-content/uploads/2019/05/product-upload-1.png" alt="your image" />*@
             <div class="form-group">
                 <input type="submit" value="Создать " class="btn btn-primary" />
             </div>
@@ -88,7 +70,7 @@
 <div style="margin-left:1%">
     <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
 </div>
-@if (ViewBag.ImgCount >6)
+@if (ViewBag.ImgCount > 6)
 {
     <script type="text/javascript">
         window.onload = function () {
@@ -96,3 +78,32 @@
         };
     </script>
 }
+
+<script>
+     $(function() {
+        // Multiple images preview in browser
+        var imagesPreview = function(input, placeToInsertImagePreview) {
+            $("div.gallery").empty();
+            if (input.files) {
+                var filesAmount = input.files.length;
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        $($.parseHTML('<p>Загруженная картинка</p>')).appendTo(placeToInsertImagePreview);
+                        $($.parseHTML('<img class="pip" max-height="150px" width="150"></div></div>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                        //$($.parseHTML('<br/><input type="button" value="Удалить" class="remove btn btn-danger" />')).appendTo(placeToInsertImagePreview);
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#gallery-photo-add').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+        });
+    });
+</script>
+
+<script type="text/javascript">CKEDITOR.replace('editorId');</script>

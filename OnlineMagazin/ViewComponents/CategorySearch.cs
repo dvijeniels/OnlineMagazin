@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineMagazin.Data;
 using OnlineMagazin.Models;
 using System.Collections.Generic;
@@ -6,10 +7,11 @@ using System.Linq;
 
 namespace OnlineMagazin.ViewComponents
 {
-    public class CategoryList:ViewComponent
+    [AllowAnonymous]
+    public class CategorySearch:ViewComponent
     {
         private readonly OnlineMagazinContext _context;
-        public CategoryList(OnlineMagazinContext context)
+        public CategorySearch(OnlineMagazinContext context)
         {
             _context = context;
         }

@@ -12,10 +12,15 @@ namespace OnlineMagazin.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DuyuruId { get; set; }
 
-        [StringLength(100)]
+        [StringLength(300)]
         [DisplayName("Название")]
         [Required(ErrorMessage = "Пожалуйста введите название")]
         public string DuyuruAd { get; set; }
+
+        [StringLength(1000)]
+        [DisplayName("Ссылка")]
+        [Required(ErrorMessage = "Пожалуйста введите ссылку")]
+        public string DuyuruLink { get; set; }
 
         [StringLength(2000)]
         [DisplayName("Текст")]

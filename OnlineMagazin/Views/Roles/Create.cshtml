@@ -1,0 +1,29 @@
+﻿@model OnlineMagazin.Models.OnlineMagazinRole
+
+@{
+    ViewData["Title"] = "Создать";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<br />
+<h5 style="margin-left:50%">Создать</h5>
+<hr />
+<div>
+        <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+        </div>
+    </div>
+
+<div style="margin-left:1%">
+    <a class="btn btn-outline-secondary mb-3" asp-action="Index"><i class="ti-arrow-left">  Вернуться в список</i></a>
+</div>

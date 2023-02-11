@@ -1,0 +1,27 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Brands>
+
+
+    <div class="brand-logo-area carosel-navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="area-title">
+                        <h3 class="title-group border-red gfont-1">Логотип Бренда</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="active-brand-logo">
+                                @foreach (var item in Model)
+            {
+                 <div class="col-md-2">
+                        <div class="single-brand-logo">
+                            <a href="#"><img src="@("/image/" + item.BrandsResim)" alt="" title="#@item.BrandsId" /></a>
+                        </div>
+                    </div>
+            }
+                </div>
+            </div>
+        </div>
+    </div>
+

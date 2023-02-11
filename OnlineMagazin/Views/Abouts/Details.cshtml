@@ -1,21 +1,19 @@
 ﻿@model OnlineMagazin.Models.About
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "О нас";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-
-<h1>Детали</h1>
-
-<div>
-    <h4>О нас</h4>
+<div style="margin-left:1%">
+    <br />
+    <h5 style="margin-left:40%">Детали о нас</h5>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MetinIcerik)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MetinIcerik)
+            @Html.Raw(Model.MetinIcerik)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Resim)

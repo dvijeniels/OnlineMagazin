@@ -1,7 +1,6 @@
 namespace OnlineMagazin.Models
 {
     using Microsoft.AspNetCore.Http;
-    using OnlineShop.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -9,7 +8,7 @@ namespace OnlineMagazin.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Products")]
-    public partial class Products
+    public class Products
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
@@ -50,12 +49,15 @@ namespace OnlineMagazin.Models
 
         [NotMapped]
         [DisplayName("Выберите изображение")]
-        [Required(ErrorMessage = "Пожалуйста выберите хотя бы 2 изображений")]
         public List<IFormFile> FotoFile { get; set; }
 
         [DisplayName("Категория")]
         [Required(ErrorMessage = "Пожалуйста выберите категорию")]
         public int? CategoryId { get; set; }
+
+        [DisplayName("Тип")]
+        [Required(ErrorMessage = "Пожалуйста выберите тип")]
+        public int? TypeId { get; set; }
 
         [DisplayName("Цена")]
         [Required(ErrorMessage = "Пожалуйста введите цену")]
@@ -65,10 +67,18 @@ namespace OnlineMagazin.Models
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime ProductDate { get; set; }
 
+        [DisplayName("Категория")]
         public virtual Category Category { get; set; }
 
-        public virtual ICollection<Carts> Carts { get; set; }
-        public ICollection<ProductFeatures> ProductFeatures { get; set; }
+        [DisplayName("Тип")]
+        [ForeignKey("TypeId")]
+        public virtual TypeProduct TypeProduct { get; set; }
+
+        public virtual ICollection<ProductFeatures> ProductFeatures { get; set; }
+
+        public virtual ICollection<Comments> Comments { get; set; }
+
+        public virtual ICollection<OrderLines> OrderLines { get; set; }
 
     }
 }

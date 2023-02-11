@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using OnlineMagazin.Models;
 
 namespace OnlineMagazin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AboutsController : Controller
     {
         private readonly OnlineMagazinContext _context;
@@ -104,17 +106,21 @@ namespace OnlineMagazin.Controllers
 
             if (ModelState.IsValid)
             {
-                //Save image wwwRoow/allimage
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(about.ResimFile.FileName);
-                string extension = Path.GetExtension(about.ResimFile.FileName);
-                about.Resim = fileName=fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                if(about.ResimFile != null)
                 {
-                    await about.ResimFile.CopyToAsync(fileStream);
+                    //Save image wwwRoow/allimage
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(about.ResimFile.FileName);
+                    string extension = Path.GetExtension(about.ResimFile.FileName);
+                    about.Resim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await about.ResimFile.CopyToAsync(fileStream);
+                    }
+                    //Save image wwwRoow/allimage
                 }
-                //Save image wwwRoow/allimage
+                else about.Resim = await _context.About.Where(x => x.Id == id).Select(x => x.Resim).FirstOrDefaultAsync();
 
                 try
                 {

@@ -90,9 +90,9 @@
   padding-bottom: 2px;
 }
 .mean-container .mean-bar::after {
-  content: "CATEGORIES";
-  font-size: 18px;
-  font-weight: 600;
+	content: "MENU";
+	font-size: 18px;
+	font-weight: 600;
 }
 .mean-container .mean-nav ul li a {
   color: #444;
@@ -197,7 +197,7 @@ p.welcome-msg, .support-client {
 .top-cart {
   display: inline-block;
   float: none;
-  margin-top: 30px;
+  margin-top: 10px;
   text-align: center;
 }
 .top-cart ul li .mini-cart-content {
@@ -217,7 +217,7 @@ p.welcome-msg, .support-client {
   margin-bottom: 0;
 }
 .mean-container .mean-bar::after {
-  content: "CATEGORIES";
+  content: "MENU";
   font-size: 18px;
   font-weight: 600;
 }

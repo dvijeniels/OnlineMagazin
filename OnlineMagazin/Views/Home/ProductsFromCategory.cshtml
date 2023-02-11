@@ -1,4 +1,7 @@
-﻿@model List<OnlineMagazin.Models.Products>
+﻿@using HtmlAgilityPack
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<OnlineMagazin.Models.Products>
 @{
     ViewData["Title"] = "Товары под категории";
     Layout = "~/Views/Shared/_Home.cshtml";
@@ -8,7 +11,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="page-menu">
-                    <li><a href="~/Home/homeIndex/">Главная</a></li>
+                    <li><a href="~/Home/HomeIndex/">Главная</a></li>
                     <li class="active"><a href="#">Товары</a></li>
                 </ul>
             </div>
@@ -16,12 +19,11 @@
         <div class="row">
             <div class="col-md-3">
                 @await Component.InvokeAsync("CategoryList")
-                <!-- shop-filter start -->
                 <div class="shop-filter">
                     <div class="area-title">
                         <h3 class="title-group gfont-1">ФИЛЬТРЫ ПРОДУКЦИИ</h3>
                     </div>
-                    <h4 class="shop-price-title">Price</h4>
+                    <h4 class="shop-price-title">Цена</h4>
                     <div class="info_widget">
                         <div class="price_filter">
                             <div id="slider-range"></div>
@@ -32,162 +34,152 @@
                         </div>
                     </div>
                 </div>
-                <!-- shop-filter start -->
-                <!-- filter-by start -->
-                <div class="accordion_one">
-                    <h4><a class="accordion-trigger" data-toggle="collapse" href="#divone">Цвет</a></h4>
-                    <div id="divone" class="collapse in">
-                        <div class="filter-menu">
-                            <ul>
-                                <li><a href="#">Black (2)</a></li>
-                                <li><a href="#">Blue (2)</a></li>
-                                <li><a href="#">Brown (3)</a></li>
-                                <li><a href="#">Green (3)</a></li>
-                                <li><a href="#">Orange (2)</a></li>
-                                <li><a href="#">Pink (2)</a></li>
-                                <li><a href="#">Red (11)</a></li>
-                                <li><a href="#">Yellow (3)</a></li>
-                            </ul>
-                        </div>
+                @if (ViewBag.CategoryId != null)
+                {
+                    <div class="accordion_one">
+                        @{
+                            int a = 0;
+                            @foreach (var item in ViewBag.Temp)
+                            {
+                                <h4><a class="accordion-trigger" data-toggle="collapse" href="#@a">@item</a></h4>
+                                <div id="@a" class="collapse in">
+                                    <div class="filter-menu">
+                                        <ul>
+                                            @foreach (var item3 in ViewBag.Value)
+                                            {
+                                                if (item == item3.Value.FeatureName)
+                                                {
+                                                    <li><a href="@Url.Action("GetProductsFeatures", "Home", new { value = item3.Value.Value, FeatureName=@item})">@item3.Value.Value (@item3.Count)</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                a += 1;
+                            }
+                        }
                     </div>
-                    <h4><a class="accordion-trigger" data-toggle="collapse" href="#div2">производство</a></h4>
-                    <div id="div2" class="collapse in">
-                        <div class="filter-menu">
-                            <ul>
-                                <li><a href="#">Chanel (2)</a></li>
-                                <li><a href="#">Christian Dior (2)</a></li>
-                                <li><a href="#">Ermenegildo (2)</a></li>
-                                <li><a href="#">Ferragamo (1)</a></li>
-                                <li><a href="#">Hermes (2)</a></li>
-                                <li><a href="#">Louis Vuitton (3)</a></li>
-                                <li><a href="#">Prada (1)</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <h4><a class="accordion-trigger" data-toggle="collapse" href="#div3">Размер</a></h4>
-                    <div id="div3" class="collapse in">
-                        <div class="filter-menu">
-                            <ul>
-                                <li><a href="#">L (1)</a></li>
-                                <li><a href="#">M (5)</a></li>
-                                <li><a href="#">S (7)</a></li>
-                                <li><a href="#">XL (5)</a></li>
-                                <li><a href="#">XXL (6)</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- filter-by end -->
+                }
             </div>
             <div class="col-md-9 col-xs-12">
-                <!-- START PRODUCT-BANNER -->
                 @*<div class="product-banner">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="banner">
-                                    <a href="#"><img src="~/image/banner.jpg" alt="Product Banner"></a>
-                                </div>
+                    <div class="row">
+                    <div class="col-xs-12">
+                    <div class="banner">
+                    <a href="#"><img src="~/image/banner.jpg" alt="Product Banner"></a>
+                    </div>
+                    </div>
+                    </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="product-menu">
+                            <div class="product-title">
+                                <h3 class="title-group-3 gfont-1">@ViewBag.CategoryName</h3>
                             </div>
                         </div>
-                    </div>*@
-                <!-- END PRODUCT-BANNER -->
-                <!-- START PRODUCT-AREA -->
-                <div class="product-area">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <!-- Start Product-Menu -->
-                            <div class="product-menu">
-                                <div class="product-title">
-                                    <h3 class="title-group-3 gfont-1">@ViewBag.CategoryName</h3>
-                                </div>
+                        <div class="product-filter">
+                            <ul role="tablist">
+                                <li role="presentation" class="list">
+                                    <a href="#display-1-1" role="tab" data-toggle="tab"></a>
+                                </li>
+                                <li role="presentation" class="grid active">
+                                    <a href="#display-1-2" role="tab" data-toggle="tab"></a>
+                                </li>
+                            </ul>
+                            <div class="sort">
+                                <label>Сортировать по:</label>
+                                <select>
+                                    <option value="#">По умолчанию</option>
+                                    <option value="#">Название (A - Z)</option>
+                                    <option value="#">Название (Z - A)</option>
+                                    <option value="#">Цена (Низкий > Высокий)</option>
+                                    <option value="#">Цена (Высокий > Низкий  )</option>
+                                    <option value="#">Рейтинг (Наибольший)</option>
+                                </select>
                             </div>
-                            <div class="product-filter">
-                                <ul role="tablist">
-                                    <li role="presentation" class="list">
-                                        <a href="#display-1-1" role="tab" data-toggle="tab"></a>
-                                    </li>
-                                    <li role="presentation" class="grid active">
-                                        <a href="#display-1-2" role="tab" data-toggle="tab"></a>
-                                    </li>
-                                </ul>
-                                <div class="sort">
-                                    <label>Сортировать по:</label>
-                                    <select>
-                                        <option value="#">Default</option>
-                                        <option value="#">Название (A - Z)</option>
-                                        <option value="#">Название (Z - A)</option>
-                                        <option value="#">Цена (Низкий > Высокий)</option>
-                                        <option value="#">Рейтинг (Наибольший)</option>
-                                        <option value="#">Рейтинг (Самый низкий)</option>
-                                        <option value="#">Model (Z - A))</option>
-                                        <option value="#">Model (A - Z)</option>
-                                    </select>
-                                </div>
+                            @using (Html.BeginForm("ProductsFromCategory", "Home", FormMethod.Get, new { id = "form1" }))
+                            {
                                 <div class="limit">
                                     <label>Показать:</label>
-                                    <select>
-                                        <option value="#">8</option>
-                                        <option value="#">16)</option>
-                                        <option value="#">24</option>
-                                        <option value="#">40</option>
-                                        <option value="#">80</option>
-                                        <option value="#">100</option>
-                                    </select>
+                                @Html.DropDownList("pageSize") 
                                 </div>
-                            </div>
-
-                            <!-- End Product-Menu -->
-                            <div class="clear"></div>
+                            }
                         </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <!-- Start Product -->
-                            <div class="product">
-                                <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade in  active" id="display-1-2">
-                                        <div class="row">
-                                            <!-- Start Single-Product -->
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="product">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade" id="display-1-1">
+                                    <div class="row">
+                                        <div class="listview">
                                             @foreach (var item in Model)
                                             {
-                                                <div class="col-md-3 col-sm-4 col-xs-12">
-                                                    <div class="single-product">
+                                                <div class="single-product">
+                                                    <div class="col-md-3 col-sm-4 col-xs-12">
                                                         <div class="label_new">
                                                             <span class="new">new</span>
                                                         </div>
                                                         <div class="sale-off">
-                                                            <span class="sale-percent">-55%</span>
+                                                            <span class="sale-percent">-16%</span>
                                                         </div>
                                                         <div class="product-img">
                                                             <a href="/Home/ProductDetail/@item.ProductId">
-                                                                <img class="primary-img" src="~/image/@item.Foto" alt="Product">
-                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product">
+                                                                @if (item.Foto2 != null)
+                                                                {
+                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                }
                                                             </a>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-9 col-sm-8 col-xs-12">
                                                         <div class="product-description">
-                                                            <h5><a href="#">@item.Baslik</a></h5>
+                                                            <h5>
+                                                                @{
+                                                                    if (item.Baslik.Length > 39)
+                                                                    {
+                                                                        <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik.ToString().Substring(0,39)...</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="/Home/ProductDetail/@item.ProductId">@item.Baslik</a>
+                                                                    }
+                                                                }
+                                                            </h5>
                                                             <div class="price-box">
-                                                                <span class="price">$@item.Price</span>
-                                                                <input id="ProductPrice" data-pid="@item.Price" class="hide" />
-                                                                <span class="old-price">$@item.Price</span>
+                                                                <span class="price">₽@item.Price</span>
+                                                                <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
                                                             </div>
-                                                            <span class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="product-action">
-                                                            <div class="button-group">
-                                                                <div class="product-button">
-                                                                    <button id="ppid" onclick="AddProductToCart(@item.ProductId,@item.Price)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
-                                                                </div>
-                                                                <div class="product-button-2">
-                                                                    <a href="#" data-toggle="tooltip" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
-                                                                    <a href="#" data-toggle="tooltip" title="Сравнить"><i class="fa fa-signal"></i></a>
-                                                                    <a href="#" class="modal-view" data-toggle="modal" data-target="#productModal"><i class="fa fa-search-plus"></i></a>
+                                                            @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                            @{
+                                                                HtmlDocument htmlDoc = new HtmlDocument();
+                                                                
+                                                                if (item.Icerik.Length > 200)
+                                                                {
+                                                                    htmlDoc.LoadHtml(item.Icerik.ToString().Substring(0,200));
+                                                                    string result = htmlDoc.DocumentNode.InnerText;
+                                                                    <p class="description">@result...</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    htmlDoc.LoadHtml(item.Icerik);
+                                                                    string result = htmlDoc.DocumentNode.InnerText;
+                                                                    <p class="description">@result</p>
+                                                                }
+                                                            }
+                                                            <div class="product-action">
+                                                                <div class="button-group">
+                                                                    <div class="product-button">
+                                                                        <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                    </div>
+                                                                    <div class="product-button-2">
+                                                                        <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -195,59 +187,158 @@
                                                 </div>
                                             }
                                             <div class="container">
-                                                <h3 class="title-group-3 gfont-1">@ViewBag.kayityok</h3>
-                                            </div>
-
+                                            <h3 class="title-group-3 gfont-1">@ViewBag.kayityok</h3>
                                         </div>
-                                        <!-- Start Pagination Area -->
-                                        <div class="pagination-area">
-                                            <div class="row">
-                                                <div class="col-xs-5">
-                                                    <div class="pagination">
-                                                        <ul>
-                                                            <li class="active"><a href="#">1</a></li>
-                                                            <li><a href="#">2</a></li>
-                                                            <li><a href="#">></a></li>
-                                                            <li><a href="#">>|</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-7">
-                                                    <div class="product-result">
-                                                        <span>Отображение 1 по 16 из 19 (2 Страниц)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-                                        <!-- End Pagination Area -->
                                     </div>
-                                    <!-- End Product = TV -->
+                                    <div class="pagination-area">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <div class="pagination">
+                                                    @Html.PagedListPager(Model, page => Url.Action("ProductsFromCategory", new {page, pageSize = ViewBag.psize })) 
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="product-result">
+                                                    <span>Отображение 1 по @Model.Count из @ViewBag.Count (@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount Страниц)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade in  active" id="display-1-2">
+                                    <div class="row">
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                                <div class="single-product">
+                                                    <div class="label_new">
+                                                        <span class="new">new</span>
+                                                    </div>
+                                                    <div class="sale-off">
+                                                        <span class="sale-percent">-16%</span>
+                                                    </div>
+                                                    <div class="product-img">
+                                                        <a href="/Home/ProductDetail/@item.ProductId">
+                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product">
+                                                            @if (item.Foto2 != null)
+                                                            {
+                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-description">
+                                                        <h5>
+                                                            @{
+                                                                if (item.Baslik.Length > 39)
+                                                                {
+                                                                    <a href="#">@item.Baslik.ToString().Substring(0,39)...</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a href="#">@item.Baslik</a>
+                                                                }
+                                                            }
+                                                        </h5>
+                                                        <div class="price-box">
+                                                            <span class="price">₽@item.Price</span>
+                                                            <span class="old-price">₽@((Convert.ToDouble(item.Price)*0.16)+Convert.ToDouble(item.Price))</span>
+                                                        </div>
+                                                        @await Component.InvokeAsync("RatingStar", new { id=item.ProductId})
+                                                        <div class="product-action">
+                                                            <div class="button-group">
+                                                                <div class="product-button">
+                                                                    <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
+                                                                </div>
+                                                                <div class="product-button-2">
+                                                                    <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                    <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="container">
+                                            <h3 class="title-group-3 gfont-1">@ViewBag.kayityok</h3>
+                                        </div>
+                                    </div>
+                                    <div class="pagination-area">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <div class="pagination">
+                                                    @Html.PagedListPager(Model, page => Url.Action("ProductsFromCategory", new {page, pageSize = ViewBag.psize })) 
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="product-result">
+                                                    <span>Отображение 1 по @Model.Count из @ViewBag.Count (@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount Страниц)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- End Product -->
                         </div>
                     </div>
                 </div>
-                <!-- END PRODUCT-AREA -->
             </div>
         </div>
     </div>
 </section>
-
-@section script{
-    <script>
-        function AddProductToCart(id, price) {
-            $.post("/Home/AddProductToCart?productID=" + id + "&qty=" + 1 + "&productPrice=" + price + "", function (data) {
-                if (data == null) {
-                    alert("Выполните вход для покупки!");
-                }
-                else alert("Товар успешно добавлен в корзину!");
-                $.get("/Home/GetMyViewComponent", function (data) {
-                    $("#followersrefresh").html(data);
-                });
-                return false;
+<script type="text/javascript">
+    $(function () {
+        $("#pageSize").change(function () {
+            $("#form1").submit();
+        });
+    });
+</script>
+<script>
+    function AddProductToCart(id) {
+        $.post("/Home/AddProductToCart?productID=" + id + "&qty=" + 1 + "", function (data) {
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в корзину!",
+              icon: "success",
+              buttons: ["Продолжить покупку", "Перейти в корзину"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/Cart";
+              } 
             });
-           
-        }
-    </script>
-}
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+    function AddProductToLiked(id) {
+        $.post("/Home/AddProductToLiked?productID=" + id + "", function (data) {
+            swal({
+              title: "Успешно",
+              text: "Товар успешно добавлен в понравившиеся!",
+              icon: "info",
+              buttons: ["Продолжить", "Перейти в список понравившиеся"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                window.location = "/Home/WishList";
+              } 
+            });
+            $.get("/Home/GetMyViewComponent", function (data) {
+                $("#followersrefresh").html(data);
+            });
+        });
+        return false;
+    };
+    function ModalAc(id) {
+        $.get("/Home/ModalView?productID=" + id +"", function (data) {
+             $("#quickview-wrapper").html(data);
+             $("#productModal").modal('show');
+        });
+        $("#quickview-wrapper").html("");
+        return false;
+    };
+</script>

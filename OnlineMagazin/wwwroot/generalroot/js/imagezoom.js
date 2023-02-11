@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ImageZoom Plugin
  * http://0401morita.github.io/imagezoom-plugin
  * MIT licensed

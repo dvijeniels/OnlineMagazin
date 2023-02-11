@@ -1,0 +1,138 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using OnlineMagazin.Areas.Identity.Data
+@inject UserManager<OnlineMagazinUser> UserManager
+@model OnlineMagazin.Models.OrderDetails
+@{
+    ViewData["Title"] = "История заказов";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Детали заказа</title>
+</head>
+<body>
+    <div class="container">
+        <div class="contact-message">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <fieldset id="account">
+                            <legend>Детали заказа</legend>
+                            <div class="form-group">
+                                Номер заказа:
+                                <label style="color:black">@Model.OrderNumber</label>
+                            </div>
+                            <div class="form-group">
+                                Дата заказа:
+                                <label style="color:black"> @Model.OrderDate</label>
+                            </div>
+                            <div class="form-group">
+                                ФИО:
+                                <label style="color:black"> @Model.FirstAndLastName</label>
+                            </div>
+
+                            <div class="form-group">
+                                Телефон номер:
+                                <label style="color:black"> @Model.PhoneNumber </label>
+                            </div>
+                            <div class="form-group">
+                                Всего:
+                                <label style="color:black"> @Model.OrderDetailLines.Sum(a=>a.Price*a.qty)</label>
+                            </div>
+                            <div class="form-group">
+                                Статус:
+                                <label style="color:black"> @Model.Status</label>
+                            </div>
+                            <div class="form-group">
+                                Статус jnsdjf:
+                                <label style="color:black"> @Model.InOrder</label>
+                            </div>
+                            <div class="form-group">
+                                Комментарий к заказу:
+                                <label style="color:black"> @Model.Comment </label>
+                            </div>
+                        </fieldset>
+
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <fieldset id="address">
+                            <legend>Ваш адрес</legend>
+                            <div class="form-group">
+                                Область :
+                                <label style="color:black">@Model.Region</label>
+                                <br />
+                                Город :
+                                <label style="color:black">@Model.City</label>
+                                <br />
+                                Адрес :
+                                <label style="color:black">@Model.Address</label>
+                                <br />
+                                Адрес 2 :
+                                <label style="color:black">@Model.Address2</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <fieldset id="account">
+                            <legend>Товары</legend>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="text-left">Картинка</td>
+                                        <td class="text-left">Название товара</td>
+                                        <td class="text-right">Количество</td>
+                                        <td class="text-right">Стоимость</td>
+                                        <td class="text-right">Общая стоимость</td>
+                                    </tr>
+                                </thead>
+
+                                @foreach (var item in Model.OrderDetailLines)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">
+                                                <div class="product-img">
+                                                    <a href="/Home/ProductDetail/@item.ProductId">
+                                                        <img class="primary-img" src="~/image/@item.Foto" alt="Product" width="100" height="100">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="text-left"><label style="color:black">@item.ProductName</label></td>
+                                            <td class="text-left"><label style="color:black">@item.qty</label></td>
+                                            <td class="text-left"><label style="color:black">@item.Price</label></td>
+                                            <td class="text-left"><label style="color:black">@(item.qty*item.Price)</label></td>
+                                        </tr>
+
+                                    </tbody>
+                                }
+                                <tbody class="text-right">
+                                    <tr>
+                                        <td class="text-right">
+                                            <strong>Итог:</strong>
+                                        </td>
+                                        <td class="text-right">₽@ViewBag.totalProductPrice</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            <strong>Общий итог:</strong>
+                                        </td>
+                                        <td class="text-right">₽@ViewBag.totalProductPrice (c учётом НДС)</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

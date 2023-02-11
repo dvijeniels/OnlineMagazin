@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineMagazin.Data;
 using OnlineMagazin.Models;
-using OnlineShop.Models;
 
 namespace OnlineMagazin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryFeaturesController : Controller
     {
         private readonly OnlineMagazinContext _context;
@@ -37,7 +36,7 @@ namespace OnlineMagazin.Controllers
 
             var categoryFeature = await _context.CategoryFeature
                 .Include(c => c.Category)
-                .FirstOrDefaultAsync(m => m.KatFId == id);
+                .FirstOrDefaultAsync(m => m.CategoryFeatureId == id);
             if (categoryFeature == null)
             {
                 return NotFound();
@@ -56,7 +55,7 @@ namespace OnlineMagazin.Controllers
         // POST: CategoryFeatures/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("KatFId,CategoryId,FeatureName,Unit")] CategoryFeature categoryFeature)
+        public async Task<IActionResult> Create([Bind("CategoryFeatureId,CategoryId,FeatureName,Unit")] CategoryFeature categoryFeature)
         {
             if (ModelState.IsValid)
             {
@@ -88,9 +87,9 @@ namespace OnlineMagazin.Controllers
         // POST: CategoryFeatures/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("KatFId,CategoryId,FeatureName,Unit")] CategoryFeature categoryFeature)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryFeatureId,CategoryId,FeatureName,Unit")] CategoryFeature categoryFeature)
         {
-            if (id != categoryFeature.KatFId)
+            if (id != categoryFeature.CategoryFeatureId)
             {
                 return NotFound();
             }
@@ -104,7 +103,7 @@ namespace OnlineMagazin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryFeatureExists(categoryFeature.KatFId))
+                    if (!CategoryFeatureExists(categoryFeature.CategoryFeatureId))
                     {
                         return NotFound();
                     }
@@ -129,7 +128,7 @@ namespace OnlineMagazin.Controllers
 
             var categoryFeature = await _context.CategoryFeature
                 .Include(c => c.Category)
-                .FirstOrDefaultAsync(m => m.KatFId == id);
+                .FirstOrDefaultAsync(m => m.CategoryFeatureId == id);
             if (categoryFeature == null)
             {
                 return NotFound();
@@ -151,7 +150,7 @@ namespace OnlineMagazin.Controllers
 
         private bool CategoryFeatureExists(int id)
         {
-            return _context.CategoryFeature.Any(e => e.KatFId == id);
+            return _context.CategoryFeature.Any(e => e.CategoryFeatureId == id);
         }
     }
 }

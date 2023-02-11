@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Duyrular>
+<div class="shop-blog-area sidebar">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="title-group border-red gfont-1">НЕДАВНИЕ ПОСТЫ</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="active-recent-posts carosel-circle">
+            <!-- Start Single-Recent-Posts -->
+            @foreach (var item in Model)
+            {
+                <div class="single-recent-posts">
+                    <div class="recent-posts-photo">
+                        <img src="~/image/@item.DuyuruResim" alt="News">
+                    </div>
+                    <div class="recent-posts-text">
+                        <h5><a href="@item.DuyuruLink" target="_blank" class="recent-posts-title">@item.DuyuruAd</a></h5>
+                        <span class="recent-posts-date">@item.DuyuruDate | </span>
+                        @{
+                            if (item.Duyuruicerik.Length > 49)
+                            {
+                                <p class="posts-short-brif">@Html.Raw(@item.Duyuruicerik.ToString().Substring(0,49))</p>
+                            }
+                            else
+                            {
+                                <p class="posts-short-brif">@(Html.Raw(@item.Duyuruicerik))</p>
+                            }
+                        }
+                        <a href="@item.DuyuruLink" target="_blank" class="posts-read-more">Читать далее ...</a>
+                    </div>
+                </div>
+            }
+
+            <!-- End Single-Recent-Posts -->
+        </div>
+    </div>
+</div>

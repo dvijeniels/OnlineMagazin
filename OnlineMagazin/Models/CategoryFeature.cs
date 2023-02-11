@@ -1,17 +1,16 @@
 ﻿
-using OnlineMagazin.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OnlineShop.Models
+namespace OnlineMagazin.Models
 {
     [Table("CategoryFeature")]
     public class CategoryFeature
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int KatFId { get; set; }
+        public int CategoryFeatureId { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста выберите категорию")]
         [DisplayName("Название категории")]
@@ -26,7 +25,9 @@ namespace OnlineShop.Models
         [DisplayName("Единица измерения")]
         public string Unit { get; set; }
 
+        [DisplayName("Категория")]
+        [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
-        public virtual List<ProductFeatures> ProductFeatures { get; set; }
+        public virtual ICollection<ProductFeatures> ProductFeatures { get; set; }
     }
 }

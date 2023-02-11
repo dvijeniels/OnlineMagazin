@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using OnlineMagazin.Models;
 
 namespace OnlineMagazin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DuyrularsController : Controller
     {
         private readonly OnlineMagazinContext _context;
@@ -55,7 +57,7 @@ namespace OnlineMagazin.Controllers
         // POST: Duyrulars/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DuyuruId,DuyuruAd,Duyuruicerik,DuyuruResimFile")] Duyrular duyrular)
+        public async Task<IActionResult> Create([Bind("DuyuruId,DuyuruAd,Duyuruicerik,DuyuruLink,DuyuruResimFile")] Duyrular duyrular)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace OnlineMagazin.Controllers
                 {
                     await duyrular.DuyuruResimFile.CopyToAsync(fileStream);
                 }
+                duyrular.DuyuruDate = DateTime.Now;
                 _context.Add(duyrular);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +97,7 @@ namespace OnlineMagazin.Controllers
         // POST: Duyrulars/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DuyuruId,DuyuruAd,Duyuruicerik,DuyuruResimFile")] Duyrular duyrular)
+        public async Task<IActionResult> Edit(int id, [Bind("DuyuruId,DuyuruAd,Duyuruicerik,DuyuruLink,DuyuruResimFile")] Duyrular duyrular)
         {
             if (id != duyrular.DuyuruId)
             {
@@ -113,6 +116,7 @@ namespace OnlineMagazin.Controllers
                 string extension = Path.GetExtension(duyrular.DuyuruResimFile.FileName);
                 duyrular.DuyuruResim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                 string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                duyrular.DuyuruDate = DateTime.Now;
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await duyrular.DuyuruResimFile.CopyToAsync(fileStream);

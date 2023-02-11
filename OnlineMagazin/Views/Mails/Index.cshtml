@@ -1,0 +1,78 @@
+﻿@model IEnumerable<OnlineMagazin.Models.Mails>
+
+@{
+    ViewData["Title"] = "Рассылки";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<div class="col-12 mt-lg-3">
+    <div class="card">
+        <div class="btn-group mb-3" role="group">
+            <a asp-action="Create" class="btn btn-outline-secondary mr-5 w-50"><i class="ti-plus"></i>  Создать новый</a>
+            <a asp-action="Subcribe" class="btn btn-outline-secondary w-50"><i class='fa fa-send'></i>  Отправить рассылку</a>
+        </div>
+        <div class="data-tables datatable-dark">
+            <table id="dataTable3" class="text-center">
+                <thead class="text-capitalize">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Mail)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mail)
+                            </td>
+                            <td>
+                                @if (item.Status)
+                                {
+                                    <h6>Рассылать</h6>
+                                }
+                                else
+                                {
+                                    <h6>Не рассылать</h6>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a asp-action="Edit" asp-route-id="@item.MailId" class="btn btn-secondary btn-dark">Изменить</a>
+                                    <a asp-action="Details" asp-route-id="@item.MailId" class="btn btn-secondary btn-info">Детали</a>
+                                    <a onclick="DeleteSelected(@item.MailId)" class="btn btn-secondary btn-danger">Удалить</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<script>
+    function DeleteSelected(id) {
+            swal({
+              title: "Вы уверены что хотите удалить?",
+              text: "При удалении нельзя вернуть обратно!",
+              icon: "warning",
+              buttons: ["Отмена", "Удалить"],
+            })
+            .then((goWishList) => {
+              if (goWishList) {
+                  $.post("/Mails/Delete?id=" + id + "", function (data) {
+                    swal("Успешно удалено!", {
+                    icon: "success",});
+                    location.reload();
+               });
+            }
+        });
+        return false;
+    };
+</script>

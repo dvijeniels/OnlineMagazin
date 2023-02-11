@@ -6,6 +6,6 @@ namespace OnlineMagazin.ViewModels
     public class ViewProductSlider
     {
         public Products products { get; set; }
-        public List<Sliders> sliders { get; set; }
+        public List<CategoryFeature> categoryFeature { get; set; }
     }
 }
