@@ -53,7 +53,7 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                string appDomein = "https://localhost:5001/";
+                string appDomein = "https://pskanker.ru/";
                 //string confirmationLink = "reset-password?userId={0}&code={1}";
                 string confirmationLink = "Identity/Account/ResetPassword?code={0}";
                 UserEmailOptions options = new UserEmailOptions

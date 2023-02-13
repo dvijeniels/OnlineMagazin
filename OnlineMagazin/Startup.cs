@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using OnlineMagazin.Models;
 using OnlineMagazin.Service;
+using AspNetCore.SEOHelper;
 
 namespace OnlineMagazin
 {
@@ -55,11 +56,6 @@ namespace OnlineMagazin
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
             services.AddControllersWithViews();
-
-            //services.AddDefaultIdentity<OnlineMagazinUser>(options => options.SignIn.RequireConfirmedAccount = false)
-            //        .AddRoles<IdentityRole>()
-            //        .AddEntityFrameworkStores<OnlineMagazinContext>();
-                //var connection = "server=DESKTOP-2IIQV65\\SQLEXPRESS; database=OnlineMagazin; integrated security=true";
                 services.AddDbContext<OnlineMagazinContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OnlineMagazinString")));
         }
 
@@ -75,6 +71,7 @@ namespace OnlineMagazin
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseXMLSitemap(env.ContentRootPath);
             app.UseStatusCodePagesWithReExecute("/ErrorPage/ErrorName","?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();

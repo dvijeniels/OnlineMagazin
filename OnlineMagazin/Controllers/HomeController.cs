@@ -23,6 +23,8 @@ using Newtonsoft.Json.Schema;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
+using AspNetCore.SEOHelper.Sitemap;
+using Microsoft.Extensions.Hosting;
 
 namespace OnlineMagazin.Controllers
 {
@@ -44,11 +46,16 @@ namespace OnlineMagazin.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        //public async Task<ViewResult> Index()
-        //{
-            
-        //    return View();
-        //}
+        public string CreateSitemapInRootDirectory()
+        {
+            var list = new List<SitemapNode>();
+            list.Add(new SitemapNode { LastModified = DateTime.UtcNow, Priority = 0.8, Url = "https://pskanker.ru/Home/HomeIndex/", Frequency = SitemapFrequency.Always });
+            list.Add(new SitemapNode { LastModified = DateTime.UtcNow, Priority = 0.8, Url = "https://pskanker.ru/Home/GetProducts", Frequency = SitemapFrequency.Always });
+            list.Add(new SitemapNode { LastModified = DateTime.UtcNow, Priority = 0.7, Url = "https://pskanker.ru/Home/About", Frequency = SitemapFrequency.Always });
+
+            new SitemapDocument().CreateSitemapXML(list, _hostEnvironment.ContentRootPath);
+            return "sitemap.xml";
+        }
         [AllowAnonymous]
         public async Task<IActionResult> HomeIndex()
         {

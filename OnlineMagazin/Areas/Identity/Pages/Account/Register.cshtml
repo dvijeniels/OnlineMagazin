@@ -27,7 +27,6 @@
 
             <div class="account-create">
                 <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="account-create-box">
@@ -43,7 +42,7 @@
                             <div class="col-sm-4 col-xs-12">
                                 <div class="single-create">
                                     <p>Email почта <sup>*</sup></p>
-                                    <input asp-for="Input.Email" class="form-control" type="email" placeholder="Введите почту email" autocomplete="username" aria-required="true" />
+                                    <input asp-for="Input.Email" class="form-control" type="email" placeholder="Введите почту email" autocomplete="email" aria-required="true" />
                                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Options;
 using NuGet.Protocol.Plugins;
 using OnlineMagazin.Models;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace OnlineMagazin.Service
 {
+    [AllowAnonymous]
     public class EmailService : IEmailService
     {
         private const string templatePath = @"EmailTemplate/{0}.html";

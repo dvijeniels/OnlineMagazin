@@ -1,8 +1,10 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Identity
 @using OnlineMagazin.Areas.Identity.Data
 
 @inject SignInManager<OnlineMagazinUser> SignInManager
 @inject UserManager<OnlineMagazinUser> UserManager
+@inject IHttpContextAccessor Accessor
 
 
 @if (SignInManager.IsSignedIn(User))
@@ -19,12 +21,22 @@
                 }
                 
                 <li><a asp-controller="Home" asp-action="Account" asp-route-id="@UserManager.GetUserId(User)"><i class="fa fa-user"></i> Мой аккаунт</a></li>
-                <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
-                <li>
+                @{
+                    var likedCount = SessionHelper.GetObjectFromJson<List<Liked>>(Accessor.HttpContext.Session, "liked");
+                    if (likedCount == null)
+                    {
+                        <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (@likedCount.Count())</a></li>
+                    }
+                }
+                
+            <li>
                     <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomeIndex", "Home", new { area = "" })">
-                        <a id="logout" @*href="/Identity/Account/Logout"*@ onclick="document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Выйти</a>
+                        <a id="logout" style="cursor: pointer;" @*href="/Identity/Account/Logout"*@ onclick="document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Выйти</a>
                     </form>
-                    @*                    <a id="logout" href="/Home/LogOut"><i class="fa fa-sign-out"></i> Выйти</a>*@
                 </li>
             </ul>
         </div>
@@ -38,7 +50,17 @@ else
         </div>
         <div class="top-link">
             <ul class="link">
-                <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                @{
+                    var likedCount = SessionHelper.GetObjectFromJson<List<Liked>>(Accessor.HttpContext.Session, "liked");
+                    if (likedCount == null)
+                    {
+                        <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (0)</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (@likedCount.Count())</a></li>
+                    }
+                }
                 <li><a id="login" asp-area="Identity" asp-page="/Account/Login" ><i class="fa fa-sign-in"></i> Войти</a></li>
             </ul>
         </div>
