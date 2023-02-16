@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using OnlineMagazin.Areas.Identity.Data;
 using OnlineMagazin.Models;
 using OnlineMagazin.Service;
@@ -21,14 +22,14 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
     public class ResendEmailConfirmationModel : PageModel
     {
         private readonly UserManager<OnlineMagazinUser> _userManager;
-        private readonly IEmailSender _emailSender;
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
-        public ResendEmailConfirmationModel(UserManager<OnlineMagazinUser> userManager, IEmailSender emailSender, IEmailService emailService)
+        public ResendEmailConfirmationModel(UserManager<OnlineMagazinUser> userManager, IEmailService emailService,IConfiguration configuration)
         {
             _userManager = userManager;
-            _emailSender = emailSender;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         [BindProperty]
@@ -45,7 +46,6 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
         {
 
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -63,8 +63,8 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
             var userId = await _userManager.GetUserIdAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            string appDomein = "https://pskanker.ru/";
-            string confirmationLink = "confirm-email?userId={0}&code={1}";
+            string appDomein = _configuration.GetSection("UserConfirmationData:AppDomein").Value;
+            string confirmationLink = _configuration.GetSection("UserConfirmationData:ConfirmationLink").Value;
             UserEmailOptions options = new UserEmailOptions
             {
                 ToEmails = new List<string>() { user.Email },
@@ -79,7 +79,7 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
             //    pageHandler: null,
             //    values: new { userId = userId, code = code },
             //    protocol: Request.Scheme);
-            //await _emailSender.SendEmailAsync(
+            //await IEmailSender.SendEmailAsync(
             //    Input.Email,
             //    "Confirm your email",
             //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using OnlineMagazin.Areas.Identity.Data;
 using OnlineMagazin.Models;
 using OnlineMagazin.Service;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace OnlineMagazin.Areas.Identity.Pages.Account
 {
@@ -20,14 +22,15 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<OnlineMagazinUser> _userManager;
-        private readonly IEmailSender _emailSender;
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
-        public ForgotPasswordModel(UserManager<OnlineMagazinUser> userManager, IEmailSender emailSender, IEmailService emailService)
+        public ForgotPasswordModel(UserManager<OnlineMagazinUser> userManager, IEmailService emailService,
+            IConfiguration configuration)
         {
             _userManager = userManager;
-            _emailSender = emailSender;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         [BindProperty]
@@ -53,8 +56,7 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                string appDomein = "https://pskanker.ru/";
-                //string confirmationLink = "reset-password?userId={0}&code={1}";
+                string appDomein = _configuration.GetSection("UserConfirmationData:AppDomein").Value;
                 string confirmationLink = "Identity/Account/ResetPassword?code={0}";
                 UserEmailOptions options = new UserEmailOptions
                 {

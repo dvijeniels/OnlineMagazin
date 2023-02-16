@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OnlineMagazin.Areas.Identity.Data;
@@ -29,22 +30,22 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
         private readonly SignInManager<OnlineMagazinUser> _signInManager;
         private readonly UserManager<OnlineMagazinUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
         public RegisterModel(OnlineMagazinContext context,
             UserManager<OnlineMagazinUser> userManager,
             SignInManager<OnlineMagazinUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender, 
-            IEmailService emailService)
+            IEmailService emailService, 
+            IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         [BindProperty]
@@ -105,8 +106,8 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
                     //    pageHandler: null,
                     //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                     //    protocol: Request.Scheme);
-                    string appDomein = "https://pskanker.ru/";
-                    string confirmationLink = "confirm-email?userId={0}&code={1}";
+                    string appDomein = _configuration.GetSection("UserConfirmationData:AppDomein").Value;
+                    string confirmationLink = _configuration.GetSection("UserConfirmationData:ConfirmationLink").Value;
                     UserEmailOptions options = new UserEmailOptions
                     {
                         ToEmails = new List<string>() { user.Email },

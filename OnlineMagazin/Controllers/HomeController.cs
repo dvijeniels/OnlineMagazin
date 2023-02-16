@@ -42,20 +42,11 @@ namespace OnlineMagazin.Controllers
         {
             _context = context;
             _logger = logger;
-            this._hostEnvironment = hostEnvironment;
+            _hostEnvironment = hostEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public string CreateSitemapInRootDirectory()
-        {
-            var list = new List<SitemapNode>();
-            list.Add(new SitemapNode { LastModified = DateTime.UtcNow, Priority = 0.8, Url = "https://pskanker.ru/Home/HomeIndex/", Frequency = SitemapFrequency.Always });
-            list.Add(new SitemapNode { LastModified = DateTime.UtcNow, Priority = 0.8, Url = "https://pskanker.ru/Home/GetProducts", Frequency = SitemapFrequency.Always });
-            list.Add(new SitemapNode { LastModified = DateTime.UtcNow, Priority = 0.7, Url = "https://pskanker.ru/Home/About", Frequency = SitemapFrequency.Always });
-
-            new SitemapDocument().CreateSitemapXML(list, _hostEnvironment.ContentRootPath);
-            return "sitemap.xml";
-        }
+        
         [AllowAnonymous]
         public async Task<IActionResult> HomeIndex()
         {
@@ -114,9 +105,9 @@ namespace OnlineMagazin.Controllers
                 {
                     return NotFound($"Не удалось загрузить пользователя с таким ID '{userId}'.");
                 }
-
                 code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
                 var result = await _userManager.ConfirmEmailAsync(user, code);
+
                 if (result.Succeeded)
                 {
                     ViewBag.IsSuccess = true;
@@ -140,7 +131,7 @@ namespace OnlineMagazin.Controllers
             return View(like);
         }
         [AllowAnonymous]
-        public async Task<IActionResult> ProductsFromCategory(int id, int? page, int? PageSize)
+        public async Task<IActionResult> ProductsFromCategory(int id, int? page, int? PageSize, string? sortingby)
         {
             if (id != 0)
             {
@@ -174,12 +165,41 @@ namespace OnlineMagazin.Controllers
                 new SelectListItem() { Value="64", Text= "64" },
                 new SelectListItem() { Value="128", Text= "128" },
             };
+            ViewBag.Sortingby = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value="Default", Text= "По умолчанию" },
+                new SelectListItem() { Value="NameFromAToZ", Text= "Название (А - Я)" },
+                new SelectListItem() { Value="NameFromZToA", Text= "Название (Я - А)" },
+                new SelectListItem() { Value="PriceLowToHigh", Text= "Цена (Низкий > Высокий)" },
+                new SelectListItem() { Value="PriceHighToLow", Text= "Цена (Высокий > Низкий)" },
+            };
             var pageNumber = (page ?? 1);
             int pagesize = (PageSize ?? 16);
+            string SortingName = (sortingby ?? "Default");
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
-            return View(productsFromCat.ToPagedList(pageNumber, pagesize));
+            if (SortingName == "NameFromAToZ")
+            {
+                return View(productsFromCat.OrderBy(x => x.Baslik).ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "NameFromZToA")
+            {
+                return View(productsFromCat.OrderByDescending(x => x.Baslik).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "PriceLowToHigh")
+            {
+                return View(productsFromCat.OrderBy(x => x.Price).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "PriceHighToLow")
+            {
+                return View(productsFromCat.OrderByDescending(x => x.Price).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            else
+            {
+                return View(productsFromCat.ToList().ToPagedList(pageNumber, pagesize));
+            }
         }
+        
         [HttpPost]
         [AllowAnonymous]
         public JsonResult Commenting(int productID, string UserName, string Contents, int Score)
@@ -197,6 +217,7 @@ namespace OnlineMagazin.Controllers
             }
             return Json(newComment);
         }
+        
         [HttpPost]
         [AllowAnonymous]
         public IActionResult DeleteComment(int commentId)
@@ -232,7 +253,7 @@ namespace OnlineMagazin.Controllers
         //    return View(productsFromFeatures.ToPagedList(1, 8));
         //}
         [AllowAnonymous]
-        public IActionResult GetProductsFeatures(string value, string FeatureName, int? page, int? PageSize)
+        public IActionResult GetProductsFeatures(string value, string FeatureName, int? page, int? PageSize, string? sortingby)
         {
             if(value!=null&& FeatureName!=null)
             {
@@ -248,15 +269,42 @@ namespace OnlineMagazin.Controllers
                 new SelectListItem() { Value="64", Text= "64" },
                 new SelectListItem() { Value="128", Text= "128" },
             };
+            ViewBag.Sortingby = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value="Default", Text= "По умолчанию" },
+                new SelectListItem() { Value="NameFromAToZ", Text= "Название (А - Я)" },
+                new SelectListItem() { Value="NameFromZToA", Text= "Название (Я - А)" },
+                new SelectListItem() { Value="PriceLowToHigh", Text= "Цена (Низкий > Высокий)" },
+                new SelectListItem() { Value="PriceHighToLow", Text= "Цена (Высокий > Низкий)" },
+            };
             var pageNumber = (page ?? 1);
             int pagesize = (PageSize ?? 16);
+            string SortingName = (sortingby ?? "Default");
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
-            var productsFromFeatures = _context.Products.Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize);
-            return View(productsFromFeatures);
+            if (SortingName == "NameFromAToZ")
+            {
+                return View(_context.Products.OrderBy(x => x.Baslik).Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "NameFromZToA")
+            {
+                return View(_context.Products.OrderByDescending(x => x.Baslik).Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "PriceLowToHigh")
+            {
+                return View(_context.Products.OrderBy(x => x.Price).Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "PriceHighToLow")
+            {
+                return View(_context.Products.OrderByDescending(x => x.Price).Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            else
+            {
+                return View(_context.Products.Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
+            }
         }
         [AllowAnonymous]
-        public IActionResult GetProducts(int? page, int? PageSize)
+        public IActionResult GetProducts(int? page, int? PageSize, string? sortingby)
         {
             var productsCount = _context.Products.OrderBy(e => e.ProductId).Count();
             ViewBag.PageSize = new List<SelectListItem>()
@@ -266,12 +314,41 @@ namespace OnlineMagazin.Controllers
                 new SelectListItem() { Value="64", Text= "64" },
                 new SelectListItem() { Value="128", Text= "128" },
             };
+            ViewBag.Sortingby = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value="Default", Text= "По умолчанию" },
+                new SelectListItem() { Value="NameFromAToZ", Text= "Название (А - Я)" },
+                new SelectListItem() { Value="NameFromZToA", Text= "Название (Я - А)" },
+                new SelectListItem() { Value="PriceLowToHigh", Text= "Цена (Низкий > Высокий)" },
+                new SelectListItem() { Value="PriceHighToLow", Text= "Цена (Высокий > Низкий)" },
+            };
             var pageNumber = (page ?? 1);
             int pagesize = (PageSize ?? 16);
+            string SortingName = (sortingby ?? "Default");
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
-            var products =_context.Products.ToList().ToPagedList(pageNumber, pagesize);
-            return View(products);
+
+            if (SortingName == "NameFromAToZ")
+            {
+                return View(_context.Products.OrderBy(x => x.Baslik).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "NameFromZToA")
+            {
+                return View(_context.Products.OrderByDescending(x => x.Baslik).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "PriceLowToHigh")
+            {
+                return View(_context.Products.OrderBy(x => x.Price).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            if (SortingName == "PriceHighToLow")
+            {
+                return View(_context.Products.OrderByDescending(x => x.Price).ToList().ToPagedList(pageNumber, pagesize));
+            }
+            else
+            {
+                return View(_context.Products.ToList().ToPagedList(pageNumber, pagesize));
+            }
+            //return View(_context.Products.ToList().ToPagedList(pageNumber, pagesize));
         }
 
         [HttpPost]

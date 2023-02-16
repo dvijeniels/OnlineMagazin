@@ -30,16 +30,18 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Ваш пароль должен содержать не менее 6-ти символов (букв и цифр)", MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [Display(Name = "Пароль")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Подтвердить пароль")]
+            [Compare("Password", ErrorMessage = "Пароли не совпадают!")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
@@ -49,7 +51,7 @@ namespace OnlineMagazin.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("Код должен быть предоставлен для сброса пароля.");
             }
             else
             {

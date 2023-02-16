@@ -26,8 +26,6 @@ namespace OnlineMagazin
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -51,15 +49,20 @@ namespace OnlineMagazin
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
             services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail= true; });
-            services.AddIdentity<OnlineMagazinUser, IdentityRole>()
+            services.AddIdentity<OnlineMagazinUser, IdentityRole>(options => {
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
+            })
                     .AddEntityFrameworkStores<OnlineMagazinContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
             services.AddControllersWithViews();
-                services.AddDbContext<OnlineMagazinContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OnlineMagazinString")));
+            services.AddDbContext<OnlineMagazinContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OnlineMagazinString")));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

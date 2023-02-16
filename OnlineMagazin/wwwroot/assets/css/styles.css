@@ -281,7 +281,7 @@
 
 .horizontal-menu ul li a {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
     padding: 10px 20px;
     color: #000000;
     text-transform: capitalize;
@@ -847,7 +847,7 @@ ul.breadcrumbs {
 }
 
 .single-report p {
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 700;
     color: #565656;
     background: #ececec;
@@ -1657,7 +1657,7 @@ table.dbkit-table tr td {
 .according .card-body {
     padding: 10px;
     border: 1px solid #eff3f6;
-    font-size: 14px;
+    font-size: 15px;
     letter-spacing: 0;
     color: #444;
     line-height: 27px;
@@ -1869,7 +1869,7 @@ p.card-text {
 }
 
 .media-body {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 27px;
 }
 

@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.SEOHelper.Sitemap;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using OnlineMagazin.Data;
 using OnlineMagazin.Models;
 
@@ -64,7 +68,7 @@ namespace OnlineMagazin.Controllers
             }
             return View(category);
         }
-
+        
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

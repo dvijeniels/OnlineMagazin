@@ -147,7 +147,7 @@ body {
     background: #fff none repeat scroll 0 0;
     color: #7e7e7e;
     font-family: 'Raleway', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 400;
     text-align: left;
 }
@@ -1007,7 +1007,7 @@ p.welcome-msg {
     padding: 0;
     background: none;
     text-transform: capitalize;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 35px;
     color: #333;
     font-family: 'Raleway', sans-serif;
@@ -1138,7 +1138,7 @@ p.welcome-msg {
                     color: #111;
                     display: block;
                     font-family: 'Raleway', sans-serif;
-                    font-size: 13px;
+                    font-size: 15px;
                     line-height: 40px;
                     padding: 0;
                     text-transform: capitalize;

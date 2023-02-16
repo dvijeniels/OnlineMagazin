@@ -87,22 +87,18 @@
                                     <a href="#display-1-2" role="tab" data-toggle="tab"></a>
                                 </li>
                             </ul>
-                            <div class="sort">
-                                <label>Сортировать по:</label>
-                                <select>
-                                    <option value="#">По умолчанию</option>
-                                    <option value="#">Название (A - Z)</option>
-                                    <option value="#">Название (Z - A)</option>
-                                    <option value="#">Цена (Низкий > Высокий)</option>
-                                    <option value="#">Цена (Высокий > Низкий  )</option>
-                                    <option value="#">Рейтинг (Наибольший)</option>
-                                </select>
-                            </div>
                             @using (Html.BeginForm("ProductsFromCategory", "Home", FormMethod.Get, new { id = "form1" }))
                             {
+                                <div class="sort">
+                                    <label>Сортировать по:</label>
+
+                                    @Html.DropDownList("sortingby")
+
+                                </div>
+
                                 <div class="limit">
                                     <label>Показать:</label>
-                                @Html.DropDownList("pageSize") 
+                                    @Html.DropDownList("pageSize")
                                 </div>
                             }
                         </div>
@@ -290,6 +286,9 @@
 <script type="text/javascript">
     $(function () {
         $("#pageSize").change(function () {
+            $("#form1").submit();
+        });
+        $("#sortingby").change(function () {
             $("#form1").submit();
         });
     });
