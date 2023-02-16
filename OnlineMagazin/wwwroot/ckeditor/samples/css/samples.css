@@ -5,6 +5,8 @@
 @media (max-width: 900px) {
   .global-is-mobile-hidden {
     display: none !important;
+    visibility: hidden;
+
   }
 }
 article,

@@ -4,7 +4,7 @@
         @foreach (var item in Model)
         {
         <div class="single-sidebar-banner">
-            <a href="#"><img src="~/image/@item.SliderResim" alt="Product Banner"></a>
+                <a href="#"><img src="~/image/@item.SliderResim" alt="@item.SliderName" loading="lazy"></a>
         </div>
         }
     </div>

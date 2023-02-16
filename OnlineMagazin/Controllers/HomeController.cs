@@ -178,6 +178,7 @@ namespace OnlineMagazin.Controllers
             string SortingName = (sortingby ?? "Default");
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
+            ViewBag.sortingName = SortingName;
             if (SortingName == "NameFromAToZ")
             {
                 return View(productsFromCat.OrderBy(x => x.Baslik).ToPagedList(pageNumber, pagesize));
@@ -282,6 +283,7 @@ namespace OnlineMagazin.Controllers
             string SortingName = (sortingby ?? "Default");
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
+            ViewBag.sortingName = SortingName;
             if (SortingName == "NameFromAToZ")
             {
                 return View(_context.Products.OrderBy(x => x.Baslik).Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
@@ -327,6 +329,7 @@ namespace OnlineMagazin.Controllers
             string SortingName = (sortingby ?? "Default");
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
+            ViewBag.sortingName = SortingName;
 
             if (SortingName == "NameFromAToZ")
             {

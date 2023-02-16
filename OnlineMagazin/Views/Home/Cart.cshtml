@@ -27,7 +27,7 @@
                 @if (ViewBag.CartControl != null)
                 {
                     <h3 class="text-center">@ViewBag.CartControl</h3>
-                    <img class="center-block" src="~/generalroot/img/empty_cart.gif" />
+                    <img class="center-block" src="~/generalroot/img/empty_cart.gif" loading="lazy" />
                 }
                 else
                 {
@@ -55,7 +55,7 @@
                                             {
                                                 <tr>
                                                     <td class="text-center">
-                                                        <a href="/Home/ProductDetail/@item.Products.ProductId"><img class="img-thumbnail" width="80" height="90" src="~/image/@item.Products.Foto" alt="#" /></a>
+                                                            <a href="/Home/ProductDetail/@item.Products.ProductId"><img class="img-thumbnail" width="80" height="90" src="~/image/@item.Products.Foto" alt="#" loading="lazy" /></a>
                                                     </td>
                                                     <td class="text-left">
                                                         <a href="/Home/ProductDetail/@item.Products.ProductId">@item.Products.Baslik</a>

@@ -89,10 +89,10 @@
                                                         </div>
                                                         <div class="product-img">
                                                             <a href="/Home/ProductDetail/@item.ProductId">
-                                                                <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product">
+                                                                <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="@item.Baslik" loading="lazy">
                                                                 @if (item.Foto2 != null)
                                                                 {
-                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="@item.Baslik" loading="lazy">
                                                                 }
                                                             </a>
                                                         </div>
@@ -138,7 +138,7 @@
                                                                         <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
                                                                     </div>
                                                                     <div class="product-button-2">
-                                                                        <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                        <a onclick="AddProductToLiked(@item.ProductId)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
                                                                         <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
                                                                     </div>
                                                                 </div>
@@ -181,10 +181,10 @@
                                                     </div>
                                                     <div class="product-img">
                                                         <a href="/Home/ProductDetail/@item.ProductId">
-                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product">
+                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="@item.Baslik" loading="lazy">
                                                             @if (item.Foto2 != null)
                                                             {
-                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="Product">
+                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="@item.Baslik" loading="lazy">
                                                             }
                                                         </a>
                                                     </div>
@@ -212,7 +212,7 @@
                                                                     <button onclick="AddProductToCart(@item.ProductId)" title="Добавить в корзину"><i class="fa fa-shopping-cart"></i> Добавить</button>
                                                                 </div>
                                                                 <div class="product-button-2">
-                                                                    <a onclick="AddProductToLiked(@item.ProductId)" href="javascript:void(0)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
+                                                                    <a onclick="AddProductToLiked(@item.ProductId)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
                                                                     <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
                                                                 </div>
                                                             </div>

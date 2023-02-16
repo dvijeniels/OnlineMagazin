@@ -147,7 +147,7 @@ body {
     background: #fff none repeat scroll 0 0;
     color: #7e7e7e;
     font-family: 'Raleway', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     text-align: left;
 }
@@ -432,7 +432,7 @@ p.welcome-msg {
         -webkit-appearance: none;
         border: medium none;
         background: transparent;
-        color: #7e7e7e;
+        color: #1a1a1a;
         cursor: pointer;
         font-size: 12px;
         font-weight: 400;
@@ -1191,7 +1191,7 @@ p.welcome-msg {
     animation: 1300ms ease-in-out 0s normal none 1 running fadeInRightBig;
     color: #e95668;
     font-family: "Roboto";
-    font-size: 50px;
+    font-size: 45px;
     font-weight: 700;
     left: 46%;
     line-height: 50px;
@@ -1455,7 +1455,7 @@ span.price {
 }
 
 span.old-price {
-    color: #ccc;
+    color: #666;
     font-size: 15px;
     font-weight: 400;
     text-decoration: line-through;
