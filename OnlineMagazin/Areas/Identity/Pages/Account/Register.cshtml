@@ -13,7 +13,7 @@
                 <div class="col-md-12">
                     <ul class="page-menu">
                         <li><a href="~/Home/HomeIndex/">Главная</a></li>
-                        <li class="active"><a href="~/Home/CreateUser/">Aккаунт</a></li>
+                        <li class="active"><a id="login" asp-area="Identity" asp-page="/Account/Login">Aккаунт</a></li>
                     </ul>
                 </div>
             </div>
@@ -73,11 +73,8 @@
             </div>
         </div>
     </div>
-    <!-- End Account-Create-Area -->
-    <!-- START BRAND-LOGO-AREA -->
 
-
-@*</section>
-@section Scripts {
+</section>
+@*@section Scripts {
 <partial name="_ValidationScriptsPartial" />
 }*@

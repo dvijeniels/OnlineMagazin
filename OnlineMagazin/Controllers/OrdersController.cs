@@ -50,6 +50,7 @@ namespace OnlineMagazin.Controllers
             {
                 OrderId = i.OrderId,
                 OrderNumber = i.OrderNumber,
+                Email = i.Email,
                 FirstAndLastName = i.FirstAndLastName,
                 BuyingType = i.BuyingType,
                 Comment = i.Comment,
@@ -93,7 +94,7 @@ namespace OnlineMagazin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderNumber,UserId,FirstAndLastName,Address,Address2,PhoneNumber,Region,City,Status,BuyingType,Comment,CreatedDate,OrderDate,InOrder")] OrderDetails orders)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderNumber,UserId,Email,FirstAndLastName,Address,Address2,PhoneNumber,Region,City,Status,BuyingType,Comment,CreatedDate,OrderDate,InOrder")] OrderDetails orders)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != orders.OrderId)
@@ -107,6 +108,7 @@ namespace OnlineMagazin.Controllers
                 employee.OrderId = orders.OrderId;
                 employee.UserId = userId;
                 employee.OrderNumber = orders.OrderNumber;
+                employee.Email = orders.Email;
                 employee.FirstAndLastName = orders.FirstAndLastName;
                 employee.Address = orders.Address;
                 employee.Address2 = orders.Address2;

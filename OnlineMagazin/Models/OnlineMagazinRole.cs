@@ -33,7 +33,7 @@ namespace OnlineMagazin.Models
                 UserName = "admin@gmail.com",
                 Email = "admin@gmail.com",
                 FirstAndLastName = "AdminName",
-                Foto = "adminFoto.png",
+                Foto = "adminFoto.webp",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true
             };

@@ -25,6 +25,7 @@ using System.Text;
 using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
 using AspNetCore.SEOHelper.Sitemap;
 using Microsoft.Extensions.Hosting;
+using static System.Net.WebRequestMethods;
 
 namespace OnlineMagazin.Controllers
 {
@@ -34,24 +35,34 @@ namespace OnlineMagazin.Controllers
         private readonly OnlineMagazinContext _context;
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IEmailService _emailService;
 
         private readonly UserManager<OnlineMagazinUser> _userManager;
         private readonly SignInManager<OnlineMagazinUser> _signInManager;
         public HomeController(OnlineMagazinContext context, ILogger<HomeController> logger, IWebHostEnvironment hostEnvironment, 
-            UserManager<OnlineMagazinUser> userManager, SignInManager<OnlineMagazinUser> signInManager)
+            UserManager<OnlineMagazinUser> userManager, SignInManager<OnlineMagazinUser> signInManager, IEmailService emailService)
         {
             _context = context;
             _logger = logger;
             _hostEnvironment = hostEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
         
         [AllowAnonymous]
         public async Task<IActionResult> HomeIndex()
         {
-            //List<Message> mesaj = _context.Message.Where(x => x.Read == false).ToList();
-            //HttpContext.Session.SetInt32("mesajSay", (mesaj.Count));
+            ViewBag.keywordsProducts = "Розничная цена, Оптовая цена, Дешево, Низкие цены, Закупка стройматериалов";
+            ViewBag.DescriptionProducts = "Розничная цена, Оптовая цена, Дешево, Низкие цены, Закупка стройматериалов";
+            foreach (var item in _context.Category.ToList())
+            {
+                ViewBag.keywordsProducts += ", " + item.CategoriName;
+            }
+            foreach (var item in _context.Products.ToList())
+            {
+                ViewBag.keywordsProducts += ", " + item.Baslik;
+            }
             var products = await _context.Products.Include(a=>a.TypeProduct).ToListAsync();
             if (products.Count==0)
             {
@@ -179,6 +190,11 @@ namespace OnlineMagazin.Controllers
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
             ViewBag.sortingName = SortingName;
+            ViewBag.keywordsProducts = "Розничная цена, Оптовая цена";
+            foreach (var item in productsFromCat)
+            {
+                ViewBag.keywordsProducts += ", " + item.Baslik;
+            }
             if (SortingName == "NameFromAToZ")
             {
                 return View(productsFromCat.OrderBy(x => x.Baslik).ToPagedList(pageNumber, pagesize));
@@ -284,6 +300,11 @@ namespace OnlineMagazin.Controllers
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
             ViewBag.sortingName = SortingName;
+            ViewBag.keywordsProducts = "Розничная цена, Оптовая цена";
+            foreach (var item in _context.Category.Select(x => x.CategoriName).ToList())
+            {
+                ViewBag.keywordsProducts += ", " + item;
+            }
             if (SortingName == "NameFromAToZ")
             {
                 return View(_context.Products.OrderBy(x => x.Baslik).Where(products => products.ProductFeatures.Any(a => a.Value == HttpContext.Session.GetString("value"))).ToList().ToPagedList(pageNumber, pagesize));
@@ -308,6 +329,11 @@ namespace OnlineMagazin.Controllers
         [AllowAnonymous]
         public IActionResult GetProducts(int? page, int? PageSize, string? sortingby)
         {
+            ViewBag.keywordsProducts = "Розничная цена, Оптовая цена, Дешево, Низкие цены, Закупка стройматериалов";
+            foreach (var item in _context.Category.Select(x => x.CategoriName).ToList())
+            {
+                ViewBag.keywordsProducts += ", "+item; 
+            }
             var productsCount = _context.Products.OrderBy(e => e.ProductId).Count();
             ViewBag.PageSize = new List<SelectListItem>()
             {
@@ -361,15 +387,26 @@ namespace OnlineMagazin.Controllers
             Mails newMail = new Mails();
             if (Mail!=null)
             {
-                var result = _context.Mails.Where(mail => mail.Mail == Mail).Count();
-                if (result > 0)
+                var result = _context.Mails.Where(mail => mail.Mail == Mail);
+                
+                if(result.Where(x=>x.Status==true).Count()>0)
                 {
                     return Json("Error");
                 }
-                newMail.Mail = Mail;
-                newMail.Status = true;
-                _context.Mails.Add(newMail);
-                _context.SaveChanges();
+                else if (result.Where(x => x.Status == false).Count() >0)
+                {
+                    var unsubcribe = _context.Mails.Where(a => a.Mail == Mail).FirstOrDefault();
+                    unsubcribe.Status = true;
+                    _context.Update(unsubcribe);
+                    _context.SaveChangesAsync();
+                }
+                else if (result.Count() <= 0)
+                {
+                    newMail.Mail = Mail;
+                    newMail.Status = true;
+                    _context.Mails.Add(newMail);
+                    _context.SaveChanges();
+                }
             }
             return Json(newMail);
         }
@@ -399,6 +436,7 @@ namespace OnlineMagazin.Controllers
         public async Task<IActionResult> ProductDetail(int? id)
         {
             ViewData["Comments"]= _context.Comments.Where(x=>x.Status==true && x.ProductId==id).Count();
+            ViewBag.ProductTitle =await _context.Products.Where(x => x.ProductId == id).Select(a=>a.Baslik).FirstOrDefaultAsync();
             var onlineMagazinContext = _context.Products.Include(p => p.Category);
             ViewProductCart viewProduct = new ViewProductCart();
             viewProduct.products = await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(com => com.ProductId == id);
@@ -758,6 +796,7 @@ namespace OnlineMagazin.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             if (user != null) 
             {
+                ViewBag.Email = user.Email;
                 ViewBag.AdSoyad = user.FirstAndLastName;
                 ViewBag.Address = user.Address;
                 ViewBag.Address2 = user.Address2;
@@ -771,7 +810,7 @@ namespace OnlineMagazin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> OrderCreate([Bind("OrderId,FirstAndLastName,Address,Address2,PhoneNumber,Region,City,BuyingType,Comment")] Orders orders)
+        public async Task<IActionResult> OrderCreate([Bind("OrderId,Email,FirstAndLastName,Address,Address2,PhoneNumber,Region,City,BuyingType,Comment")] Orders orders)
         {
             var carts = SessionHelper.GetObjectFromJson<List<Carts>>(HttpContext.Session, "cart");
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -790,16 +829,59 @@ namespace OnlineMagazin.Controllers
                     var orderLines = new OrderLines();
                     orderLines.qty = item.qty;
                     orderLines.ProductId = item.Products.ProductId;
-                    orderLines.Price = carts.Sum(item => item.Products.Price * item.qty); ;
+                    orderLines.Price = item.Products.Price;
                     orders.OrderLines.Add(orderLines);
                 }
+                string totalProductPrice = Convert.ToString(orders.OrderLines.Sum(a => a.Price * a.qty));
                 _context.Add(orders);
                 await _context.SaveChangesAsync();
+                UserEmailOptions options = new UserEmailOptions
+                {
+                    Subject = "Детали вашего заказа",
+                    PlaceHolders = new List<KeyValuePair<string, string>>()
+                    {
+                        new KeyValuePair<string, string>("{{OrderNumber}}",string.Format(orders.OrderNumber)),
+                        new KeyValuePair<string, string>("{{Email}}",string.Format(orders.Email)),
+                        new KeyValuePair<string, string>("{{FirstAndLastName}}",string.Format(orders.FirstAndLastName)),
+                        new KeyValuePair<string, string>("{{PhoneNumber}}",string.Format(orders.PhoneNumber??"")),
+                        new KeyValuePair<string, string>("{{Region}}",string.Format(orders.Region)),
+                        new KeyValuePair<string, string>("{{City}}",string.Format(orders.City)),
+                        new KeyValuePair<string, string>("{{Address}}",string.Format(orders.Address)),
+                        new KeyValuePair<string, string>("{{Address2}}",string.Format(orders.Address2??"")),
+                        new KeyValuePair<string, string>("{{Status}}",string.Format(orders.Status)),
+                        new KeyValuePair<string, string>("{{BuyingType}}",string.Format(orders.BuyingType??"")),
+                        new KeyValuePair<string, string>("{{Comment}}",string.Format(orders.Comment??"")),
+                        new KeyValuePair<string, string>("{{CreatedDate}}", orders.CreatedDate.ToString()),
+                        new KeyValuePair<string, string>("{{ProductsInfo}}", GetProductsToSend(carts)),
+                        new KeyValuePair<string, string>("{{totalProductPrice}}",totalProductPrice),
+                    },
+                    ToEmails = new List<string> { orders.Email,"djadi708@gmail.com", "rysbekewatov@gmail.com" },
+                };
+                await _emailService.SendOrderDetailEmail(options);
+
                 var cart = SessionHelper.GetObjectFromJson<List<Carts>>(HttpContext.Session, "cart");
                 HttpContext.Session.Remove("cart");
+
                 return RedirectToAction(nameof(OrderCompleted));
             }
             return View(orders);
+        }
+        string GetProductsToSend(List<Carts> carts)
+        {
+            string htmlProducts = "";
+            foreach (var item in carts)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string path = Path.Combine(wwwRootPath + "\\image\\", item.Products.Foto);
+                string pathProductDetail = Path.Combine("https://pskanker.ru/Home/ProductDetail/", Convert.ToString(item.Products.ProductId));
+                htmlProducts += "<tbody><tr><td><div><a href = '"+pathProductDetail+"'>" +
+                                        "<img src ='"+path+"' width='150' alt="+item.Products.Baslik+" height='150'/></a></div></td>" +
+                                        "<td><label>" + item.Products.Baslik + "</label></td>" +
+                                        "<td><label>"+item.qty +"</label></td>" +
+                                        "<td><label>"+item.Products.Price+"</label></td>" +
+                                        "<td><label>" + (item.qty * item.Products.Price) + "</label></td></tr></tbody>";
+            }
+            return htmlProducts;
         }
         [AllowAnonymous]
         public IActionResult SearchAllProduct(string searchString, Category category,int? page)
@@ -823,15 +905,12 @@ namespace OnlineMagazin.Controllers
             {
                 ViewBag.ProductNotHave = "Ничего не нашлось";
             }
-
+            ViewBag.keywordsProducts = "Лучшие товары для стройки, Качественные материалы, Дешево, Низкие цены";
+            foreach (var item in _context.Products.ToList())
+            {
+                ViewBag.keywordsProducts += ", " + item.Baslik;
+            }
             return View(products.ToList().ToPagedList(PageNumber, 8));
         }
-        bool TestForNullOrEmpty(string s)
-        {
-            bool result;
-            result = s == null || s == string.Empty;
-            return result;
-        }
-
     }
 }

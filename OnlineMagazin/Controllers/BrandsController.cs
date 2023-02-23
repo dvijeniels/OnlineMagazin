@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Libwebp.Net.utility;
+using Libwebp.Net;
+using Libwebp.Standard;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,12 +65,16 @@ namespace OnlineMagazin.Controllers
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(brands.BrandsResimFile.FileName);
-                string extension = Path.GetExtension(brands.BrandsResimFile.FileName);
-                brands.BrandsResim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                var encoder = new WebpEncoder(config);
+                var ms = new MemoryStream();
+                brands.BrandsResimFile.CopyTo(ms);
+                Stream fs = await encoder.EncodeAsync(ms, brands.BrandsResimFile.FileName);
+                brands.BrandsResim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                 string path = Path.Combine(wwwRootPath + "/image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    await brands.BrandsResimFile.CopyToAsync(fileStream);
+                    await fs.CopyToAsync(fileStream);
                 }
                 _context.Add(brands);
                 await _context.SaveChangesAsync();
@@ -99,6 +106,7 @@ namespace OnlineMagazin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BrandsId,BrandsResimFile,BrandsName")] Brands brands)
         {
+            var BrandImageGet = _context.Brands.Where(x => x.BrandsId == id).Select(x => x.BrandsResim).First();
             if (id != brands.BrandsId)
             {
                 return NotFound();
@@ -112,13 +120,18 @@ namespace OnlineMagazin.Controllers
                     {
                         string wwwRootPath = _hostEnvironment.WebRootPath;
                         string fileName = Path.GetFileNameWithoutExtension(brands.BrandsResimFile.FileName);
-                        string extension = Path.GetExtension(brands.BrandsResimFile.FileName);
-                        brands.BrandsResim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                        var encoder = new WebpEncoder(config);
+                        var ms = new MemoryStream();
+                        brands.BrandsResimFile.CopyTo(ms);
+                        Stream fs = await encoder.EncodeAsync(ms, brands.BrandsResimFile.FileName);
+                        brands.BrandsResim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                         string path = Path.Combine(wwwRootPath + "/image/", fileName);
                         using (var fileStream = new FileStream(path, FileMode.Create))
                         {
-                            await brands.BrandsResimFile.CopyToAsync(fileStream);
+                            await fs.CopyToAsync(fileStream);
                         }
+                        deleteImage(BrandImageGet);
                     }
                     else brands.BrandsResim = await _context.Brands.Where(x=>x.BrandsId==id).Select(x => x.BrandsResim).FirstOrDefaultAsync();
                     _context.Update(brands);
@@ -176,7 +189,15 @@ namespace OnlineMagazin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        private void deleteImage(string image)
+        {
+            if (image != null)
+            {
+                var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", image);
+                if (System.IO.File.Exists(imagePath))
+                { System.IO.File.Delete(imagePath); }
+            }
+        }
         private bool BrandsExists(int id)
         {
           return _context.Brands.Any(e => e.BrandsId == id);

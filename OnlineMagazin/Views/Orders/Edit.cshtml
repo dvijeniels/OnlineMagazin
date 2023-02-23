@@ -19,6 +19,11 @@
                 <span asp-validation-for="OrderNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="FirstAndLastName" class="control-label"></label>
                 <input asp-for="FirstAndLastName" class="form-control" />
                 <span asp-validation-for="FirstAndLastName" class="text-danger"></span>
@@ -127,13 +132,13 @@
                                 <td class="text-right">
                                     <strong>Итог:</strong>
                                 </td>
-                                <td class="text-right">$@ViewBag.totalProductPrice</td>
+                                <td class="text-right">₽@ViewBag.totalProductPrice</td>
                             </tr>
                             <tr>
                                 <td class="text-right">
                                     <strong>Общий итог:</strong>
                                 </td>
-                                <td class="text-right">$@ViewBag.totalProductPrice (c учётом НДС)</td>
+                                <td class="text-right">₽@ViewBag.totalProductPrice (c учётом НДС)</td>
                             </tr>
                         </tbody>
                     </table>

@@ -5,7 +5,9 @@
 @inject UserManager<OnlineMagazinUser> UserManager
 @model IEnumerable<OnlineMagazin.Models.Carts>
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = "Корзина";
+    ViewData["keywords"] = "Корзина товаров, Скидки, Купоны, Подарочный сертификат, Оценить доставку и налоги";
+    ViewData["Descption"] = "Корзина товаров для оформления заказа";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 <section class="page-content">

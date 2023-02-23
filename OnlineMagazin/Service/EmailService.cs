@@ -26,6 +26,11 @@ namespace OnlineMagazin.Service
             //userEmailOptions.Body = UpdatePlaceHolders(userEmailOptions.Body, userEmailOptions.PlaceHolders);
             await SendEmailEveryone(userEmailOptions);
         }
+        public async Task SendOrderDetailEmail(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("OrderSend"), userEmailOptions.PlaceHolders);
+            await SendEmailOrder(userEmailOptions);
+        }
         public async Task SendEmailConfirmation(UserEmailOptions userEmailOptions)
         {
             userEmailOptions.Subject = "Для завершения регистрации подтвердите свой email";
@@ -53,10 +58,39 @@ namespace OnlineMagazin.Service
             };
             foreach (var toEmail in userEmailOptions.ToEmails)
             {
+                mail.To.Clear();
                 mail.To.Add(toEmail);
                 mail.Body = "";
                 NetworkCredential networkCredential = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password);
                 mail.Body += userEmailOptions.Body+ "<br><br><a href=https://pskanker.ru/Home/UnSubcribe?mail=" + toEmail + ">Отписаться от рассылок</a>";
+                SmtpClient smtpClient = new SmtpClient
+                {
+                    Host = _smtpConfig.Host,
+                    Port = _smtpConfig.Port,
+                    EnableSsl = _smtpConfig.EnableSSL,
+                    UseDefaultCredentials = _smtpConfig.UserDefaultCredentials,
+                    Credentials = networkCredential,
+                };
+
+                mail.BodyEncoding = Encoding.Default;
+
+                await smtpClient.SendMailAsync(mail);
+            }
+        }
+        private async Task SendEmailOrder(UserEmailOptions userEmailOptions)
+        {
+            MailMessage mail = new MailMessage
+            {
+                Subject = userEmailOptions.Subject,
+                Body = userEmailOptions.Body,
+                From = new MailAddress(_smtpConfig.SenderAddress, _smtpConfig.SenderDisplayName),
+                IsBodyHtml = _smtpConfig.IsBodyHTML
+            };
+            foreach (var toEmail in userEmailOptions.ToEmails)
+            {
+                mail.To.Clear();
+                mail.To.Add(toEmail);
+                NetworkCredential networkCredential = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password);
                 SmtpClient smtpClient = new SmtpClient
                 {
                     Host = _smtpConfig.Host,

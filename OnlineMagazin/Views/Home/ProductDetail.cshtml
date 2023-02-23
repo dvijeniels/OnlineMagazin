@@ -1,8 +1,14 @@
 ﻿@using OnlineMagazin.ViewModels
 @model ViewProductCart
+@using HtmlAgilityPack
 
 @{
-    ViewData["Title"] = "ProductDetail";
+    HtmlDocument htmlDoc = new HtmlDocument();
+    htmlDoc.LoadHtml(Model.products.Icerik);
+    string result = htmlDoc.DocumentNode.InnerText;
+    ViewData["Title"] = ViewBag.ProductTitle;
+    ViewData["keywords"] = Model.products.Category.CategoriName+", "+Model.products.Baslik;
+    ViewData["Descption"] = result;
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 
@@ -112,12 +118,21 @@
                                 </ul>
                             </div>
                         </div>
+                        <meta property="og:type" content="product" />
+                        <meta property="og:title" content="@Model.products.Baslik" />
+                        <meta property="og:description" content="@Model.products.Icerik" />
+                        <meta property="og:image" content="~/image/@Model.products.Foto" />
+                        <meta property="product:price:amount" content="@((Model.products.Price*0.16)+Model.products.Price)" />
+                        <meta property="product:price:currency" content="RUB" />
+                        <meta property="product:sale_price:amount" content="@Model.products.Price" />
+                        <meta property="product:sale_price:currency" content="RUB" />
+                        <meta property="product:availability" content="в наличии" />
                         <div class="col-md-7 col-sm-7 col-xs-12">
                             <h2 class="title-product">@Html.DisplayFor(model => model.products.Baslik)</h2>
                             <div class="about-toch-prond">
                                 <p>
                                     @await Component.InvokeAsync("RatingStar", new { id=Model.products.ProductId})
-                                    <a href="#">1 отзывов</a>
+                                    <a href="#">@ViewData["Comments"] отзывов</a>
                                     /
                                     <a href="#otziv">Написать отзыв</a>
                                 </p>
@@ -132,11 +147,14 @@
                             <div class="product-quantity">
                                 <span>Кол-во</span>
                                 <input type="number" id="qty" min="1" value="1" />
-                                <button type="submit" onclick="AddProductToLiked(@Model.products.ProductId)" class="toch-button toch-wishlist">Понравившиеся</button>
-                                <br />
-                                <br />
                                 <button type="submit" onclick="AddProductToCart()" id="ppid" value="@Model.products.ProductId" class="toch-button toch-add-cart">Добавить в корзину</button>
+                                <br />
+                                <br />
+                                <button type="submit" onclick="AddProductToLiked(@Model.products.ProductId)" class="toch-button toch-wishlist">Понравившиеся</button>
                             </div>
+
+
+
                             <hr />
                             @Html.Raw(Model.products.Icerik)
                             <hr />

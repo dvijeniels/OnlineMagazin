@@ -533,6 +533,11 @@ namespace OnlineMagazin.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("FirstAndLastName")
                         .IsRequired()
                         .HasMaxLength(100)

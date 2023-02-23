@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Libwebp.Net;
+using Libwebp.Net.utility;
+using Libwebp.Standard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using OnlineMagazin.Data;
 using OnlineMagazin.Models;
 
@@ -49,6 +56,39 @@ namespace OnlineMagazin.Controllers
 
             return View(products);
         }
+        public IActionResult Upload()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Upload(List<IFormFile> file)
+        {
+
+            if (file == null) throw new FileNotFoundException();
+            foreach (var photo in file)
+            {
+                if (Path.GetExtension(photo.FileName).ToLower() == ".jpg"
+                        || Path.GetExtension(photo.FileName).ToLower() == ".png"
+                        || Path.GetExtension(photo.FileName).ToLower() == ".gif"
+                        || Path.GetExtension(photo.FileName).ToLower() == ".jpeg")
+                {
+                
+                    var oFileName = $"{Path.GetFileNameWithoutExtension(photo.FileName)}.webp";
+                    var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output(oFileName).Build();
+                    var encoder = new WebpEncoder(config);
+                    var ms = new MemoryStream();
+                    photo.CopyTo(ms);
+                    Stream fs = await encoder.EncodeAsync(ms, photo.FileName);
+                    string path = Path.Combine("C:\\Users\\djadi\\Downloads\\NewImag\\", oFileName);
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        fs.CopyTo(fileStream);
+                    }
+                }
+            }
+            return View();
+        }
 
         // GET: Products/Create
         public IActionResult Create()
@@ -71,18 +111,31 @@ namespace OnlineMagazin.Controllers
                     {
                         int i = 0;
                         string[] FotoArray = new string[6];
-                        foreach (var photo in products.FotoFile.OrderBy(x=>x.FileName))
+                        foreach (var photo in products.FotoFile.OrderBy(x => x.FileName))
                         {
                             string wwwRootPath = _hostEnvironment.WebRootPath;
-                            string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
-                            string extension = Path.GetExtension(photo.FileName);
-                            FotoArray[i] = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                            string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                            using (var fileStream = new FileStream(path, FileMode.Create))
+                            var oFileName = $"{Path.GetFileNameWithoutExtension(photo.FileName)}.webp";
+                            var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output(oFileName).Build();
+                            var encoder = new WebpEncoder(config);
+                            var ms = new MemoryStream();
+                            photo.CopyTo(ms);
+                            Stream fs = await encoder.EncodeAsync(ms, photo.FileName);
+
+                            FotoArray[i] = oFileName;
+                            string path = Path.Combine(wwwRootPath + "/image/", oFileName);
+                            if(!System.IO.File.Exists(path))
                             {
-                                await photo.CopyToAsync(fileStream);
+                                using (var fileStream = new FileStream(path, FileMode.Create))
+                                {
+                                    await fs.CopyToAsync(fileStream);
+                                }
                             }
                             i++;
+
+
+
+
+
                             //string wwwRootPath = _hostEnvironment.WebRootPath;
                             //string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
                             //string extension = Path.GetExtension(photo.FileName);
@@ -119,7 +172,7 @@ namespace OnlineMagazin.Controllers
                         products.Foto4 = FotoArray[3];
                         products.Foto5 = FotoArray[4];
                         products.Foto6 = FotoArray[5];
-                        products.ProductDate = DateTime.Now.Date;
+                        products.ProductDate = DateTime.Now;
                         _context.Add(products);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));
@@ -166,25 +219,26 @@ namespace OnlineMagazin.Controllers
                     {
                         int i = 0;
                         string[] FotoArray = new string[6];
-                        foreach (var photo in products.FotoFile.OrderBy(x=>x.FileName))
+                        foreach (var photo in products.FotoFile.OrderBy(x => x.FileName))
                         {
                             string wwwRootPath = _hostEnvironment.WebRootPath;
-                            string fileName = Path.GetFileNameWithoutExtension(photo.FileName);
-                            string extension = Path.GetExtension(photo.FileName);
-                            FotoArray[i] = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                            string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                            using (var fileStream = new FileStream(path, FileMode.Create))
+                            var oFileName = $"{Path.GetFileNameWithoutExtension(photo.FileName)}.webp";
+                            var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output(oFileName).Build();
+                            var encoder = new WebpEncoder(config);
+                            var ms = new MemoryStream();
+                            photo.CopyTo(ms);
+                            Stream fs = await encoder.EncodeAsync(ms, photo.FileName);
+                            FotoArray[i] = oFileName;
+                            string path = Path.Combine(wwwRootPath + "/image/", oFileName);
+                            if (!System.IO.File.Exists(path))
                             {
-                                await photo.CopyToAsync(fileStream);
+                                using (var fileStream = new FileStream(path, FileMode.Create))
+                                {
+                                    await fs.CopyToAsync(fileStream);
+                                }
                             }
                             i++;
                         }
-                        deleteImage(products.Foto);
-                        deleteImage(products.Foto2);
-                        deleteImage(products.Foto3);
-                        deleteImage(products.Foto4);
-                        deleteImage(products.Foto5);
-                        deleteImage(products.Foto6);
                         products.Foto = FotoArray[0];
                         products.Foto2 = FotoArray[1];
                         products.Foto3 = FotoArray[2];
@@ -195,7 +249,7 @@ namespace OnlineMagazin.Controllers
                 }
                 try
                 {
-                    products.ProductDate = DateTime.Now.Date;
+                    products.ProductDate = DateTime.Now;
                     _context.Update(products);
                     await _context.SaveChangesAsync();
                 }
@@ -260,7 +314,9 @@ namespace OnlineMagazin.Controllers
             {
                 var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", image);
                 if (System.IO.File.Exists(imagePath))
-                { System.IO.File.Delete(imagePath); }
+                {
+                    System.IO.File.Delete(imagePath);
+                }
             }
         }
         private bool ProductsExists(int id)

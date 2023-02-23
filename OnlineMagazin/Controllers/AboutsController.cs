@@ -2,6 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Libwebp.Net.utility;
+using Libwebp.Net;
+using Libwebp.Standard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -108,17 +111,19 @@ namespace OnlineMagazin.Controllers
             {
                 if(about.ResimFile != null)
                 {
-                    //Save image wwwRoow/allimage
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     string fileName = Path.GetFileNameWithoutExtension(about.ResimFile.FileName);
-                    string extension = Path.GetExtension(about.ResimFile.FileName);
-                    about.Resim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                    var encoder = new WebpEncoder(config);
+                    var ms = new MemoryStream();
+                    about.ResimFile.CopyTo(ms);
+                    Stream fs = await encoder.EncodeAsync(ms, about.ResimFile.FileName);
+                    about.Resim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                     string path = Path.Combine(wwwRootPath + "/image/", fileName);
                     using (var fileStream = new FileStream(path, FileMode.Create))
                     {
-                        await about.ResimFile.CopyToAsync(fileStream);
+                        await fs.CopyToAsync(fileStream);
                     }
-                    //Save image wwwRoow/allimage
                 }
                 else about.Resim = await _context.About.Where(x => x.Id == id).Select(x => x.Resim).FirstOrDefaultAsync();
 

@@ -4,8 +4,11 @@
 @model IPagedList<OnlineMagazin.Models.Products>
 @{
     ViewData["Title"] = "Товары под категории";
+    ViewData["keywords"] = ViewBag.keywordsProducts;
+    ViewData["Descption"] = ViewBag.keywordsProducts;
     Layout = "~/Views/Shared/_Home.cshtml";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" asp-append-version="true"></script>
 <section class="page-content">
     <div class="container">
         <div class="row">
@@ -19,21 +22,6 @@
         <div class="row">
             <div class="col-md-3">
                 @await Component.InvokeAsync("CategoryList")
-                <div class="shop-filter">
-                    <div class="area-title">
-                        <h3 class="title-group gfont-1">ФИЛЬТРЫ ПРОДУКЦИИ</h3>
-                    </div>
-                    <h4 class="shop-price-title">Цена</h4>
-                    <div class="info_widget">
-                        <div class="price_filter">
-                            <div id="slider-range"></div>
-                            <div class="price_slider_amount">
-                                <input type="text" id="amount" name="price" placeholder="Введите свою цену" />
-                                <input type="submit" value="Фильтр" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col-md-9 col-xs-12">
                 <div class="row">
@@ -139,7 +127,8 @@
                                                                     </div>
                                                                     <div class="product-button-2">
                                                                         <a onclick="AddProductToLiked(@item.ProductId)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
-                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                        <a target="_blank" title="Написать на WhatsApp" href="https://api.whatsapp.com/send?phone=79998775394&text=https://pskanker.ru/Home/ProductDetail/@item.ProductId Здравствуйте! Я хочу заказать этот товар, с вашего магазина pskanker.ru, но меня беспокоит..." class="social-icon"><i class="fa fa-whatsapp"></i></a>
+                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Обзор товара"><i class="fa fa-search-plus"></i></a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -178,7 +167,7 @@
                                                     </div>
                                                     <div class="product-img">
                                                         <a href="/Home/ProductDetail/@item.ProductId">
-                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="@item.Baslik">
+                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="@item.Baslik" loading="lazy">
                                                             @if (item.Foto2 != null)
                                                             {
                                                                 <img class="secondary-img" src="~/image/@item.Foto2" alt="@item.Baslik" loading="lazy">
@@ -210,7 +199,8 @@
                                                                 </div>
                                                                 <div class="product-button-2">
                                                                     <a onclick="AddProductToLiked(@item.ProductId)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
-                                                                    <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                    <a target="_blank" title="Написать на WhatsApp" href="https://api.whatsapp.com/send?phone=79998775394&text=https://pskanker.ru/Home/ProductDetail/@item.ProductId Здравствуйте! Я хочу заказать этот товар, с вашего магазина pskanker.ru, но меня беспокоит..." class="social-icon"><i class="fa fa-whatsapp"></i></a>
+                                                                    <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Обзор товара"><i class="fa fa-search-plus"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>

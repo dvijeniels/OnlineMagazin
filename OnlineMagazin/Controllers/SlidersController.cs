@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Libwebp.Net.utility;
+using Libwebp.Net;
+using Libwebp.Standard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -67,12 +70,16 @@ namespace OnlineMagazin.Controllers
                 //Save image wwwRoow/allimage
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(sliders.SliderResimFile.FileName);
-                string extension = Path.GetExtension(sliders.SliderResimFile.FileName);
-                sliders.SliderResim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                var encoder = new WebpEncoder(config);
+                var ms = new MemoryStream();
+                sliders.SliderResimFile.CopyTo(ms);
+                Stream fs = await encoder.EncodeAsync(ms, sliders.SliderResimFile.FileName);
+                sliders.SliderResim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                 string path = Path.Combine(wwwRootPath + "/image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    await sliders.SliderResimFile.CopyToAsync(fileStream);
+                    await fs.CopyToAsync(fileStream);
                 }
                 //Save image wwwRoow/allimage
                 _context.Add(sliders);
@@ -105,6 +112,7 @@ namespace OnlineMagazin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SliderId,SliderResimFile,SliderName,SliderDescription")] Sliders sliders)
         {
+            var SliderResimGet=_context.Sliders.Where(x=>x.SliderId==id).Select(x=>x.SliderResim).First();
             if (id != sliders.SliderId)
             {
                 return NotFound();
@@ -112,17 +120,20 @@ namespace OnlineMagazin.Controllers
 
             if (ModelState.IsValid)
             {
-                //Save image wwwRoow/allimage
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(sliders.SliderResimFile.FileName);
-                string extension = Path.GetExtension(sliders.SliderResimFile.FileName);
-                sliders.SliderResim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                var encoder = new WebpEncoder(config);
+                var ms = new MemoryStream();
+                sliders.SliderResimFile.CopyTo(ms);
+                Stream fs = await encoder.EncodeAsync(ms, sliders.SliderResimFile.FileName);
+                sliders.SliderResim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                 string path = Path.Combine(wwwRootPath + "/image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    await sliders.SliderResimFile.CopyToAsync(fileStream);
+                    await fs.CopyToAsync(fileStream);
                 }
-                //Save image wwwRoow/allimage
+                deleteImage(SliderResimGet);
                 try
                 {
                     _context.Update(sliders);
@@ -177,7 +188,15 @@ namespace OnlineMagazin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        private void deleteImage(string image)
+        {
+            if (image != null)
+            {
+                var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", image);
+                if (System.IO.File.Exists(imagePath))
+                { System.IO.File.Delete(imagePath); }
+            }
+        }
         private bool SlidersExists(int id)
         {
             return _context.Sliders.Any(e => e.SliderId == id);

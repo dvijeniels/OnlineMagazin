@@ -2070,6 +2070,12 @@ a.posts-read-more:hover {
         color: #fff;
     }
 
+    .social-media .wts:hover {
+        background: #25D366;
+        border-color: #25D366;
+        color: #fff;
+    }
+
     .social-media .yt:hover {
         background: #C8302A;
         border-color: #C8302A;
@@ -2738,7 +2744,7 @@ span.count {
 }
 
     .filter-menu ul li a::before {
-        background: rgba(0, 0, 0, 0) url("image/cursor.png") no-repeat scroll -10px 5px;
+        background: rgba(0, 0, 0, 0) url("~/generalroot/img/cursor.png") no-repeat scroll -10px 5px;
         border: 3px solid transparent;
         border-radius: 0;
         content: "";
@@ -2750,7 +2756,7 @@ span.count {
     }
 
     .filter-menu ul li a:hover:before {
-        background: rgba(0, 0, 0, 0) url("image/cursor.png") no-repeat scroll 5px 5px;
+        background: rgba(0, 0, 0, 0) url("~/generalroot/img/cursor.png") no-repeat scroll 5px 5px;
     }
 
 .accordion_one h4 {

@@ -29,10 +29,9 @@ namespace OnlineMagazin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddScoped<CookieAuthenticationEvents>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllersWithViews(config =>
             {

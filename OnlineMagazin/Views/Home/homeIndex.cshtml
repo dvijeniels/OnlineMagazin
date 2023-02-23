@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<OnlineMagazin.Models.Products>
 @{
     ViewData["Title"] = "Главная";
+    ViewData["keywords"] = ViewBag.keywordsProducts;
+    ViewData["Descption"] = "Предлагаем широкий ассортимент высококачественной продукции по конкурентоспособной цене в Москве. С Доставкой. Гарантия на все товары.";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 
@@ -84,7 +86,7 @@
                     <div class="row">
                         <div class="col-md-7 banner-box1">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/generalroot/img/33.png" alt="СТРОИТЕЛЬНЫЕ ИНСТРУМЕНТЫ" loading="lazy"></a>
+                                <a href="#"><img src="~/generalroot/img/33.webp" alt="СТРОИТЕЛЬНЫЕ ИНСТРУМЕНТЫ" loading="lazy"></a>
                                 <div class="banner-text banner-1">
                                     <h2>ЛЮБЫЕ ТИПЫ<br />МАТЕРИАЛОВ</h2>
                                 </div>
@@ -92,7 +94,7 @@
                         </div>
                         <div class="col-md-5 banner-box2">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/generalroot/img/88.png" alt="Product Banner" loading="lazy"></a>
+                                <a href="#"><img src="~/generalroot/img/88.webp" alt="Product Banner" loading="lazy"></a>
                                 <div class="banner-text banner-2">
                                     <h2>Пескобетон <span>10%</span></h2>
                                     <p>M-300</p>
@@ -147,7 +149,7 @@
                                                                 </div>
                                                                 <div class="product-img">
                                                                     <a href="/Home/ProductDetail/@item.ProductId">
-                                                                        <img class="primary-img" src="~/image/@item.Foto" alt="Product">
+                                                                        <img class="primary-img" src="~/image/@item.Foto" alt="Product" loading="lazy">
                                                                         @if (item.Foto2 != null)
                                                                         {
                                                                             <img class="secondary-img" src="~/image/@item.Foto2" alt="Product" loading="lazy">
@@ -179,7 +181,8 @@
                                                                             </div>
                                                                             <div class="product-button-2">
                                                                                 <a onclick="AddProductToLiked(@item.ProductId)" data-toggle="tooltip" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
-                                                                                <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                                <a target="_blank" title="Написать на WhatsApp" href="https://api.whatsapp.com/send?phone=79998775394&text=https://pskanker.ru/Home/ProductDetail/@item.ProductId Здравствуйте! Я хочу заказать этот товар, с вашего магазина pskanker.ru, но меня беспокоит..." class="social-icon"><i class="fa fa-whatsapp"></i></a>
+                                                                                <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Обзор товара"><i class="fa fa-search-plus"></i></a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -213,7 +216,7 @@
                                                                         </div>
                                                                         <div class="product-img">
                                                                             <a href="/Home/ProductDetail/@item.ProductId">
-                                                                                <img class="primary-img" src="~/image/@item.Foto" alt="Product">
+                                                                                <img class="primary-img" src="~/image/@item.Foto" alt="Product" loading="lazy">
                                                                                 @if (item.Foto2 != null)
                                                                                 {
                                                                                     <img class="secondary-img" src="~/image/@item.Foto2" alt="Product" loading="lazy">
@@ -234,7 +237,8 @@
                                                                                     </div>
                                                                                     <div class="product-button-2">
                                                                                         <a onclick="AddProductToLiked(@item.ProductId)" data-toggle="tooltip" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
-                                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                                                                        <a target="_blank" title="Написать на WhatsApp" href="https://api.whatsapp.com/send?phone=79998775394&text=https://pskanker.ru/Home/ProductDetail/@item.ProductId Здравствуйте! Я хочу заказать этот товар, с вашего магазина pskanker.ru, но меня беспокоит..." class="social-icon"><i class="fa fa-whatsapp"></i></a>
+                                                                                        <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Обзор товара"><i class="fa fa-search-plus"></i></a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -258,7 +262,7 @@
                     <div class="row">
                         <div class="col-md-7 banner-box1">
                             <div class="single-product-banner">
-                                <a href="#"><img src="/generalroot/img/55.png" alt="Сухой смесь Пескобектон " loading="lazy"></a>
+                                <a href="#"><img src="/generalroot/img/55.webp" alt="Сухой смесь Пескобектон " loading="lazy"></a>
                                 <div class="banner-text banner-1">
                                     <h2>СМЕСИ</h2>
                                     <span>от ₽99</span>
@@ -267,7 +271,7 @@
                         </div>
                         <div class="col-md-5 banner-box2">
                             <div class="single-product-banner">
-                                <a href="#"><img src="~/generalroot/img/77.png" alt="Строительные материалы" loading="lazy"></a>
+                                <a href="#"><img src="~/generalroot/img/77.webp" alt="Строительные материалы" loading="lazy"></a>
                                 <div class="banner-text banner-2">
                                     <h2>СТРОИТЕЛЬНЫЕ <span>ИНСТРУМЕНТЫ</span></h2>
                                     <p>ЛЮБОГО ВИДА</p>

@@ -1,6 +1,7 @@
 ﻿@model OnlineMagazin.Models.Orders
 @{
     ViewData["Title"] = "Создание заказа";
+    ViewData["Descption"] = "Для оформления заказа Вам нужно будет заполнить анкету";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 
@@ -28,6 +29,12 @@
             <div class="account-create">
                 <form asp-action="OrderCreate">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <sup>*</sup>
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" value="@ViewBag.Email" placeholder="Введите электронную почту" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <sup>*</sup>
                     <label asp-for="FirstAndLastName" class="control-label"></label>

@@ -47,7 +47,8 @@
                                         </div>
                                         <div class="product-button-2">
                                             <a onclick="AddProductToLiked(@item.ProductId)" title="Понравившиеся"><i class="fa fa-heart-o"></i></a>
-                                            <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Quickview"><i class="fa fa-search-plus"></i></a>
+                                            <a target="_blank" title="Написать на WhatsApp" href="https://api.whatsapp.com/send?phone=79998775394&text=https://pskanker.ru/Home/ProductDetail/@item.ProductId Здравствуйте! Я хочу заказать этот товар, с вашего магазина pskanker.ru, но меня беспокоит..." class="social-icon"><i class="fa fa-whatsapp"></i></a>
+                                            <a href="#" class="modal-view" onclick="ModalAc(@item.ProductId)" data-toggle="modal" data-target="#productModal" title="Обзор товара"><i class="fa fa-search-plus"></i></a>
                                         </div>
                                     </div>
                                 </div>

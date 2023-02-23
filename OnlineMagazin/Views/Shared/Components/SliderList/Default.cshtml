@@ -4,7 +4,7 @@
         <div id="ensign-nivoslider" class="slides">
             @foreach (var item in Model)
             {
-                <img src="@("~/image/" + item.SliderResim)" asp-append-version="true" alt="@item.SliderName" title="#@item.SliderId" loading="lazy" />
+                <img src="@("~/image/" + item.SliderResim)" asp-append-version="true" alt="@item.SliderName" title="#@item.SliderId" />
             }
         </div>
         @foreach (var item in Model)

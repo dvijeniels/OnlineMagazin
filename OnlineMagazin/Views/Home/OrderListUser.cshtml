@@ -4,18 +4,11 @@
 @model OnlineMagazin.Models.OrderDetails
 @{
     ViewData["Title"] = "История заказов";
+    ViewData["keywords"] = "История заказов";
+    ViewData["Descption"] = "Вы можете посмотреть свои предыдущии заказы";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Детали заказа</title>
-</head>
-<body>
     <div class="container">
         <div class="contact-message">
             <div class="panel-body">
@@ -29,16 +22,19 @@
                             </div>
                             <div class="form-group">
                                 Дата заказа:
-                                <label style="color:black"> @Model.OrderDate</label>
+                                <label style="color:black"> @Model.CreatedDate</label>
+                            </div>
+                            <div class="form-group">
+                                Почта:
+                                <label style="color:black"> @Model.Email</label>
                             </div>
                             <div class="form-group">
                                 ФИО:
                                 <label style="color:black"> @Model.FirstAndLastName</label>
                             </div>
-
                             <div class="form-group">
                                 Телефон номер:
-                                <label style="color:black"> @Model.PhoneNumber </label>
+                                <label style="color:black"> @Model.PhoneNumber</label>
                             </div>
                             <div class="form-group">
                                 Всего:
@@ -47,10 +43,6 @@
                             <div class="form-group">
                                 Статус:
                                 <label style="color:black"> @Model.Status</label>
-                            </div>
-                            <div class="form-group">
-                                Статус jnsdjf:
-                                <label style="color:black"> @Model.InOrder</label>
                             </div>
                             <div class="form-group">
                                 Комментарий к заказу:
@@ -134,5 +126,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>

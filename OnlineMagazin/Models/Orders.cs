@@ -21,6 +21,11 @@ namespace OnlineMagazin.Models
         [DisplayName("Клиент")]
         public string UserId { get; set; }
 
+        [StringLength(50)]
+        [Required(ErrorMessage = "Пожалуйста введите почту")]
+        [DisplayName("Почта")]
+        public string Email { get; set; }
+
         [StringLength(100)]
         [Required(ErrorMessage = "Пожалуйста введите ФИО")]
         [DisplayName("ФИО")]

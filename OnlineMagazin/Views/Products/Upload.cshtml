@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "Upload";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h1>UploadAsync</h1>
+
+<form asp-action="Upload" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label"> Загрузить картинки</label>
+        <input name="file" multiple id="gallery-photo-add" required="required" accept="image/*" type="file" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Изменить формат " class="btn btn-primary" />
+    </div>
+</form>

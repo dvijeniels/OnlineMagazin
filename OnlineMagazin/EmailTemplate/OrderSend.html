@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div style="margin-left:1%">
+        <br />
+        <h3 style="margin-left:40%">Детали заказа</h3>
+        <hr />
+        <center>
+            <table align="center" cellpadding="0" cellspacing="0" width="100%" style="max-width:700px">
+                <tbody>
+                    <tr>
+                        <td style="padding:20px;max-width:640px;margin:0 auto;display:block;border:1px solid #f0f0f0;border-radius:4px" bgcolor="#ffffff">
+                            <p>Уважаемый {{FirstAndLastName}},</p>
+                            <p>Спасибо за покупку в нашем интернет магазинет <a href="https://pskanker.ru/">Vector строй маркет</a></p>
+                            <table border="0" cellspacing="5" cellpadding="5">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Детали Вашего заказа</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="150">Номер заказа</td>
+                                        <td>: {{OrderNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Почта</td>
+                                        <td>: {{Email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Номер телефон</td>
+                                        <td>: {{PhoneNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Область</td>
+                                        <td>: {{Region}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Город</td>
+                                        <td>: {{City}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Адрес 1</td>
+                                        <td>: {{Address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Адрес 2</td>
+                                        <td>: {{Address2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Статус заказа</td>
+                                        <td>: {{Status}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Вид оплаты</td>
+                                        <td>: {{BuyingType}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Дополнительно к заказу</td>
+                                        <td>: {{Comment}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Дата создания заказа</td>
+                                        <td>: {{CreatedDate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="150">Ваш заказ</td>
+                                        <td>: Ожидается</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="text-align:center">
+                                <fieldset>
+                                    <legend>Товары</legend>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td><strong>Картинка</strong></td>
+                                                <td><strong>Название товара</strong></td>
+                                                <td><strong>Количество</strong></td>
+                                                <td><strong>Стоимость</strong></td>
+                                                <td><strong>Общая стоимость</strong></td>
+                                            </tr>
+                                        </thead>
+                                        {{ProductsInfo}}
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>Итог:</strong>
+                                                </td>
+                                                <td>₽{{totalProductPrice}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Общий итог:</strong>
+                                                </td>
+                                                <td>₽{{totalProductPrice}}(c учётом НДС)</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </fieldset>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <img style="display:block;margin:15px 0;opacity:0.5" src="https://pskanker.ru/generalroot/img/logovector.png" height="40" width="160" class="CToWUd" data-bit="iit">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family:Helvetica Neue,Helvetica,Helvetica,Arial,sans-serif;padding:0 30px 30px 30px;text-align:center;font-size:13px;color:#a8b1bb">
+                                <strong>Спасибо за покупку</strong> <br>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

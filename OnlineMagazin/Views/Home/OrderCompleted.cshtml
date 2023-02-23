@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Заказ принят";
+    ViewData["Descption"] = "Ваш заказ принят и ждет отправки клиенту. Если проблема с заказом — обратитесь к нам и обязательно укажите номер заказа.";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 @using Microsoft.AspNetCore.Http
@@ -25,6 +26,7 @@
                     <h3 class="text-center">@ViewData["NumberOrder"]</h3>
                     <img class="center-block" src="~/generalroot/img/thinks.png" />
                     <h3 class="text-center">Номер заказа @Context.Session.GetString("NumberOrder"). Мы свяжемся с Вами в ближайшее время.</h3>
+                <p style="text-align: center;">Мы отправили Вам на почту Ваш заказ. Если сообщение Вам не пришло проверьте спам!</p>
             </div>
         </div>
     </div>

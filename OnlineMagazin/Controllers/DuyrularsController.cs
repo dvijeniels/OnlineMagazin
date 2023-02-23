@@ -3,6 +3,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Libwebp.Net.utility;
+using Libwebp.Net;
+using Libwebp.Standard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -63,12 +66,16 @@ namespace OnlineMagazin.Controllers
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(duyrular.DuyuruResimFile.FileName);
-                string extension = Path.GetExtension(duyrular.DuyuruResimFile.FileName);
-                duyrular.DuyuruResim = fileName=fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                var encoder = new WebpEncoder(config);
+                var ms = new MemoryStream();
+                duyrular.DuyuruResimFile.CopyTo(ms);
+                Stream fs = await encoder.EncodeAsync(ms, duyrular.DuyuruResimFile.FileName);
+                duyrular.DuyuruResim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                 string path = Path.Combine(wwwRootPath + "/image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    await duyrular.DuyuruResimFile.CopyToAsync(fileStream);
+                    await fs.CopyToAsync(fileStream);
                 }
                 duyrular.DuyuruDate = DateTime.Now;
                 _context.Add(duyrular);
@@ -99,6 +106,7 @@ namespace OnlineMagazin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DuyuruId,DuyuruAd,Duyuruicerik,DuyuruLink,DuyuruResimFile")] Duyrular duyrular)
         {
+            var DuyuruImageGet = _context.Duyrular.Where(x => x.DuyuruId == id).Select(x => x.DuyuruResim).First();
             if (id != duyrular.DuyuruId)
             {
                 return NotFound();
@@ -106,26 +114,26 @@ namespace OnlineMagazin.Controllers
 
             if (ModelState.IsValid)
             {
-                //First delete image and Save image wwwRoow/allimage
-                //var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", duyrular.DuyuruResim);
-                //if (System.IO.File.Exists(imagePath))
-                //{ System.IO.File.Delete(imagePath); }
-                //First delete image and Save image wwwRoow/allimage
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(duyrular.DuyuruResimFile.FileName);
-                string extension = Path.GetExtension(duyrular.DuyuruResimFile.FileName);
-                duyrular.DuyuruResim = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                var config = new WebpConfigurationBuilder().Preset(Preset.PHOTO).Output($"{fileName}.webp").Build();
+                var encoder = new WebpEncoder(config);
+                var ms = new MemoryStream();
+                duyrular.DuyuruResimFile.CopyTo(ms);
+                Stream fs = await encoder.EncodeAsync(ms, duyrular.DuyuruResimFile.FileName);
+                duyrular.DuyuruResim = fileName = fileName + DateTime.Now.ToString("yymsf") + ".webp";
                 string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                duyrular.DuyuruDate = DateTime.Now;
+                deleteImage(DuyuruImageGet);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    await duyrular.DuyuruResimFile.CopyToAsync(fileStream);
+                    await fs.CopyToAsync(fileStream);
                 }
-                //Save image wwwRoow/allimage
+                
                 try
                 {
                     _context.Update(duyrular);
                     await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -176,7 +184,15 @@ namespace OnlineMagazin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        private void deleteImage(string image)
+        {
+            if (image != null)
+            {
+                var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", image);
+                if (System.IO.File.Exists(imagePath))
+                { System.IO.File.Delete(imagePath); }
+            }
+        }
         private bool DuyrularExists(int id)
         {
             return _context.Duyrular.Any(e => e.DuyuruId == id);
