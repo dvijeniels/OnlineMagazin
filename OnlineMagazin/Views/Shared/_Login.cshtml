@@ -46,7 +46,7 @@ else
 {
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="top-menu">
-            <p class="welcome-msg"><a id="register" asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-plus"></i> Зарегистрироваться</a></p>
+            <p class="welcome-msg"><a asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-plus"></i> Зарегистрироваться</a></p>
         </div>
         <div class="top-link">
             <ul class="link">
@@ -61,7 +61,7 @@ else
                         <li><a href="/Home/WishList"><i class="fa fa-heart"></i> Понравившиеся (@likedCount.Count())</a></li>
                     }
                 }
-                <li><a id="login" asp-area="Identity" asp-page="/Account/Login" ><i class="fa fa-sign-in"></i> Войти</a></li>
+                <li><a asp-area="Identity" asp-page="/Account/Login" ><i class="fa fa-sign-in"></i> Войти</a></li>
             </ul>
         </div>
     </div>

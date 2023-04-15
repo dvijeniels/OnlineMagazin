@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /Home/ProductDetail/1
+Disallow: /Home/GetProductsFeatures?pageSize=*
+Disallow: /Home/GetProductsFeatures?sortingby=*&pageSize=*
+Disallow: /Home/GetProducts?pageSize=*
+Disallow: /Home/GetProducts?sortingby=*&pageSize=*
+Disallow: /Home/ProductsFromCategory/&
+Disallow: /Home/ProductsFromCategory/*?sortingby=*&pageSize=*
+Disallow: /Home/ProductsFromCategory/*?pageSize=*
+Disallow: /Home/ProductDetail/*
+Disallow: /Home/AddProductToLiked?productID=*
+Disallow: /Home/AddProductToCart?productID=*&qty=*
+Disallow: /Home/AddProductToCart?productID=*
+Disallow: /Home/ModalView?productID=*
+

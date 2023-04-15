@@ -19,13 +19,8 @@ using OnlineMagazin.Areas.Identity.Data;
 using X.PagedList;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineMagazin.Service;
-using Newtonsoft.Json.Schema;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
-using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
-using AspNetCore.SEOHelper.Sitemap;
-using Microsoft.Extensions.Hosting;
-using static System.Net.WebRequestMethods;
 
 namespace OnlineMagazin.Controllers
 {

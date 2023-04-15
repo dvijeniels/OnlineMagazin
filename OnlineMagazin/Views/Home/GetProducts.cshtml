@@ -9,7 +9,7 @@
     ViewData["Descption"] = ViewBag.keywordsProducts;
     Layout = "~/Views/Shared/_Home.cshtml";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js" asp-append-version="true"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <section class="page-content">
     <div class="container">
         <div class="row">
@@ -78,10 +78,10 @@
                                                         </div>
                                                         <div class="product-img">
                                                             <a href="/Home/ProductDetail/@item.ProductId">
-                                                                <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product" loading="lazy">
+                                                                <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="@item.Baslik" loading="lazy">
                                                                 @if (item.Foto2 != null)
                                                                 {
-                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="Product" loading="lazy">
+                                                                    <img class="secondary-img" src="~/image/@item.Foto2" alt="@item.Baslik" loading="lazy">
                                                                 }
                                                             </a>
                                                         </div>
@@ -170,10 +170,10 @@
                                                     </div>
                                                     <div class="product-img">
                                                         <a href="/Home/ProductDetail/@item.ProductId">
-                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="Product" loading="lazy">
+                                                            <img class="primary-img" src="~/image/@item.Foto" style="min-width: 190px;min-height: 190px;" alt="@item.Baslik" loading="lazy">
                                                             @if (item.Foto2 != null)
                                                             {
-                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="Product" loading="lazy">
+                                                                <img class="secondary-img" src="~/image/@item.Foto2" alt="@item.Baslik" loading="lazy">
                                                             }
                                                         </a>
                                                     </div>

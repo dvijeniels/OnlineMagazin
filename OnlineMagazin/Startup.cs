@@ -42,10 +42,9 @@ namespace OnlineMagazin
 
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => { x.LoginPath = "/Identity/Account/Login"; });
-            services.AddMvc();
+            services.AddMvc().AddXmlSerializerFormatters();
             services.AddDistributedMemoryCache();
             services.AddSession();
-
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
             services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail= true; });
             services.AddIdentity<OnlineMagazinUser, IdentityRole>(options => {
@@ -74,6 +73,7 @@ namespace OnlineMagazin
                 app.UseHsts();
             }
             app.UseXMLSitemap(env.ContentRootPath);
+            app.UseRobotsTxt(env.ContentRootPath);
             app.UseStatusCodePagesWithReExecute("/ErrorPage/ErrorName","?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -82,6 +82,11 @@ namespace OnlineMagazin
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' unpkg.com fonts.googleapis.com cdn.datatables.net;");
+            //    await next();
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

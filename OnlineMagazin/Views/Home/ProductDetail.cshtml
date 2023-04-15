@@ -6,6 +6,7 @@
     HtmlDocument htmlDoc = new HtmlDocument();
     htmlDoc.LoadHtml(Model.products.Icerik);
     string result = htmlDoc.DocumentNode.InnerText;
+
     ViewData["Title"] = ViewBag.ProductTitle;
     ViewData["keywords"] = Model.products.Category.CategoriName+", "+Model.products.Baslik;
     ViewData["Descption"] = result;
@@ -120,8 +121,8 @@
                         </div>
                         <meta property="og:type" content="product" />
                         <meta property="og:title" content="@Model.products.Baslik" />
-                        <meta property="og:description" content="@Model.products.Icerik" />
-                        <meta property="og:image" content="~/image/@Model.products.Foto" />
+                        <meta property="og:description" content="@result.ToString()" />
+                        <meta property="og:image" content="image/@Model.products.Foto" />
                         <meta property="product:price:amount" content="@((Model.products.Price*0.16)+Model.products.Price)" />
                         <meta property="product:price:currency" content="RUB" />
                         <meta property="product:sale_price:amount" content="@Model.products.Price" />
