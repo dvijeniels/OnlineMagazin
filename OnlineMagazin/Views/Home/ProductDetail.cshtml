@@ -119,10 +119,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <meta property="og:type" content="product" />
+                        <meta property="og:type" content="product.item" />
                         <meta property="og:title" content="@Model.products.Baslik" />
                         <meta property="og:description" content="@result.ToString()" />
-                        <meta property="og:image" content="image/@Model.products.Foto" />
+                        <meta property="og:image" content="image/@Model.products.Foto" charset="UTF-8"/>
+                        <meta property="product:retailer_item_id" content="@Model.products.ProductId" />
                         <meta property="product:price:amount" content="@((Model.products.Price*0.16)+Model.products.Price)" />
                         <meta property="product:price:currency" content="RUB" />
                         <meta property="product:sale_price:amount" content="@Model.products.Price" />
