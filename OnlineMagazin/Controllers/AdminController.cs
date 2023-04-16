@@ -159,10 +159,12 @@ namespace OnlineMagazin.Controllers
                     { "title", product.Baslik },
                     { "description", plainText },
                     { "price", (decimal)product.Price },
-                    { "brand", "" },
+                    { "brand", "Pskanker" },
                     { "category", product.Category.CategoriName },
                     { "image_link", "https://pskanker.ru/image/"+product.Foto },
+                    { "additional_image_link","https://pskanker.ru/image/"+product.Foto2 },
                     { "availability", "in stock" },
+                    { "country", "RU" },
                     { "condition", "new" },
                     { "link", "https://pskanker.ru/Home/ProductDetail/"+product.ProductId },
                     { "google_product_category", "Строительные материалы >"+product.Category.CategoriName }
