@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" date="2023-04-17 21:04" version="2.0">
+	<shop>
+		<name>Vector Строй Маркет</name>
+		<company>Строительный Маркет</company>
+		<url>https://pskanker.ru</url>
+		<currencies>
+			<currency id="RUB" rate="1"/>
+		</currencies>
+		<categories>
+			<category id="1">Сухие смеси (Пескобетон)</category>
+			<category id="2">Цемент</category>
+			<category id="3">Колодцы Люки</category>
+			<category id="5">Штукатурка</category>
+			<category id="6">Бордюр Брусчатка</category>
+			<category id="7">Песок Щебень</category>
+			<category id="8">Гипсокартон Блоки</category>
+		</categories>
+		<offers>
+			<offer id="1" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/1</url>
+				<price>130</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/М-150 Анкер1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>М-150 Анкер</name>
+				<description>Смесь сухая универсальная м 150 нашла свое основное применение в оштукатуривании потолков, стен, которые предназначены под поклейку обоев или нанесение краски. Сухая смесь универсальная также используется в тех случаях, когда необходимо </description>
+			</offer>
+			<offer id="2" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/2</url>
+				<price>130</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/М-200 Анкер1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>М-200 Анкер</name>
+				<description>Анкер М-200 строительная смесь для кирпичной кладки, заделки швов, ремонта полов, лестниц и иных задач. Изготовлена на основе цемента, имеет хорошую адгезию, имеет отличную морозоустойчивость, высокую влагостойкость. Она позволит выполни</description>
+			</offer>
+			<offer id="3" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/3</url>
+				<price>130</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/М-300 Анкер1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>М-300 Анкер</name>
+				<description>Пескобетон является хорошей заменой раствору из песка и цемента. Он уже представляет собой готовую смесь и требует минимум усилий при работе с ней. Пескобетон м 300 мку предназначен для получения бетона высокой прочности и износостойкост</description>
+			</offer>
+			<offer id="4" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/4</url>
+				<price>2100</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/15-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 1 x 90см</name>
+				<description> Входящие в комплектацию колодцев, бетонные кольца КС-10-9 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, п</description>
+			</offer>
+			<offer id="13" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/13</url>
+				<price>350</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка гипсовая Термопласт Русеан.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка гипсовая Термопласт Русеан 30 кг</name>
+				<description>Штукатурка Термопласт Русеан это сухая строительная смесь на гипсовой основе с легким наполнителем (перлитом) и модифицирующими добавками. Материал используется для выравнивания потолков и стен во внутренних помещениях со с</description>
+			</offer>
+			<offer id="15" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/15</url>
+				<price>340</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка Старатели 30 кг гипсовая.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка Старатели 30 кг гипсовая</name>
+				<description>Гипсовая штукатурка Старатели предназначена для оштукатуривания поверхностей во внутренних помещениях. В состав строительной смеси входят основное связующее (гипс) и модифицирующие добавки, которые повышают адгезию, улучшаю</description>
+			</offer>
+			<offer id="17" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/17</url>
+				<price>310</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка гипсовая Unis Теплон белый 30 кг.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка гипсовая Unis Теплон белый 30 кг</name>
+				<description> Теплон белый бренда Юнис это облегченная гипсовая штукатурка с тепло- и звукоизолирующими свойствами. Основное назначение полное и/или частичное выравнивание поверхностей (стен, потолка) во внутренних помещени</description>
+			</offer>
+			<offer id="18" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/18</url>
+				<price>280</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка Пластер Русеан.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name> Штукатурка Пластер Русеан 30 кг</name>
+				<description>Штукатурка Пластер Русеан это сухая строительная смесь на гипсовой основе, предназначенная для оштукатуривания внутренних помещений. Она наносится под отделочное покрытие, не требует дополнительной шпаклевки. Plaster Rusean</description>
+			</offer>
+			<offer id="19" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/19</url>
+				<price>1800</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/15-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 1 x 60см</name>
+				<description>Входящие в комплектацию колодцев, бетонные кольца КС-10-6 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, промышленном и дорожном строительстве при обус</description>
+			</offer>
+			<offer id="20" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/20</url>
+				<price>1400</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/15-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 1 x 30см</name>
+				<description>Входящие в комплектацию колодцев, бетонные кольца КС-10-3 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, промышленном и дорожном строительстве при обус</description>
+			</offer>
+			<offer id="21" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/21</url>
+				<price>2800</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/10-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 1,5 x 30см</name>
+				<description>Входящие в комплектацию колодцев, бетонные кольца КС-10-3 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, промышленном и дорожном строительстве при обус</description>
+			</offer>
+			<offer id="22" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/22</url>
+				<price>3000</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/10-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 1,5 x 60см</name>
+				<description>Входящие в комплектацию колодцев, бетонные кольца КС-10-3 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, промышленном и дорожном строительстве при обус</description>
+			</offer>
+			<offer id="23" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/23</url>
+				<price>3500</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/10-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 1,5 x 90см</name>
+				<description>Входящие в комплектацию колодцев, бетонные кольца КС-10-3 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, промышленном и дорожном строительстве при обус</description>
+			</offer>
+			<offer id="24" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/24</url>
+				<price>6500</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/20-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 2 x 90см</name>
+				<description>Входящие в комплектацию колодцев, бетонные кольца КС-10-3 являются частью заглубленных инженерных сооружений. Вместе с другими составляющими сборной конструкции используются в жилищном, промышленном и дорожном строительстве при обус</description>
+			</offer>
+			<offer id="25" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/25</url>
+				<price>2000</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Днища_колодцев1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Днища колодцев 1м</name>
+				<description> Высота, мм 100 Диаметр нар., мм 960 Марка бетона </description>
+			</offer>
+			<offer id="26" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/26</url>
+				<price>3500</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Днища_колодцев1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Днища колодцев 1,5м</name>
+				<description> Высота, мм 100 Диаметр нар., мм 1500 Марка бетона </description>
+			</offer>
+			<offer id="27" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/27</url>
+				<price>5500</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Днища_колодцев1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Днища колодцев 2м</name>
+				<description> Высота, мм 100 </description>
+			</offer>
+			<offer id="28" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/28</url>
+				<price>2999</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Крышка с люком1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Крышка с люком 1м</name>
+				<description>Крышка колодезная с люком ndash; это железобетонная плита круглой формы с отверстием. Крышки различаются внешним диаметром, высотой, размером отверстия. Это важная конструкционная часть сборного колодца, она устанавливается непосредстве</description>
+			</offer>
+			<offer id="29" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/29</url>
+				<price>3999</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Крышка с люком1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Крышка с люком 1.5м</name>
+				<description>Крышка колодезная с люком ndash; это железобетонная плита круглой формы с отверстием. Крышки различаются внешним диаметром, высотой, размером отверстия. Это важная конструкционная часть сборного колодца, она устанавливается непосредстве</description>
+			</offer>
+			<offer id="30" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/30</url>
+				<price>1999</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Крышка без люка1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Крышка без люка 1м</name>
+				<description> Вес 300 кг Диаметр внутренний 700 мм Толщина стенки </description>
+			</offer>
+			<offer id="31" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/31</url>
+				<price>3999</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Крышка без люка1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Крышка без люка 1,5м</name>
+				<description>Основная задача, которую выполняет крышка колодца ndash; это предотвращение попадания грязи, мусора и нечистот внутрь, а также поддержание его герметичности. В отличие от крышек, используемых для других конструкций и устройств, колодезн</description>
+			</offer>
+			<offer id="32" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/32</url>
+				<price>5500</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Крышка без люка1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Крышка без люка 2м</name>
+				<description>Основная задача, которую выполняет крышка колодца ndash; это предотвращение попадания грязи, мусора и нечистот внутрь, а также поддержание его герметичности. В отличие от крышек, используемых для других конструкций и устройств, колодезн</description>
+			</offer>
+			<offer id="33" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/33</url>
+				<price>1900</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/70-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 80 х 90см</name>
+				<description> Высота, мм 900 Диаметр внут., мм 800 Диаметр нар., мм</description>
+			</offer>
+			<offer id="34" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/34</url>
+				<price>1800</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/70-x00.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Кольца бетонные 70 х 90см</name>
+				<description> Высота, мм 900 Диаметр внут., мм 700 Диаметр нар., мм</description>
+			</offer>
+			<offer id="35" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/35</url>
+				<price>1500</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Люки пластиковые1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Люки пластиковые</name>
+				<description>Пластиковые канализационные люки для колодцев - идеальное решение для коттеджей и парков. Предназначены для установки на смотровые колодцы водопровода, канализации и теплосети. Чаще всего используются в зонах зеленых насаждений, на дачах</description>
+			</offer>
+			<offer id="36" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/36</url>
+				<price>1800</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>3</categoryId>
+				<picture>https://pskanker.ru/image/Крышка 1м конусный пластиковые.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Крышка 1м конусный пластиковые</name>
+				<description> Высота, мм 120мм </description>
+			</offer>
+			<offer id="37" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/37</url>
+				<price>410</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка гипсовая Knauf Ротбанд 30 кг.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка гипсовая Knauf Ротбанд 30 кг</name>
+				<description>Универсальная штукатурка Ротбанд марки КНАУФ представляет собой гипсовую смесь серого цвета, предназначенную для высококачественного оштукатуривания внутренних поверхностей. Она способна забирать лишнюю влагу </description>
+			</offer>
+			<offer id="38" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/38</url>
+				<price>350</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка GOLDBAND KNAUF кнауф гольдбанд.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка GOLDBAND KNAUF кнауф гольдбанд 30 кг</name>
+				<description>Сухая смесь KNAUF GOLDBAND используется для ручного оштукатуривания поверхностей с твердым и прочным основанием. Штукатурка широко применяется при работах по кирпичной кладке, ранее наложенной цементной штукатурке, по бетонным поверхност</description>
+			</offer>
+			<offer id="39" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/39</url>
+				<price>340</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка гипсовая машинная 30 кг КНАУФ.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка гипсовая машинная 30 кг КНАУФ МП-75</name>
+				<description>Универсальная сухая штукатурная смесь на основе гипса с полимерными добавками. Назначение: высококачественное оштукатуривание стен и потолков машинным способом внутри помещений, изготовление декоративных элементов, ремонтные и реставраци</description>
+			</offer>
+			<offer id="40" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/40</url>
+				<price>330</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>5</categoryId>
+				<picture>https://pskanker.ru/image/Штукатурка гипсовая Волма Гипс-Актив для машинного нанесения.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Штукатурка гипсовая Волма Гипс-Актив для машинного нанесения 30 кг</name>
+				<description>Штукатурка гипсовая Волма Гипс-Актив для машинного нанесения 30 кг Штукатурка гипсовая Волма Гипс-Актив для машинного нанесения 30 кг. Сухая штукатурная смесь на основе гипсового вяжущего и легкого заполнителя с применением м</description>
+			</offer>
+			<offer id="41" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/41</url>
+				<price>280</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/Сухая смесь Русеан М-150 универсальная.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Сухая смесь Русеан М-150 универсальная 40 кг</name>
+				<description>Сухая смесь М150 Универсальная РУСЕАН- изготовлена на основе портландцемента и фракционного песка. Применяется для оштукатуривания кирпичных и бетонных стен, для кладки кирпича и газобетонных блоков. Может приме</description>
+			</offer>
+			<offer id="42" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/42</url>
+				<price>90</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/Сухая смесь пескобетон эконом.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Сухая смесь пескобетон эконом 35 кг</name>
+				<description>Заказать пескобетон М 300 Эконом 40 кг можно для выполнения широкого спектра строительных и монтажных работ. Точное соотношение компонентов, наличие дополнительных пластификаторов mdash; позволяют сделать все работы простыми и комфортны</description>
+			</offer>
+			<offer id="43" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/43</url>
+				<price>110</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/Пескобетон М-300 сухая смесь 40 кг1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Пескобетон М-300 сухая смесь 40 кг</name>
+				<description>Сухая смесь Пескобетон М-300 приготовлена из портландцемента и фракционированного сухого песка. ОБЛАСТЬ ПРИМЕНЕНИЯ СУХОЙ СМЕСИ ПЕСКОБЕТОН М-300: Цемент для наружных работ Пескобетон М-300 - это безусадочная </description>
+			</offer>
+			<offer id="44" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/44</url>
+				<price>160</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/Пескобетон евро микс EUROMIX1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Пескобетон евро микс EUROMIX 40 кг</name>
+				<description>Основной областью применения Пескобетона М-300 ЕВРОмикса служит формирование и наполнение фундамента. Также им удобно выполнять производство стяжек различной толщины и другие виды бетонных работ. Ремонт стен и кладка сооружений с М300 ст</description>
+			</offer>
+			<offer id="45" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/45</url>
+				<price>215</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>1</categoryId>
+				<picture>https://pskanker.ru/image/Пескобетон РУСЕАН.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Пескобетон РУСЕАН М-300 (40 кг)</name>
+				<description>Пескобетон М-300 РУСЕАН (40 кг) ndash; современный аналог бетонного раствора. Состав: цемент, фракционированный песок и минеральные добавки. Получаемый после разведения водой раствор предназначен для внутренн</description>
+			</offer>
+			<offer id="46" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/46</url>
+				<price>360</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>2</categoryId>
+				<picture>https://pskanker.ru/image/Цемент ЕВРОЦЕМЕНТ Экстра М-500 Д0 ЦЕМ.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Цемент ЕВРОЦЕМЕНТ Экстра М-500 Д0 ЦЕМ I 42,5Н 50 КГ</name>
+				<description>ЦЕМЕНТ ДЛЯ ОСНОВНЫХ СТРОИТЕЛЬНЫХ РАБОТ: ВОЗВЕДЕНИЯ ФУНДАМЕНТОВ, НЕСУЩИХ СТЕН, ПЕРЕКРЫТИЙ, КОЛОНН И ДРУГИХ ОБЪЕКТОВ, ТРЕБУЮЩИХ ОСОБОЙ ПРОЧНОСТИ Бетонная смесь на основе цемента ЕВРОЦЕМЕНТ 500 ЭКСТРА сохраняет высокую подвижность, но при э</description>
+			</offer>
+			<offer id="47" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/47</url>
+				<price>350</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>2</categoryId>
+				<picture>https://pskanker.ru/image/Цемент Holcim M500 ЦЕМ.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Цемент Holcim M500 ЦЕМ II А-И 42.5 40 кг</name>
+				<description>ExtraCEM 500 mdash; это общестроительный портландцемент, который производится из качественного сырья и по новейшей сухой технологии, строго в соответствии с требованиями российского стандарта. Цемент ExtraCEM 500</description>
+			</offer>
+			<offer id="48" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/48</url>
+				<price>330</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>2</categoryId>
+				<picture>https://pskanker.ru/image/Цемент ПОРТЛАНД M-500 40 кг1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Цемент ПОРТЛАНД M-500 50 кг</name>
+				<description> Портландцемент М500 (50кг) - это важный компонент при изготовлении бетона, смесей для кладки кирпича, обустройства фундамента и т.д. С его помощью раствор получает дополнительную прочность при затвердевании. Р</description>
+			</offer>
+			<offer id="49" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/49</url>
+				<price>260</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>2</categoryId>
+				<picture>https://pskanker.ru/image/Цемент ПОРТЛАНД M-500 40 кг.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Цемент ПОРТЛАНД M-500 40 кг</name>
+				<description>Цемент М500 портландцемент 40 кг ndash; одна из лучших марок, которая известна на нашем рынке. Многие профессиональные строители ценят именно эту марку цемента за ее высокие физико-механические характеристики и приемлемую цену. Удобство</description>
+			</offer>
+			<offer id="50" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/50</url>
+				<price>65</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>7</categoryId>
+				<picture>https://pskanker.ru/image/Керамзит 35 литр1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Керамзит 35 литр 10х20 фракция</name>
+				<description>Керамзит фракцию 10-20 На российском рынке можно найти большое количество различных строительных материалов, при этом одним из самых популярных является керамзит фракция 10х20, купить который практически в лю</description>
+			</offer>
+			<offer id="51" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/51</url>
+				<price>50</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>7</categoryId>
+				<picture>https://pskanker.ru/image/Речной песок в мешках 30кг.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Речной песок в мешках 30кг</name>
+				<description>Речной песок в мешках используется практически для любых строительных работ, хотя высокая цена зачастую препятствует применению в случаях, когда есть возможность заменить его на карьерный песок в мешках. Но если руководствоваться критери</description>
+			</offer>
+			<offer id="52" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/52</url>
+				<price>140</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>7</categoryId>
+				<picture>https://pskanker.ru/image/Щебень в мешках 40кг 5х20 фракция.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Щебень в мешках 40кг 5х20 фракция</name>
+				<description>Уже несколько десятков лет щебень является одним из самых востребованных в строительстве материалов. В каждом из этих случаев применяют свой конкретный вид щебня. Производители тоже ориентируются на сферу применения материала, </description>
+			</offer>
+			<offer id="53" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/53</url>
+				<price>380</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>6</categoryId>
+				<picture>https://pskanker.ru/image/Abordyr-dorogniy.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Бордюр дорожный 1000 Х 300 Х 150</name>
+				<description>Бордюрный камень ndash; это высококачественное крупногабаритное изделие с большим весом. Бетонный камень используется для отделения проезжей части дороги или участка улицы от тротуара/газона/площадки. Помимо того, что монтаж бордюра дор</description>
+			</offer>
+			<offer id="54" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/54</url>
+				<price>410</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>6</categoryId>
+				<picture>https://pskanker.ru/image/border_Mag2.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Бордюр магистральный 1000 x 300 х 180</name>
+				<description>Бордюр магистральный 1000х300х180 шире дорожного на 30 мм, что позволяет использовать его в строительстве и обустройстве социально-значимых транспортных связей, дорог общегородского и районного значения с высокой интенсивностью для устро</description>
+			</offer>
+			<offer id="55" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/55</url>
+				<price>200</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>6</categoryId>
+				<picture>https://pskanker.ru/image/Бордюр_Садовый1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Бордюр садовый 1000 х 200 х 80 мм</name>
+				<description>Цена на бордюрный камень 1000х200х80 остается доступной. После его укладки вы сможете получить ряд преимуществ: ● Эстетическая привлекательность готовой конструкции ndash; ровное обрамление дорожек, зав</description>
+			</offer>
+			<offer id="56" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/56</url>
+				<price>640</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>6</categoryId>
+				<picture>https://pskanker.ru/image/Брусчатка_прямоугльник1.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Брусчатка 10 х 20 х 6см прямоугльник</name>
+				<description>Тротуарный кирпич экономически выгоден, т. к. является одновременно и строительным материалом, и декоративным элементом, имеющим различные формы и цветовые гаммы) Впечатление от мостовой зависит во многом от ра</description>
+			</offer>
+			<offer id="57" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/57</url>
+				<price>405</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/12593042234611821.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Гипсокартон 12мм влагостойкий размер 1.2х2.5м лист </name>
+				<description>Гипсокартон листы влагостойкие (ГСП-Н2) применяются для устройства легких межкомнатных перегородок, подвесных потолков, облицовки стен и огнезащиты конструкций в зданиях и помещениях с повышенной влажностью, с обеспечением вытяжной венти</description>
+			</offer>
+			<offer id="58" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/58</url>
+				<price>395</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/12593042234611821.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Гипсокартон 9,5мм влагостойкий размер 1.2х2.5м лист</name>
+				<description>Область применения в строительстве Применяется для устройства сборного основания пола, в зданиях различного назначения (жилых и общественных домах). Процесс монтажа включает следующие этапы ра</description>
+			</offer>
+			<offer id="59" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/59</url>
+				<price>310</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/12599030230707076.webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Гипсокартон 12мм обычный размер 1.2х2.5м лист</name>
+				<description>Строительно-отделочный материал для облицовки стен, устройства перегородок, подвесных потолков, а также для изготовления декоративных и звукопоглощающих изделий. Гипсокартонный представляет собой прямоугольный </description>
+			</offer>
+			<offer id="60" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/60</url>
+				<price>65</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/100x250x600_shadow (1).webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Газосиликатные блоки 50х250х600</name>
+				<description>Стеновые блоки плотностью D500 применяются в жилищном, коммерческом и промышленном строительстве. Газосиликат по своей экологичности превосходит даже дерево (радиационный фон древесины 370 единиц, в то вре</description>
+			</offer>
+			<offer id="61" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/61</url>
+				<price>78</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/100x250x600_shadow (1).webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Газосиликатные блоки 7.5х250х600</name>
+				<description>Стеновые блоки плотностью D500 применяются в жилищном, коммерческом и промышленном строительстве. Газосиликат по своей экологичности превосходит даже дерево (радиационный фон древесины 370 единиц, в то вре</description>
+			</offer>
+			<offer id="62" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/62</url>
+				<price>88</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/150x250x600_shadow (1).webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Газосиликатные блоки 100х250х600</name>
+				<description>Стеновые блоки плотностью D500 применяются в жилищном, коммерческом и промышленном строительстве. Газосиликат по своей экологичности превосходит даже дерево (радиационный фон древесины 370 единиц, в то вре</description>
+			</offer>
+			<offer id="63" available="true">
+				<url>https://pskanker.ru/Home/ProductDetail/63</url>
+				<price>125</price>
+				<currencyId>RUB</currencyId>
+				<categoryId>8</categoryId>
+				<picture>https://pskanker.ru/image/240x250x600_shadow (1).webp</picture>
+				<pickup>true</pickup>
+				<delivery>true</delivery>
+				<name>Газосиликатные блоки 150х250х600</name>
+				<description>Стеновые блоки плотностью D500 применяются в жилищном, коммерческом и промышленном строительстве. Газосиликат по своей экологичности превосходит даже дерево (радиационный фон древесины 370 единиц, в то вре</description>
+			</offer>
+		</offers>
+	</shop>
+</yml_catalog>

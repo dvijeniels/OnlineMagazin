@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\YAML\google_market.yaml" />
+    <None Include="wwwroot\YAML\yandex_market.yml" />
   </ItemGroup>
 
   <ItemGroup>
