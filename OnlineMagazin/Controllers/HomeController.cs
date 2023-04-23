@@ -49,7 +49,7 @@ namespace OnlineMagazin.Controllers
         public async Task<IActionResult> HomeIndex()
         {
             ViewBag.keywordsProducts = "Розничная цена, Оптовая цена, Дешево, Низкие цены, Закупка стройматериалов";
-            ViewBag.DescriptionProducts = "Розничная цена, Оптовая цена, Дешево, Низкие цены, Закупка стройматериалов";
+            ViewBag.DescriptionProducts = "Приобретение строительных материалов по доступным ценам, как в розницу, так и оптом.";
             foreach (var item in _context.Category.ToList())
             {
                 ViewBag.keywordsProducts += ", " + item.CategoriName;
@@ -185,7 +185,7 @@ namespace OnlineMagazin.Controllers
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
             ViewBag.sortingName = SortingName;
-            ViewBag.keywordsProducts = "Розничная цена, Оптовая цена";
+            ViewBag.keywordsProducts = "Получение строительных материалов по выгодным тарифам как для индивидуальных, так и для корпоративных заказчиков.";
             foreach (var item in productsFromCat)
             {
                 ViewBag.keywordsProducts += ", " + item.Baslik;
@@ -295,7 +295,7 @@ namespace OnlineMagazin.Controllers
             ViewBag.psize = pagesize;
             ViewBag.Count = productsCount;
             ViewBag.sortingName = SortingName;
-            ViewBag.keywordsProducts = "Розничная цена, Оптовая цена";
+            ViewBag.keywordsProducts = "Любые ";
             foreach (var item in _context.Category.Select(x => x.CategoriName).ToList())
             {
                 ViewBag.keywordsProducts += ", " + item;

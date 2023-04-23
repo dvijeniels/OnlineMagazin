@@ -1,12 +1,14 @@
 ﻿@using OnlineMagazin.ViewModels
 @model ViewProductCart
 @using HtmlAgilityPack
+@using System.Text.RegularExpressions;
 
 @{
     HtmlDocument htmlDoc = new HtmlDocument();
     htmlDoc.LoadHtml(Model.products.Icerik);
     string result = htmlDoc.DocumentNode.InnerText;
-
+    result = Regex.Replace(result, @"\s+", " ");
+    result = Regex.Replace(result, @"&laquo;|&raquo;|&nbsp;|&", " ");
     ViewData["Title"] = ViewBag.ProductTitle;
     ViewData["keywords"] = Model.products.Category.CategoriName+", "+Model.products.Baslik;
     ViewData["Descption"] = result;

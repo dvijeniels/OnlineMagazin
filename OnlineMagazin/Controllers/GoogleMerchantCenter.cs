@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,14 +46,15 @@ namespace MyApplication.Controllers
                     Price = product.Price+" RUB",
                     Brand = "Pskanker",
                     UpdateType= "merge",
-                    Gtin="151512",
-                    Mpn="161613"
+                    Region= "RU-MOW",
+                    Country= "RU"
                 };
 
                 products.Add(offer);
             }
             var xml = new XElement("rss",
             new XAttribute("version", "2.0"),
+            new XAttribute("xmlns_g", "http://base.google.com/ns/1.0"),
             new XElement("channel",
                 new XElement("title", "Все товары"),
                 new XElement("link", "https://pskanker.ru/Home/GetProducts"),
@@ -73,9 +70,9 @@ namespace MyApplication.Controllers
                         new XElement("g_availability", product.Availability),
                         new XElement("g_price", product.Price),
                         new XElement("g_brand", product.Brand),
-                        new XElement("g_gtin", product.Gtin),
-                        new XElement("g_mpn", product.Mpn),
-                        new XElement("g_update_type", product.UpdateType)
+                        new XElement("g_update_type", product.UpdateType),
+                        new XElement("g_country", product.Country),
+                        new XElement("g_region", new XAttribute("id",product.Region))
                         )
                     )
                 )
@@ -96,7 +93,7 @@ namespace MyApplication.Controllers
         public string Price { get; set; }
         public string Brand { get; set; }
         public string UpdateType { get; set; }
-        public string Gtin { get; set; }
-        public string Mpn { get; set; }
+        public string Region { get; set; }
+        public string Country { get; set; }
     }
 }
